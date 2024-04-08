@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="detailTemplate.css" rel="stylesheet">
+    <script src="/src/script_main/login/login.js"></script>
+    <!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <!-- 썸머노트 -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+</head>
+<body>
+
+    <!-- https://summernote.org/ -->
+    <div class="writer">
+        <h1>템플릿</h1>
+    </div>
+
+    <div class="in-btn">
+        <button class="back-btn" onclick="theme()">Back</button>
+        <button id="save" onclick="save()" class="cbtn">Save</button>
+        <button id="edit" onclick="edit()" class="insertBtn">Update</button>
+    </div>
+
+    <div class="container">
+        <div class="click2edit">
+            요기에 작성한 글 올리기<br>
+            &lt;button id="save" onclick="save()" class="cbtn">Save&gt;`<br>
+            &lt;button id="edit" onclick="edit()" class="insertBtn">Update&gt;`
+        </div>
+    </div>
+    
+
+
+    <script>
+
+        var edit = function() {
+        $('.click2edit').summernote({
+            width: 1400,
+            height: 600, 
+            focus: true});
+        };
+
+        var save = function() {
+        var markup = $('.click2edit').summernote('code');
+        $('.click2edit').summernote('destroy');
+        };
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+body{
+    margin: 0;
+    padding-left: 110px;
+    padding-right: 20px;
+}
+.sidebar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0px;
+    /* background: #212121FF; */
+    width: 100px;
+    z-index: 200;
+    padding: 0 4px;
+    padding-top: 5px;
+    border: 1px solid rgb(0, 0, 0);
+}
+
+.sidebar-link{
+    height: 74px;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.sidebar-link:hover{
+    background-color: rgb(102, 226, 102);
+}
+.sidebar-link div{
+    font-size: 13px;
+}
+
+
+.board-table {
+    font-size: 13px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+  .board-table th {
+    text-align: center;
+  }
+  
+  .board-table .th-num {
+    width: 100px;
+    text-align: center;
+  }
+  
+  .board-table .th-date {
+    width: 200px;
+  }
+  
+  .board-table th, .board-table td {
+    padding: 14px 0;
+  }
+  
+  .board-table tbody td {
+    border-top: 1px solid #e7e7e7;
+    text-align: center;
+    width: 10%;
+  }
+  
+  .board-table tbody th {
+    padding-left: 28px;
+    padding-right: 14px;
+    border-top: 1px solid #e7e7e7;
+    text-align: left;
+  }
+.board-table th input {
+    width: 80%;
+    height: 25px;
+}
+
+.text-section{
+    width: 100%;
+    height: 100%;
+    /* margin-left: 35px; */
+}
+.text-section > textarea{
+    font-size: 20px;
+}
+.text-mail{
+    width: 82%;
+    height: 300px;
+}
