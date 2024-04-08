@@ -96,7 +96,7 @@ body{
         column-gap: 20px;
     }
 }
-@media (max-width: 800px) {
+@media (max-width: 973px) {
     .video-grid{
         grid-template-columns: 1fr 1fr;
     }
@@ -104,9 +104,14 @@ body{
         height: 100%;
     }
 }
-@media (max-width: 543px) {
+@media (max-width: 653px) {
     .video-grid{
         grid-template-columns: 1fr;
+    }
+    .pro-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 
