@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<!-- model에 대한 정보 -->
+	<context:component-scan base-package="com.matcha.mvc"> <!-- 패키지명을 넣어준다. -->
+	</context:component-scan>
+	
+	<!-- 
+		*root-context.xml
+		서버구동과 동시에 web.xml을 거쳐서 바로 로딩되는 문서
+		=> 서버구동과 동시에 바로 셋팅(빈으로 등록)해야되느 내용들을 작성하면 된다 
+		주로 DB연경 설정, 트랜잭션처리, 내외부 모듈연동 등등 
+	 -->		
+	 
+	 <!-- 커넥션풀 쓸수있는 클래스 -->
+	 <!--  열어
+	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" /> 
+        <property name="username" value="spring"/>
+        <property name="password" value="spring"/>
+	 </bean>
+	  -->
+	 
+	 <!-- 
+	 	BasicDataSource dataSourec = new BasicDataSource();
+	 	dataSourec.setDriverClassName(oracle.jdbc.driver.OracleDriver");
+	 	dataSourec.setUrl("jdbc:oracle:thin:@localhost:1521:xe")
+	 	dataSourec.setUsername("spring");
+	 	dataSourec.setPassword("spring");
+	  -->
+	  
+	  <!-- sqlSessionFactory를 대체하는 객체 -->
+	  <!-- dataSource객체를 주입해준다. -->
+	  <!--  열어
+	  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+	  	<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	  	<property name="dataSource" ref="dataSource"></property>
+	  </bean>
+	   -->
+	  
+	  <!-- 
+	  	SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
+	  	sqlSessionFactory.setConfigLocation("classpath:mybatis-config.xml");
+	  	sqlSessionFactory.setDataSource(dataSource");
+	   -->
+	   
+	   <!--  열어
+	   <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+	   	<constructor-arg ref="sqlSessionFactory" />
+	   </bean>
+	   -->
+	   
+	   <!-- 
+	   	SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+	   	==> sqlSessionFactory를 생성자에 주입해줘
+	    -->
+	    
+	   <!-- 
+	   		property: setter주입
+	   		Constructor-arg : 생성자주입
+	    -->
+	    <!--  열어
+	   <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+	      <property name="maxUploadSize" value="100000000" />
+	      <property name="maxInMemorySize" value="100000000" />
+	   </bean>
+		 -->
+</beans>
