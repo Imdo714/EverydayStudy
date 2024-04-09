@@ -14,10 +14,6 @@
 </details>
 
 
-<hr>
-🌐 사용한 언어 비율 🌐 
-<br>
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
 
-<br>
-내 깃허브 평판...<br>
+
