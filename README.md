@@ -6,14 +6,16 @@
 
 <details>
 <summary>
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Eyes.png" alt="Eyes" width="2%" /> Spring
+  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Eyes.png" alt="Eyes" width="2%" /> Spring 이슈
 </summary>
    <br>
   Spring Legacy Project 에서 Spring MVC Project 를 생성하려고 했으나, 구글링을 통해 관련된 해결책을 모두 시도해 보았음에도 불구하고 Templates에서 'Spring MVC Project'를 찾을 수 없었다. 
   DynamicWeb Project 를 이용하여 수동으로 MVC를 생성하여 세팅하였다. 
 </details>
+<hr>
 
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
 
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
 
