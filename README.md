@@ -1,3 +1,4 @@
+## 프로젝트 개요
 - 👋 내가 css쪽이 많이 부족한거 같아 매일 공부하면서 조금씩 만들었는데 
 - 👀 이제는 나도 잔디를 깔아야 할거 같아서 매일 1일 1PUSH를 하기로 했어
 - 🌱 매일 했는데 잔디가 없으니 아무도 안 믿어주는거 같아서 시작하기로 했어 😄😄
@@ -14,8 +15,11 @@
 </details>
 <hr>
 
-
+🌐내가 사용하는 언어 비율이야🌐 
+<br>
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
-
+<br>
+깃허브에 대한 평판...🤧🤧
+<br>
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
 
