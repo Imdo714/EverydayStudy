@@ -1,4 +1,4 @@
-# SCORE
+# EverydayStudy
 > src == 프론트 <br>
 > chatJAVA == 자바
 
