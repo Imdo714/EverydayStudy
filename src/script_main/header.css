@@ -32,32 +32,25 @@ body{
     margin-left: 10px;
     margin-right: 10px
 }
-.left-section > a{
+.head-btn{
     font-size: 17px;
     margin-left: 10px;
     margin-right: 10px;
-    text-decoration-line: none;
+    border: 0px;
+    background-color: white;
+    cursor: pointer;
 }
+.head-btn:hover{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
 .right-section{
     display: flex;
     align-items: center;
     height: 70px;
 }
-.right-section > a{
-    font-size: 15px;
-    margin-left: 10px;
-    margin-right: 10px;
-    cursor: pointer;
-    text-decoration-line: none;
-}
-.btn-log{
-    border: 1px solid rgb(200, 200, 216);
-    background-color: white;
-    border-radius: 20%;
-    height: 40px;
-    width: 65px;
-    cursor: pointer;
-}
+
 .left-li{
     margin: 0px 10px 0px 10px;
 }
@@ -160,11 +153,6 @@ body{
     color:#fff;
     text-decoration-line: none;
   }
-  .header-box1 li button{
-    font-size: 15px;
-    width: 90px;
-    border-radius: 0px;
-  }
   .header-box1 li a{
     font-size: 25px;
     text-decoration: none;
@@ -173,3 +161,153 @@ body{
     padding:0 0 10px 20px;
     color:#fff;
   }
+.midea-btn{
+    border: 0px;
+    background-color: #002fa7;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+}
+.midea-btn:hover{
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.main-container{
+    display: flex;
+}
+.img-container{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.log-img{
+    width: 100%;
+    height: 400px;
+}
+.form-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    padding: 0px 20px 0px 20px;
+}
+
+.top-title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.top-title > h1{
+    font-weight: bolder;
+    margin: 0;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+.top-title > span{
+    font-size: 12px;
+}
+.input-container{
+    margin-top: 10px;
+}
+.input-container > input {
+    background-color: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.Sign-btn {
+    border-radius: 20px;
+    border: 1px solid #FF4B2B;
+    background-color: #FF4B2B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+.SignUp-btn{
+    border-radius: 20px;
+    border: 1px solid #2395e2;
+    background-color: #2395e2;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.login-btn{
+    border: 1px solid rgb(200, 200, 216);
+    background-color: white;
+    border-radius: 20px;
+    height: 40px;
+    width: 100px;
+    cursor: pointer;
+}
+.login-btn:hover{
+    background-color: #FF4B2B;
+    font-size: 20px;
+}
+
+@media (min-width: 576px){
+    .img-container{
+        display: block;
+    }
+}
+
+
+.check-btn{
+    width: 120px;
+    height: 48px;
+    border: 0px;
+}
+.check-btn:hover{
+    font-size: 20px;
+}
+.text-pwd{
+    font-size:0.7em; color:red;
+}
+.select {
+    padding: 15px 10px;
+    display: flex;
+    justify-content: center;
+}
+.select input[type=radio]{
+    display: none;
+}
+.select input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #333;
+    line-height: 24px;
+    font-weight:bold;
+}
+.select input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+    width: 50%;
+    min-width: 100px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.select input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
