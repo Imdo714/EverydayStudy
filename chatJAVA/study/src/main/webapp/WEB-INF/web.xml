@@ -34,10 +34,12 @@
    		<param-value>/WEB-INF/config/dispatcher-servlet.xml</param-value>
    	</init-param>
   </servlet>
+  
   <!-- .do로 끝나는 url의 요청을 받아서 DispatcherServlet에서 처리한다. -->
   <servlet-mapping>
   	<servlet-name>dispatcher</servlet-name>
   	<url-pattern>*.do</url-pattern>
+  	<url-pattern>*.te</url-pattern>
   </servlet-mapping>
  
   <!-- ===Filter 생성===(encodingFilter) -->

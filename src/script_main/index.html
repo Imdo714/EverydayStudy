@@ -241,11 +241,9 @@
 
                             <div id="checkResult3" class="text-pwd" id="textCheck"><span id="pwConfirm">*비밀번호 확인</span></div>
                             <input type="password" id="checkPwd" oninput="pwCheck()" placeholder="Check Password" />
-                            <!-- <div id="checkResult3" class="text-pwd" id="textCheck">*비밀번호 확인 </div> -->
-                            <!-- <div id="checkResult3" class="text-pwd">*비밀번호 확인</div> -->
 
                             <input type="text" id="upName" placeholder="Name" />
-                            <input type="number" id="upPhone" placeholder="Phone" />
+                            <input type="text" id="upPhone" onkeypress='return checkNumber(event)' placeholder="Phone" />
                             <input type="date" id="upBirth" placeholder="Birth" />
                             <div class="select">
                                 <input type="radio" id="select2" name="gender" value="" checked="checked"><label for="select2">남자</label>

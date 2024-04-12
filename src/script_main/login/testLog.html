@@ -20,15 +20,6 @@
     <button onclick="aclose()">눌러</button>
 
 
-    <label for="password">비밀번호:</label>
-    <input type="password" onkeyup="apple2()" id="passwordInput">
-
-    <p id="message"></p>
-
-    <!-- <input type="text" id="pw1" oninput="pwCheck()" placeholder="비밀번호">
-    <input type="text" id="pw2" oninput="pwCheck()" placeholder="비밀번호 확인"><br>
-    <span id="pwConfirm">비밀번호를 입력하세요</span> -->
-
 
 
 
@@ -89,7 +80,7 @@
                             <!-- <div id="checkResult3" class="text-pwd">*비밀번호 확인</div> -->
 
                             <input type="text" id="upName" placeholder="Name" />
-                            <input type="number" id="upPhone" placeholder="Phone" />
+                            <input type="text" id="upPhone" onkeypress='return checkNumber(event)' placeholder="Phone" />
                             <input type="date" id="upBirth" placeholder="Birth" />
                             <div class="select">
                                 <input type="radio" id="select2" name="gender" value="" checked="checked"><label for="select2">남자</label>

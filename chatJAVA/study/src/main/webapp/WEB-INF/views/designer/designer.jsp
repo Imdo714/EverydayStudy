@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" href="/study/resources/css/designer/designer.css">
+</head>
+<body>
+	    <div class="container">
+        <section class="video-grid3">
+            <div class="mid-container">
+                <p class="mid-title">전문 디자이너가 <br>당신을 기다리고 있습니다.</p>
+                <p class="muid-sube">당신의 브랜드를 빛내줄 <br> 디자이너를 찾고, 의뢰해보세요</p>
+            </div>
+
+            <div class="advertisement-container">
+                <div class="advertisement-size">
+                    <p class="titile-font">전문 디자이너가 <br>당신을 기다리고 있습니다.</p>
+                </div>
+                <div class="advertisement-size" style="height: 40px;">
+                    <p class="titile-font2">당신의 브랜드를 빛내줄 <br> 디자이너를 찾고, 의뢰해보세요</p>
+                </div>
+            </div>
+
+            <div class="ani-container">
+                <div>
+                    <img src="https://vendor-cdn.imweb.me/images/main/m_reseller_visual_img.png" alt="" class="left-img">
+                </div>
+
+                <div class="right-container">
+                    <img src="/img/바다.jpeg" alt="" class="right-img">
+                </div>
+                <div class="aaa">
+                    <img src="/img/바다.jpeg" alt="" class="sss">
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <div class="propil-container">
+        <div class="titile-container">
+            <div class="titile-propile">
+                <p class="introduce">바쁜 비개발자 직장인에게<br> 추천드리고 싶어요</p>
+            </div>
+            <div class="name-propile">
+                <p class="job-name">백엔드 / 임도현</p>
+            </div>
+        </div>
+
+        <div class="human-container">
+            <img src="/img/빵빵이.jpg" alt="" class="human">
+        </div>
+    </div>  
+
+    <div class="propil-container">
+        <div class="titile-container">
+            <div class="titile-propile">
+                <p class="introduce">바쁜 비개발자 직장인에게<br> 추천드리고 싶어요</p>
+            </div>
+            <div class="name-propile">
+                <p class="job-name">백엔드 / 임도현</p>
+            </div>
+        </div>
+
+        <div class="human-container">
+            <img src="/img/빵빵이.jpg" alt="" class="human">
+        </div>
+    </div>  
+</body>
+</html>
