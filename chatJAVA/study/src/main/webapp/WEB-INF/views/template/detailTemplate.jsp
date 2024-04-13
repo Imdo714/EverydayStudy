@@ -8,7 +8,9 @@
 	<link rel="stylesheet" href="/study/resources/css/template/detailTemplate.css">
 </head>
 <body>
-	   <!-- https://summernote.org/ -->
+	<jsp:include page="../common/header.jsp" />
+	
+	<!-- https://summernote.org/ -->
     <div class="writer">
         <h1>템플릿</h1>
     </div>

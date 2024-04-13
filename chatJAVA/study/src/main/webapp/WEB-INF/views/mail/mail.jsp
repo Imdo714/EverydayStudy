@@ -19,13 +19,13 @@
 
 
     <nav class="sidebar">
-        <div class="sidebar-link" onClick="location.href='insertMail.html'">
+        <div class="sidebar-link" onClick="location.href='insertM.ml'">
            <div>메일 쓰기</div> 
         </div>
-        <div class="sidebar-link" onClick="location.href='mail.html'">
+        <div class="sidebar-link" onClick="location.href='mail.ml'">
             <div>메일 내역</div> 
         </div>
-        <div class="sidebar-link" onClick="location.href='../index.html'">
+        <div class="sidebar-link" onClick="location.href='main.te'">
             <div>돌아가기</div> 
         </div>
     </nav>

@@ -6,15 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="/study/resources/css/template/template.css">
+	
 </head>
 <body>
+	
+	<jsp:include page="../common/header.jsp" />
+	
 	<div class="theme-title">
         <div class="big-title">임도현 템플릿</div>
         <div class="small-title">내가 CSS가 부족해서 열심히 만든거야</div>
     </div>
 
     <div class="select">
-        <button class="in-template" onClick="location.href='../insertTemplate/insertTemplate.html'">템플릿 작성</button>
+        <button class="in-template" onClick="location.href='insertT.te'">템플릿 작성</button>
    </div>
 
     <div class="select">

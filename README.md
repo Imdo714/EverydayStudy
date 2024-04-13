@@ -19,6 +19,47 @@
   <br>
   💪 MVC 생성 과정을 공부하게 되어 자동 생성이 얼마나 좋았는지 뼈저리게 느낀다. 💪
 </details>
+
+## 컨트롤러
+DispatcherServlet을 생성한 후 url의 요청을 받아서 DispatcherServlet에서 처리한다. <br>
+RequestMapping으로 설정할 것들을 Web에 들어가서 밑에 처럼 추가해준다
+
+```
+<!-- ===DispatcherServlet 생성===(Controller, ViewResolver, hanlderMapping) -->
+<servlet>
+  <!-- 이 서블릿 이름대로 (서블릿이름)-servlet.xml 파일을 DispatcherServlet으로 삼음 -->
+  <servlet-name>dispatcher</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <!-- contextLoader가 아래 위치의 설정 파일을 읽어서 이 파일을 DispatcherServlet으로 만든다. -->
+  <init-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/config/dispatcher-servlet.xml</param-value>
+  </init-param>
+</servlet>
+
+<servlet-name>dispatcher</servlet-name>
+  <url-pattern>*.do</url-pattern>
+  <url-pattern>*.te</url-pattern>
+  <url-pattern>*.ml</url-pattern>
+  <url-pattern>*.di</url-pattern>
+</servlet-mapping>   
+```
+
+## 서블릿
+view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경로를 따라서 컨트롤러가 날린 뷰의 이름에 해당하는 뷰가 있는지 찾아봄. <br>
+ model에 대한 패키지명을 추가해주어야 한다 추가하지 않으면 못 찾는다
+ 
+```
+<!-- ViewResolver 생성 -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="prefix" value="/WEB-INF/views/"/>
+  <property name="suffix" value=".jsp"/>
+</bean>
+
+<!-- model에 대한 패키지명을 추가해준다 -->
+<context:component-scan base-package="com.matcha.mvc" />
+```
+
 <hr>
 
 🌐내가 사용하는 언어 비율이야🌐 

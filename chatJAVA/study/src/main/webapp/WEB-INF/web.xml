@@ -40,6 +40,8 @@
   	<servlet-name>dispatcher</servlet-name>
   	<url-pattern>*.do</url-pattern>
   	<url-pattern>*.te</url-pattern>
+  	<url-pattern>*.ml</url-pattern>
+  	<url-pattern>*.di</url-pattern>
   </servlet-mapping>
  
   <!-- ===Filter 생성===(encodingFilter) -->

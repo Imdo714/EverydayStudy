@@ -10,6 +10,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
+	
+	<jsp:include page="../common/header.jsp" />
+	
 	<div class="container2">
         <div class="right-container">
             <div class="Test-container">
@@ -18,7 +21,7 @@
             </div>
 
             <div class="push">
-                <h1 onClick="location.href='../theme/theme.html'">템플릿 보러가기</h1>
+                <h1 onClick="location.href='template.te'">템플릿 보러가기</h1>
             </div>
         </div>
     </div>

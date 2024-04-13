@@ -9,7 +9,7 @@
 
 
 	<!-- model에 대한 정보 -->
-	<context:component-scan base-package="com.matcha.template" /> <!-- 패키지명을 넣어준다. -->
+	<!-- 패키지명을 넣어준다. -->
 	<context:component-scan base-package="com.matcha.mvc" />
 
 	

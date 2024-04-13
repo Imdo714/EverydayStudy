@@ -8,7 +8,9 @@
 	<link rel="stylesheet" href="/study/resources/css/designer/designer.css">
 </head>
 <body>
-	    <div class="container">
+	<jsp:include page="../common/header.jsp" />
+	
+    <div class="container2">
         <section class="video-grid3">
             <div class="mid-container">
                 <p class="mid-title">전문 디자이너가 <br>당신을 기다리고 있습니다.</p>
@@ -30,10 +32,10 @@
                 </div>
 
                 <div class="right-container">
-                    <img src="/img/바다.jpeg" alt="" class="right-img">
+                    <img src="/study/resources/img/빵빵이.jpg" alt="" class="right-img">
                 </div>
                 <div class="aaa">
-                    <img src="/img/바다.jpeg" alt="" class="sss">
+                    <img src="/study/resources/img/바다.jpeg" alt="" class="sss">
                 </div>
             </div>
         </section>
@@ -51,7 +53,7 @@
         </div>
 
         <div class="human-container">
-            <img src="/img/빵빵이.jpg" alt="" class="human">
+            <img src="/study/resources/img/빵빵이.jpg" alt="" class="human">
         </div>
     </div>  
 
@@ -66,8 +68,9 @@
         </div>
 
         <div class="human-container">
-            <img src="/img/빵빵이.jpg" alt="" class="human">
+            <img src="/study/resources/img/빵빵이.jpg" alt="" class="human">
         </div>
     </div>  
+
 </body>
 </html>

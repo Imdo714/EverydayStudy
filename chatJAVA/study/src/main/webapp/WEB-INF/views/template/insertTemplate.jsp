@@ -6,14 +6,22 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<link rel="stylesheet" href="/study/resources/css/template/insertTemplate.css">
+	<!-- 제이쿼리 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- 썸머노트 -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
+
+	<jsp:include page="../common/header.jsp" />
+	
 	<div class="writer">
         <h1>템플릿 작성</h1>
     </div>
 
     <div class="in-btn">
-        <button class="back-btn" onClick="location.href='../index.html'">Back</button>
+        <button class="back-btn" onClick="location.href='main.te'">Back</button>
         <button class="insertBtn">UP Load</button>
         <button class="cbtn">Cancel</button>
     </div>
