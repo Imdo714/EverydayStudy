@@ -56,16 +56,18 @@
                         <p class="titile-font2">우리는 누구나 쉽게 <br> 따라할 수 있도록 만들었거든.</p>
                     </div>
                     <div class="advertisement-size" style="height: 160px;">
-                        <button class="start-btn">시작하기</button>
+                        <button class="start-btn" id="stbtn" onclick="stBtn()">시작하기</button>
+                        <!-- <button class="start-btn" id="stbtn">시작하기</button> -->
+                    </div>
+
+                    <div class="img-text">
+                        <p>모두 미디어쿼리(반응형)이네 <br>화면을 줄여도 css가 깨지지가 않아</p>
                     </div>
                 </div>
     
                 <div class="sube-advertisement">
                     <div class="img-teul">
                         <img src="/study/resources/img/바다.jpeg" class="img-advertisement">
-                    </div>
-                    <div class="img-text">
-                        <p>모두 미디어쿼리(반응형)이네 <br>화면을 줄여도 css가 깨지지가 않아</p>
                     </div>
                 </div>
             </section>
@@ -107,7 +109,6 @@
     </nav>
 
 
-    <!-- css수정 -->
     <nav>
         <div class="under">
             <div class="under-size">

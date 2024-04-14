@@ -25,4 +25,10 @@ public class templateController {
 		return "template/insertTemplate";
 	}
 	
+	@RequestMapping("/detailT.te")
+	public String deT(Model model){
+		
+		return "template/detailTemplate";
+	}
+	
 }

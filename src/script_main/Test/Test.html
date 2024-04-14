@@ -8,26 +8,50 @@
     <script src="Test.js"></script>
     <!-- 제이쿼리 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <!-- 썸머노트 -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
 
+    <!-- 댓글 입력 -->
+  <div class="comment-container">
+    <div class="title">
+      <p>Leave a Comment</p>
+    </div>
 
-  <div id="summernote" class="summernote"></div>
+    <div class="comment-teul">
+      <div class="comment-area">
+        <textarea class="text-commet"></textarea>
+      </div>
+      <div class="comment-btn">
+        <button class="submit-btn">Submit</button>
+      </div>
+    </div>
+  </div>
+  <!-- 댓글 -->
+  <div class="comment-container">
+    <div class="reply-container">
+      <div class="profile">
+        <img src="/img/빵빵이.jpg" alt="">
+      </div>
 
-  <script>
+      <div class="reply-center">
+        <h4>임도현</h4>
+        <!-- <p>2024.04.14</p> -->
+        <div class="reply-comment">
+          <p>테스트 댓글입니다.</p>
+        </div>
+      </div>
+
+      <div class="btn-container">
+
+      </div>
+
+    </div>
+  </div>
 
 
-    $('.summernote').summernote({
-      height: 150,   //set editable area's height
-      codemirror: { // codemirror options
-        theme: 'monokai'
-      }
-    });
 
-  </script>
+
+
 
 </body>
 </html>

@@ -29,7 +29,7 @@
 
     <div class="designer-container">
         <section class="video-grid">
-            <div class="pro-container" onclick="Template()">
+            <div class="pro-container" onClick="location.href='detailT.te'">
                 <img src="/study/resources/img/빵빵이.jpg" alt="프로필" class="pro-img">
                 <div class="desig-name"><strong>임도현 스튜디오</strong></div>
             </div>
