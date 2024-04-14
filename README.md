@@ -20,7 +20,14 @@
   💪 MVC 생성 과정을 공부하게 되어 자동 생성이 얼마나 좋았는지 뼈저리게 느낀다. 💪
 </details>
 
-## 컨트롤러
+
+<details>
+<summary>
+  컨트롤러 보내는 법
+</summary>
+  <br>
+##컨트롤러
+  <br>
 DispatcherServlet을 생성한 후 url의 요청을 받아서 DispatcherServlet에서 처리한다. <br>
 RequestMapping으로 설정할 것들을 Web에 들어가서 밑에 처럼 추가해준다
 
@@ -59,6 +66,10 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 <!-- model에 대한 패키지명을 추가해준다 -->
 <context:component-scan base-package="com.matcha.mvc" />
 ```
+</details>
+
+
+
 
 <hr>
 
