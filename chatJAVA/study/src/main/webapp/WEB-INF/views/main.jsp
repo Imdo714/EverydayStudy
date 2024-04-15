@@ -57,7 +57,6 @@
                     </div>
                     <div class="advertisement-size" style="height: 160px;">
                         <button class="start-btn" id="stbtn" onclick="stBtn()">시작하기</button>
-                        <!-- <button class="start-btn" id="stbtn">시작하기</button> -->
                     </div>
 
                     <div class="img-text">

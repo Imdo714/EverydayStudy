@@ -110,7 +110,7 @@
                         </div>
                         <div class="input-container">
                             <input type="email" id="upEmail" placeholder="Email" />
-                            <input type="password" id="upPwd" oninput="pwCheck()" placeholder="Password" />
+                            <input type="password" id="upPwd" class="form-control" oninput="pwCheck()" placeholder="Password" />
                             <div id="checkResult2" class="text-pwd"><span id="pwSign">*비밀번호는 영문 숫자 특수기호 조합 8자리 이상</span></div>
 
                             <div id="checkResult3" class="text-pwd" id="textCheck"><span id="pwConfirm">*비밀번호 확인</span></div>

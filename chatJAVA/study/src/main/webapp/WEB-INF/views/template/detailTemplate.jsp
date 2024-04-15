@@ -24,7 +24,7 @@
     <div class="in-btn">
         <button class="back-btn" onClick="location.href='main.te'">Back</button>
         <button id="save" onclick="save()" class="cbtn">Save</button>
-        <button id="edit" onclick="edit()" class="insertBtn">Update</button>
+        <button id="edit" onclick="edit()" class="insertBtn">Edit</button>
     </div>
 
     <div class="detail-container">
@@ -36,7 +36,73 @@
     </div>
     
     
+	    <!-- 댓글 입력 -->
+  <div class="comment-container">
+    <div class="title">
+      <p>Leave a Comment</p>
+    </div>
 
+    <div class="comment-teul">
+      <div class="comment-area">
+        <textarea class="text-commet"></textarea>
+      </div>
+      <div class="comment-btn">
+        <button class="submit-btn">Submit</button>
+      </div>
+    </div>
+  </div>
+  <!-- 댓글 -->
+  <div class="comment-container">
+    <div class="reply-container">
+      <div class="profile">
+        <img src="/study/resources/img/빵빵이.jpg" alt="">
+      </div>
+
+      <div class="reply-center">
+        <div class="name-container">
+          <h3>임도현</h3>
+          <p>2024.04.14</p>
+        </div>
+        
+
+        <div class="reply-comment">
+          <span>테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.</span>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button class="edit-btn">edit</button>
+        <button class="del-btn">delete</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="comment-container">
+    <div class="reply-container">
+      <div class="profile">
+        <img src="/study/resources/img/빵빵이.jpg" alt="">
+      </div>
+
+      <div class="reply-center">
+        <div class="name-container">
+          <h3>임도현</h3>
+          <p>2024.04.14</p>
+        </div>
+        
+
+        <div class="reply-comment">
+          <span>테스트 댓글입니다.테스트 댓글입니다.<br>테스트 댓글입니다테스트 댓글입니다테스트 댓글입니다</span>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button class="edit-btn">edit</button>
+        <button class="del-btn">delete</button>
+      </div>
+
+    </div>
+  </div>
 
 
 </body>

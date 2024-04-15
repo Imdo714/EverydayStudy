@@ -76,8 +76,6 @@
     }
 }
 
-
-
 /* detailTemplate.css */
 
 .detail-container{
@@ -96,3 +94,137 @@
     justify-content: center;
 }
 
+
+/* detailTemplate 댓글.css */
+.comment-container{
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+.title{
+  width: 80%;
+  background-color: #efefef;
+}
+.title p{
+  font-weight: bolder;
+}
+.comment-teul{
+  border: 1px solid #adacac;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.comment-area{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.text-commet{
+  width: 80%;
+  height: 200px;
+}
+.comment-btn{
+  width: 80%;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+.submit-btn{
+  width: 100px;
+  height: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 20px;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 0.25rem;
+}
+
+.reply-container{
+  border: 1px solid rgb(0, 0, 0);
+  width: 80%;
+  min-height: 100px;
+  display: flex;
+}
+.profile{
+  width: 90px;
+  height: 100px;
+}
+.profile img{
+  width: 80px;
+  height: 80px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 4cap;
+}
+.reply-center{
+  width: 100%;
+  height: 100%;
+}
+
+.reply-comment{
+  /* width: 100%; */
+  height: 100%;
+  padding-left: 10px;
+  margin: 5px 2px 5px 0px;
+}
+.name-container{
+  display: flex;
+}
+.name-container h3{
+  margin: 5px 20px 0px 5px;
+
+}
+.name-container p{
+  margin: 5px 0px 0px 5px;
+  color: #adacac;
+}
+.btn-container{
+  width: 170px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.edit-btn{
+  width: 60px;
+  height: 30px;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: white;
+  margin-right: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bolder;
+}
+.edit-btn:hover{
+  font-size: 18px;
+}
+.del-btn:hover{
+  font-size: 18px;
+}
+.del-btn{
+  width: 70px;
+  height: 30px;
+  background-color: rgb(248, 113, 113);
+  border: 1px solid rgb(248, 113, 113);
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bolder;
+}
+@media (max-width: 530px){
+  .btn-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .edit-btn{
+    width: 70px;
+  }
+}
