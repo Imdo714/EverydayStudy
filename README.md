@@ -25,11 +25,11 @@
   input password 폰트
 </summary>
    <br>
-  input type password를 사용하다보면 숨겨진 패스워드 표시(●)가 안 보이는 경우가 있다.
-  이런 문제가 발생하는 이유는 폰트가 (●)문자를 지원하지 않아서이다
-  이 경우는 현재 사용중인 폰트가 해당 문자를 지원하지 않아서 발생하는 것으로 input type이 password인것의 font-family를 변경하면 해결된다.
+  input type password를 사용하다보면 숨겨진 패스워드 표시(●)가 안 보이는 경우가 있다. <br>
+  이런 문제가 발생하는 이유는 폰트가 (●)문자를 지원하지 않아서이다. <br>
+  이 경우는 현재 사용중인 폰트가 해당 문자를 지원하지 않아서 발생하는 것으로 input type이 password인것의 font-family를 변경하면 해결된다. <br>
 
-  input[type=password]{font-family:"굴림";} 
+  input[type=password]{font-family:"굴림";}  <br>
   위와 같은 코드를 사용하면 input type=password 폰트만 굴림으로 바뀌는데 이렇게 변경하면 오류가 해결된다.
 </details>
 
