@@ -115,7 +115,7 @@ body{
     cursor: pointer;
 }
 .update-page{
-    border: 1px solid rgb(154, 110, 195);
+    /* border: 1px solid rgb(154, 110, 195); */
     display: flex;
     justify-content: center;
     height: 100px;
@@ -126,9 +126,12 @@ body{
     font-size: 30px;
     cursor: pointer;
     border: 0px;
+    background-color: #198754;
+    color: white;
 }
 .update-btn:hover{
     font-size: 32px;
+    font-weight: bolder;
 }
 
 
