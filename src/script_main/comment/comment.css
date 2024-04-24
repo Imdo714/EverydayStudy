@@ -52,6 +52,7 @@
   width: 80%;
   min-height: 100px;
   display: flex;
+  margin-top: 5px;
 }
 .profile{
   width: 90px;
