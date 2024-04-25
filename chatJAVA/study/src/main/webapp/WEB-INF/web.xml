@@ -42,6 +42,7 @@
   	<url-pattern>*.te</url-pattern>
   	<url-pattern>*.ml</url-pattern>
   	<url-pattern>*.di</url-pattern>
+  	<url-pattern>*.me</url-pattern>
   </servlet-mapping>
  
   <!-- ===Filter 생성===(encodingFilter) -->

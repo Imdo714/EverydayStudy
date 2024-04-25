@@ -36,7 +36,7 @@
     </div>
     
     
-	    <!-- 댓글 입력 -->
+<!-- 댓글 입력 -->
   <div class="comment-container">
     <div class="title">
       <p>Leave a Comment</p>
@@ -60,19 +60,21 @@
 
       <div class="reply-center">
         <div class="name-container">
-          <h3>임도현</h3>
-          <p>2024.04.14</p>
-        </div>
-        
+          <div class="name-container">
+            <h3>임도현</h3>
+            <p>2024.04.14</p>
+          </div>
+          
 
+          <div class="btn-container">
+            <button class="edit-btn">edit</button>
+            <button class="del-btn">delete</button>
+          </div>
+        </div>
+  
         <div class="reply-comment">
           <span>테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.</span>
         </div>
-      </div>
-
-      <div class="btn-container">
-        <button class="edit-btn">edit</button>
-        <button class="del-btn">delete</button>
       </div>
 
     </div>
@@ -86,23 +88,26 @@
 
       <div class="reply-center">
         <div class="name-container">
-          <h3>임도현</h3>
-          <p>2024.04.14</p>
-        </div>
-        
+          <div class="name-container">
+            <h3>임도현</h3>
+            <p>2024.04.14</p>
+          </div>
+          
 
+          <div class="btn-container">
+            <button class="edit-btn">edit</button>
+            <button class="del-btn">delete</button>
+          </div>
+        </div>
+  
         <div class="reply-comment">
-          <span>테스트 댓글입니다.테스트 댓글입니다.<br>테스트 댓글입니다테스트 댓글입니다테스트 댓글입니다</span>
+          <span>테스트 댓글입니다.테스트 댓다.</span>
         </div>
-      </div>
-
-      <div class="btn-container">
-        <button class="edit-btn">edit</button>
-        <button class="del-btn">delete</button>
       </div>
 
     </div>
   </div>
+
 
 
 </body>

@@ -119,9 +119,10 @@
                             <input type="text" id="upName" placeholder="Name" />
                             <input type="text" id="upPhone" onkeypress='return checkNumber(event)' placeholder="Phone" />
                             <input type="date" id="upBirth" placeholder="Birth" />
-                            <div class="select">
-                                <input type="radio" id="select2" name="gender" value="" checked="checked"><label for="select2">남자</label>
-                                <input type="radio" id="select3" name="gender" value=""><label for="select3">여자</label>
+                            
+                            <div class="fmail">
+                                <input type="radio" id="gender1" name="gender" value="" checked="checked"><label for="gender1">남자</label>
+                                <input type="radio" id="gender2" name="gender" value=""><label for="gender2">여자</label>
                            </div>
 
                             <button class="Sign-btn">Sign Up</button>

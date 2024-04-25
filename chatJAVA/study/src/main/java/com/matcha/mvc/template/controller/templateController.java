@@ -31,4 +31,5 @@ public class templateController {
 		return "template/detailTemplate";
 	}
 	
+
 }
