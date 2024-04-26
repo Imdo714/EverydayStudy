@@ -14,6 +14,14 @@ public class memberController {
 	@Autowired
 	memberService memberService;
 	
+	
+//	마이 페이지가기
+	@RequestMapping("/myPage.me")
+	public String myPage(Model model){
+		
+		return "member/myPage";
+	}
+
 //	마이 페이지에서 내 템플릿 보기
 	@RequestMapping("/myTemplate.me")
 	public String mytemAll(Model model){
