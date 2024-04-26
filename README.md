@@ -87,9 +87,19 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 
 🌐내가 사용하는 언어 비율이야🌐 
 <br>
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
+
+![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714&layout=compact&theme=tokyonight)
+
 <br>
 깃허브에 대한 평판...🤧🤧
 <br>
-[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=imdo714)](https://github.com/anuraghazra/github-readme-stats)
+
+![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=imdo714&show_icons=true&theme=tokyonight)
+
+
+
+
+
+ 
+
 
