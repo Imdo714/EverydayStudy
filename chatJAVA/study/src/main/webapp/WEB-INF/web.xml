@@ -19,10 +19,23 @@
   <!-- 공통으로 사용할 의존성 설정 파일(applicationContext.xml==root-context.xml)의 위치를 담는 파라미터 -->
   <context-param>
   	<param-name>contextConfigLocation</param-name>
-  	<param-value>/WEB-INF/config/applicationContext.xml</param-value>
+  	<param-value>
+  		/WEB-INF/config/applicationContext.xml
+  		/WEB-INF/config/spring-security.xml
+  	</param-value>
   </context-param>
-  	
   
+  <!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   <!-- ===DispatcherServlet 생성===(Controller, ViewResolver, hanlderMapping) -->
   <servlet>
   	<!-- 이 서블릿 이름대로 (서블릿이름)-servlet.xml 파일을 DispatcherServlet으로 삼음 -->
@@ -45,6 +58,13 @@
   	<url-pattern>*.me</url-pattern>
   </servlet-mapping>
  
+	
+	
+	
+	
+	
+  
+
   <!-- ===Filter 생성===(encodingFilter) -->
   <filter>
   	<filter-name>encodingFilter</filter-name>	
@@ -56,7 +76,7 @@
   </filter>
   <filter-mapping>
   	<filter-name>encodingFilter</filter-name>
-  	<url-pattern>*.do</url-pattern>
+  	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
   

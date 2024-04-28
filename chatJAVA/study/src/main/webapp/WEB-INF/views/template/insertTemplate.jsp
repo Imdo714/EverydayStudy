@@ -36,6 +36,11 @@
                 <input type="text" class="form-control" placeholder="Enter title" id="title" >
             </div>
             
+            <div class="select">
+                <input type="radio" id="back" name="shop" value="" ><label for="back">백앤드</label>
+                <input type="radio" id="and" name="shop" value=""><label for="and">프론트</label>
+            </div>
+            
             <div class="form-group">
                 <label for="content">Content</label> 
                 <textarea class="form-control summernote" rows="5" cols="" id="content"></textarea>

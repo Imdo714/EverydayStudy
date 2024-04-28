@@ -31,6 +31,8 @@ body{
     width: 100%;
     height: 74px;
     color: white;
+    display: flex;
+    align-items: center;
 }
 .img-section{
     width: 250px;

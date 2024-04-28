@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="memberMapper">
+
+		
+	<resultMap type="Member" id="memberResult">
+		<result column="USER_NO" property="userNo" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_PWD" property="userPwd" />
+		<result column="USER_NAME" property="userName" />
+		<result column="USER_PHONE" property="phone" />
+		<result column="USER_BIRTH" property="userBirth" />
+		<result column="USER_GENDER" property="gender" />
+	</resultMap>
+
+	<!-- 회원가입 -->
+  	<insert id="insertMember">
+		INSERT INTO MEMBER(
+			USER_NO,
+			USER_ID ,
+			USER_PWD ,
+			USER_NAME ,
+			USER_PHONE ,
+			USER_BIRTH ,
+			USER_GENDER 
+			)
+		VALUES (
+			SEQ_MEMBER.NEXTVAL,
+			#{userId},
+			#{userPwd},
+			#{userName},
+			#{phone},
+			#{userBirth},
+			#{gender}
+			)
+	</insert>
+	
+	<!--아이디 조회 -->
+	<select id="selectMember" resultType="_int">
+		SELECT USER_NO,
+			   USER_ID ,
+			   USER_PWD ,
+			   USER_NAME ,
+			   USER_PHONE ,
+			   USER_BIRTH ,
+			   USER_GENDER 
+		  FROM MEMBER
+		 WHERE USER_ID = #{userId}
+	</select>
+	
+	<!-- 로그인 -->
+  	<select id="loginMember" resultMap="memberResult">
+  		 SELECT USER_NO,
+			    USER_ID ,
+			    USER_PWD ,
+			    USER_NAME ,
+			    USER_PHONE ,
+			    USER_BIRTH ,
+			    USER_GENDER 
+		   FROM MEMBER
+	   	  WHERE USER_ID = #{uesrId}
+  	</select>
+
+</mapper>

@@ -22,14 +22,13 @@
 	 -->		
 	 
 	 <!-- 커넥션풀 쓸수있는 클래스 -->
-	 <!--  열어
 	 <bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 	 	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" /> 
-        <property name="username" value="spring"/>
-        <property name="password" value="spring"/>
+        <property name="username" value="Lim"/>
+        <property name="password" value="Lim"/>
 	 </bean>
-	  -->
+
 	 
 	 <!-- 
 	 	BasicDataSource dataSourec = new BasicDataSource();
@@ -41,12 +40,11 @@
 	  
 	  <!-- sqlSessionFactory를 대체하는 객체 -->
 	  <!-- dataSource객체를 주입해준다. -->
-	  <!--  열어
 	  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
-	  	<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-	  	<property name="dataSource" ref="dataSource"></property>
+		  <property name="configLocation" value="classpath:mybatis-config.xml"/>
+		  <property name="dataSource" ref="dataSource"/>
 	  </bean>
-	   -->
+	   
 	  
 	  <!-- 
 	  	SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
@@ -54,11 +52,11 @@
 	  	sqlSessionFactory.setDataSource(dataSource");
 	   -->
 	   
-	   <!--  열어
+
 	   <bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 	   	<constructor-arg ref="sqlSessionFactory" />
 	   </bean>
-	   -->
+
 	   
 	   <!-- 
 	   	SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory);
@@ -69,10 +67,9 @@
 	   		property: setter주입
 	   		Constructor-arg : 생성자주입
 	    -->
-	    <!--  열어
 	   <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 	      <property name="maxUploadSize" value="100000000" />
 	      <property name="maxInMemorySize" value="100000000" />
 	   </bean>
-		 -->
+
 </beans>
