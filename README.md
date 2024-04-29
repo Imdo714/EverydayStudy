@@ -9,16 +9,6 @@
 - 🐣 모든 페이지를 반응형 미디어 쿼리로 만들었어 공부 할거면 제대로 해야지
 - 🕘 2024-04-08 부로 1일 1PUSH 시작할게
 
-<details>
-<summary>
-  <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Hand%20gestures/Eyes.png" alt="Eyes" width="2%" /> Spring 이슈
-</summary>
-   <br>
-  Spring Legacy Project 에서 Spring MVC Project 를 생성하려고 했으나, 구글링을 통해 관련된 해결책을 모두 시도해 보았음에도 불구하고 Templates에서 'Spring MVC Project'를 찾을 수 없었다. 
-  DynamicWeb Project 를 이용하여 수동으로 MVC를 생성하여 세팅하였다. 
-  <br>
-  💪 MVC 생성 과정을 공부하게 되어 자동 생성이 얼마나 좋았는지 뼈저리게 느낀다. 💪
-</details>
 
 <details>
 <summary>
@@ -37,9 +27,8 @@
 <summary>
   컨트롤러 보내는 법
 </summary>
-  <br>
-##컨트롤러
-  <br>
+	
+## 컨트롤러
 DispatcherServlet을 생성한 후 url의 요청을 받아서 DispatcherServlet에서 처리한다. <br>
 RequestMapping으로 설정할 것들을 Web에 들어가서 밑에 처럼 추가해준다
 
