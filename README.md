@@ -71,7 +71,7 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 
 <details>
 <summary>
-  회원가입, 로그인 비밀번호 암호문으로 바꾸는 꿀팁
+  회원가입, 로그인 비밀번호 암호문으로 바꾸는 꿀팁 (Spring Security)
 </summary>
   
   ## Spring Security는 Spring 기반의 애플리케이션의 보안(인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
