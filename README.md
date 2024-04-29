@@ -82,10 +82,90 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 
 <details>
 <summary>
-  비밀번호 암호문으로 바꾸기
+  회원가입, 로그인 비밀번호 암호문으로 바꾸는 꿀팁
 </summary>
-  Spring Security는 Spring 기반의 애플리케이션의 보안(인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
   
+  ## Spring Security는 Spring 기반의 애플리케이션의 보안(인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
+  - 인증(Authentication): 해당 사용자가 본인이 맞는지를 확인하는 절차
+  - 인가(Authorization): 인증된 사용자가 요청한 자원에 접근 가능한지를 결정하는 절차
+  - 나는 아직 권한부여는 하지 않았다 ㅜㅜ
+
+  ## Spring Security 사용하기 위해서는 pom.xml에 dependencies를 추가해주어야 합니다.
+  ```
+  <!-- 3. Spring Security Module(core, web, config) -->
+  <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>5.5.2</version> 
+   </dependency>
+   <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>5.5.2</version>
+   </dependency>
+   <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>5.5.2</version>
+   </dependency>
+  ```
+  ## web.xml 공통으로 사용할 의존성 설정 파일의 위치를 담는 파라미터 를 설정해줍니다.
+  ```
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>
+  		/WEB-INF/config/spring-security.xml
+  	</param-value>
+  </context-param>
+  ```
+  ## 경로에 맞에 파일을 세팅한 후 spring-security.xml에 빈을 등록하면 세팅 끝
+  ```
+  <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.5.xsd">
+
+	  <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="bcryptPasswordEncoder"/>
+  </beans>
+  ```
+  ## 회원가입 하는 과정 (encode)
+  encode : 해당 암호화 방식으로 암호화한 문자열을 리턴해줍니다. 회원가입 시 DB에 넣기전에 사용하면 됩니다. <br>
+  DB확인을 하면 평문이였였던 비밀번호가 암호문으로 바꿔있는 것을 확인할 수 있다.
+  ```
+  @ResponseBody
+  @RequestMapping(value="/insert.me", produces="application/json; charset=UTF-8")
+    public String insert(Member m, Model model, ModelAndView mv) {
+    
+      // 암호화 작업
+      String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+      
+      m.setUserPwd(encPwd); // Member객체에 userPwd필드에 평문이 아닌 암호문으로 변경
+      
+      int result = memberService.insertMember(m);
+    }
+  ```
+  ## 로그인 하는 과정 (matches)
+  matches : Member m으로 들어온 비밀번호는 암호화되어 DB에 저장된 암호화된 비밀번호와 같은지 비교를 하여 확인할 수 있습니다.
+  ````
+	@ResponseBody
+	@RequestMapping(value="/loginMember.me", produces="application/json; charset=UTF-8")
+    public String loginMember(Member m, HttpSession session, ModelAndView mv) {
+        
+		Member loginUser = memberService.loginMember(m.getUserId()); //아이디로만 멤버객체 가져오기
+		
+		if(loginUser == null || !bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) { // 로그인실패 => 에러문구를 message에 담고 리턴
+			mv.addObject("message", "로그인 실패");
+			return new Gson().toJson(mv);
+		} else {
+			session.setAttribute("loginUser", loginUser);
+			mv.addObject("message", "로그인 성공");
+			return new Gson().toJson(mv);
+		}
+	
+    }
+  ````
+
 </details>
 
 
