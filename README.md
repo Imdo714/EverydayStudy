@@ -77,7 +77,6 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
   ## Spring Security는 Spring 기반의 애플리케이션의 보안(인증과 권한, 인가 등)을 담당하는 스프링 하위 프레임워크이다.
   - 인증(Authentication): 해당 사용자가 본인이 맞는지를 확인하는 절차
   - 인가(Authorization): 인증된 사용자가 요청한 자원에 접근 가능한지를 결정하는 절차
-  - 나는 아직 권한부여는 하지 않았다 ㅜㅜ
 
   ## Spring Security 사용하기 위해서는 pom.xml에 dependencies를 추가해주어야 합니다.
   ```
