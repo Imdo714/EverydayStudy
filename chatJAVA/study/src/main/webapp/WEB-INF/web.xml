@@ -23,7 +23,7 @@
   		/WEB-INF/config/applicationContext.xml
   		/WEB-INF/config/spring-security.xml
   	</param-value>
-  </context-param>
+ </context-param>
   
   <!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>

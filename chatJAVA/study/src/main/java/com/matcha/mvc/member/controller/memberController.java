@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.matcha.mvc.member.service.memberService;
 import com.matcha.mvc.member.vo.Member;
+import com.matcha.mvc.member.vo.MemberImg;
 
 
 
@@ -55,13 +56,12 @@ public class memberController {
         
 		Member loginUser = memberService.loginMember(m.getUserId()); //아이디로만 멤버객체 가져오기
 		
-		if(loginUser == null || !bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) { // 로그인실패 => 에러문구를 requestScope에 담고 에러페이지로 포워딩
+		if(loginUser == null || !bcryptPasswordEncoder.matches(m.getUserPwd(), loginUser.getUserPwd())) { // 로그인실패 => 에러문구를 message에 담고 리턴
 			mv.addObject("message", "로그인 실패");
 			return new Gson().toJson(mv);
 		} else {
 			session.setAttribute("loginUser", loginUser);
 			mv.addObject("message", "로그인 성공");
-			
 			return new Gson().toJson(mv);
 		}
 	
@@ -84,7 +84,20 @@ public class memberController {
 				
 				m.setUserPwd(encPwd); // Member객체에 userPwd필드에 평문이 아닌 암호문으로 변경
 				
-				int result = memberService.insertMember(m);
+				int result = memberService.insertMember(m); // 암호문으로 바꾼 비밀번호 진짜 회원가입
+				
+				MemberImg mi = new MemberImg();
+				
+				mi.setMemberImgUrl("/study/resources/img/profile"); // 임이로 그냥 만듬
+				mi.setMemberImgOrginName("기본프로필.png");
+				mi.setMemberImgChangName("기본프로필.png");
+				
+				int profile = memberService.defaultImg(mi);
+				if(profile > 0) {
+					System.out.println("등록 성공");
+				} else {
+					System.out.println("등록 실패");
+				}
 				
 				if(result > 0) {
 					mv.addObject("message", "성공");

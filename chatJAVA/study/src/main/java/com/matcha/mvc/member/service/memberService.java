@@ -1,6 +1,7 @@
 package com.matcha.mvc.member.service;
 
 import com.matcha.mvc.member.vo.Member;
+import com.matcha.mvc.member.vo.MemberImg;
 
 public interface memberService {
 
@@ -12,5 +13,8 @@ public interface memberService {
 	
 	// 로그인 
 	Member loginMember(String userId);
+	
+	// 회원가입시 기본프로필 등록
+	int defaultImg(MemberImg mi);
 	
 }

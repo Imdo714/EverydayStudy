@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.matcha.mvc.member.dao.memberDao;
 import com.matcha.mvc.member.vo.Member;
+import com.matcha.mvc.member.vo.MemberImg;
 
 @Service
 public class memberServiceImpl implements memberService{
@@ -29,6 +30,11 @@ public class memberServiceImpl implements memberService{
 	@Override
 	public Member loginMember(String userId) {
 		return memberDao.loginMember(sqlSession, userId);
+	}
+
+	@Override
+	public int defaultImg(MemberImg mi) {
+		return memberDao.defaultImg(sqlSession, mi);
 	}
 
 }

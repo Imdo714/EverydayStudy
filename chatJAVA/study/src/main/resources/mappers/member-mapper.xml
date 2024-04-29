@@ -16,6 +16,14 @@
 		<result column="USER_BIRTH" property="userBirth" />
 		<result column="USER_GENDER" property="gender" />
 	</resultMap>
+	
+	<resultMap type="MemberImg" id="memberImgResult">
+		<result column="MEMBER_IMG_NO" property="memberImgNo" />
+		<result column="MEMBER_IMG_URL" property="memberImgUrl" />
+		<result column="MEMBER_ORGIN_NAME" property="memberImgOrginName" />
+		<result column="MEMBER_CHANG_NAME" property="memberImgChangName" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
 
 	<!-- 회원가입 -->
   	<insert id="insertMember">
@@ -64,5 +72,23 @@
 		   FROM MEMBER
 	   	  WHERE USER_ID = #{uesrId}
   	</select>
+  	
+  	<!-- 회원가입시 기본프로필 등록 -->
+  	<insert id="defaultImg">
+		INSERT INTO MEMBER_IMG(
+			MEMBER_IMG_NO,
+			MEMBER_IMG_URL,
+			MEMBER_ORGIN_NAME,
+			MEMBER_CHANG_NAME,
+			USER_NO
+			)
+		VALUES (
+			SEQ_MEMBER_IMG.NEXTVAL,
+	 		#{memberImgUrl},
+	 		#{memberImgOrginName},
+	 		#{memberImgChangName},
+			SEQ_MEMBER.CURRVAL
+			)
+	</insert>
 
 </mapper>

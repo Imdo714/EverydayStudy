@@ -14,6 +14,7 @@
 
   	<typeAliases>
   		<typeAlias type="com.matcha.mvc.member.vo.Member" alias="Member" />
+  		<typeAlias type="com.matcha.mvc.member.vo.MemberImg" alias="MemberImg" />
   	</typeAliases>
 
 
