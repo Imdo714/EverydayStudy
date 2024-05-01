@@ -17,4 +17,6 @@ public interface memberService {
 	// 회원가입시 기본프로필 등록
 	int defaultImg(MemberImg mi);
 	
+	// myPage 프로필 찾기 
+	MemberImg selectMemberImg(int userNo);
 }

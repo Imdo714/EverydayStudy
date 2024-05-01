@@ -333,3 +333,7 @@ form > input {
 input[type=password]{
     font-family:"굴림";
 }
+.succimg{
+	height: 50px;
+	cursor: pointer;
+}

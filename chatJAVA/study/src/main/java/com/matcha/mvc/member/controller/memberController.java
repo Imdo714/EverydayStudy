@@ -26,14 +26,6 @@ public class memberController {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	
-//	마이 페이지가기
-	@RequestMapping("/myPage.me")
-	public String myPage(Model model){
-		System.out.println("================");
-		
-		return "member/myPage";
-	}
 
 //	마이 페이지에서 내 템플릿 보기
 	@RequestMapping("/myTemplate.me")
@@ -88,16 +80,17 @@ public class memberController {
 				
 				MemberImg mi = new MemberImg();
 				
-				mi.setMemberImgUrl("/study/resources/img/profile"); // 임이로 그냥 만듬
-				mi.setMemberImgOrginName("기본프로필.png");
-				mi.setMemberImgChangName("기본프로필.png");
+				if(m.getGender() == "남자") {
+					mi.setMemberImgUrl("/study/resources/img/profile/기본프로필.png"); // 임이로 그냥 만듬
+					mi.setMemberImgOrginName("기본프로필.png");
+					mi.setMemberImgChangName("기본프로필.png");
+				} else {
+					mi.setMemberImgUrl("/study/resources/img/profile/여자기본프로필.png"); 
+					mi.setMemberImgOrginName("여자기본프로필.png");
+					mi.setMemberImgChangName("여자기본프로필.png");
+				}
 				
 				int profile = memberService.defaultImg(mi);
-				if(profile > 0) {
-					System.out.println("등록 성공");
-				} else {
-					System.out.println("등록 실패");
-				}
 				
 				if(result > 0) {
 					mv.addObject("message", "성공");
@@ -106,12 +99,26 @@ public class memberController {
 					mv.addObject("message", "실패");
 					return new Gson().toJson(mv);
 				}
-			
 		}
-		
     }
 	
-	
+//	마이 페이지가기
+	@RequestMapping("/myPage.me")
+	public ModelAndView myPage(HttpSession session, ModelAndView mv){
+		
+		Member m = (Member) session.getAttribute("loginUser");
+		int userNo = m.getUserNo();
+		
+		MemberImg mi = memberService.selectMemberImg(userNo);
+		
+		
+		System.out.println(mi);
+		
+		mv.addObject("memberImg", mi)
+		  .setViewName("member/myPage");
+		
+      return mv;
+	}
 	
 	
 	

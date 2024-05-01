@@ -90,5 +90,16 @@
 			SEQ_MEMBER.CURRVAL
 			)
 	</insert>
+	
+	<!-- myPage 프로필 찾기  -->
+  	<select id="selectMemberImg" resultMap="memberImgResult">
+  		 SELECT MEMBER_IMG_NO,
+				MEMBER_IMG_URL,
+				MEMBER_ORGIN_NAME,
+				MEMBER_CHANG_NAME,
+				USER_NO
+		   FROM MEMBER_IMG
+	   	  WHERE USER_NO = #{userNo}
+  	</select>
 
 </mapper>

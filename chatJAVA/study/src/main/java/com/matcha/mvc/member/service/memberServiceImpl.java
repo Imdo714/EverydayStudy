@@ -37,4 +37,9 @@ public class memberServiceImpl implements memberService{
 		return memberDao.defaultImg(sqlSession, mi);
 	}
 
+	@Override
+	public MemberImg selectMemberImg(int userNo) {
+		return memberDao.selectMemberImg(sqlSession, userNo);
+	}
+
 }

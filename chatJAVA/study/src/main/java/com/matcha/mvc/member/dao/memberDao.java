@@ -30,5 +30,13 @@ public class memberDao {
 		return sqlSession.insert("memberMapper.defaultImg", mi);
 	}
 	
+	// myPage 프로필 찾기 
+	public MemberImg selectMemberImg(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("memberMapper.selectMemberImg", userNo);
+	}
+	
+	
+	
+	
 	
 }

@@ -30,7 +30,7 @@
 		                        </button>
 							</c:when>
 							<c:otherwise>
-								 <img src="/study/resources/img/user.png" alt="" onClick="location.href='myPage.me'">
+								 <img src="/study/resources/img/user.png" class="succimg" alt="" onClick="location.href='myPage.me'">
 							</c:otherwise>
 						</c:choose>
                         
@@ -77,7 +77,7 @@
 		            </button>
 				</c:when>
 				<c:otherwise>
-					 <img src="/study/resources/img/user.png" alt="" onClick="location.href='myPage.me'">
+					 <img src="/study/resources/img/user.png" alt="" class="succimg" onClick="location.href='myPage.me'">
 				</c:otherwise>
 			</c:choose>
             
