@@ -153,6 +153,13 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 	
     }
   ````
+</details>
+
+<details>
+<summary>
+  파일 업로드하는 꿀팁 !
+</summary>
+   
 
 </details>
 
