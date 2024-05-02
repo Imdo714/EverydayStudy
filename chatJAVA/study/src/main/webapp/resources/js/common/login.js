@@ -85,7 +85,6 @@ insertLogin = () => {
         userBirth : userBirth,
         gender : gender,
     }
-    console.log(data)
 
     if(result === "ok"){
         if (data.userId !== '' && data.userPwd !== '' && data.userName !== '' && data.phone !== '' && data.userBirth !== '' && data.gender !== '' ) {
@@ -121,18 +120,25 @@ login = () => {
         userId : userId,
         userPwd : userPwd,
     }
-    console.log(data)
+
     memberAjaxController.loginMember2(data,loginResult);
 }
 
 loginResult = (result) => {
-    console.log(result)
-
     if(result.model.message == "로그인 성공"){
         alert('로그인 성공');
         location.href = 'main.te';
     } else {
         alert('로그인 실패');
         location.href = 'main.te';
+    }
+}
+
+logout = () => {
+    if (confirm("정말 로그아웃하시겠습니까??") == true){ 
+
+        location.href = "logout.me";
+    }else{  
+        return false;
     }
 }

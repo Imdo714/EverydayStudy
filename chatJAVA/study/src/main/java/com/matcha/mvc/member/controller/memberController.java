@@ -40,6 +40,15 @@ public class memberController {
 		
 		return "member/myCommentAll";
 	}
+	
+// 로그아웃
+	@RequestMapping(value="/logout.me")
+    public String logout(HttpSession session) {
+		
+		session.removeAttribute("loginUser");
+		
+        return "redirect:/";
+    }
 
 //	로그인
 	@ResponseBody

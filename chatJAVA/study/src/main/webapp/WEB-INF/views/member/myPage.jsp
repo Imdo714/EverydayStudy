@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/study/resources/css/member/myPage.css">
-<script src="/study/resources/js/main/main.js"></script>
+<script src="/study/resources/js/common/login.js"></script>
 
 </head>
 <body>
@@ -80,17 +80,23 @@
     </div>
 
     <div class="update-page">
-        <button type="button"  class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+        <button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
             프로필 수정하기
         </button>
-    </div>
-    
-    <div class="update-page">
-		<!-- Button trigger modal -->
-		<button type="button" class="update-btn" style="background-color: rgb(126, 150, 50);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+        <button type="button" onclick="logout()" class="update-btn" style="background-color: rgb(228, 65, 65);">
+            로그아웃
+        </button>
+
+        <!-- Button trigger modal -->
+		<button type="button" class="update-btn" style="background-color: rgb(192, 232, 83);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 		    디자이너 등록하기
 		</button>
     </div>
+    
+    <!-- <div class="update-page">
+		
+    </div> -->
 
 	<!-- 프로필 수정 Modal -->
 	<div class="modal fade" id="exampleModal" data-bs-backdrop="static"

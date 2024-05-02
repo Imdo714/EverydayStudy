@@ -109,7 +109,7 @@ body{
 }
 .foot-project{
     border-top: 3px solid rgb(154, 110, 195);
-    height: 20%;
+    height: 31%;
     font-size: 25px;
     display: flex;
     justify-content: center;
@@ -122,20 +122,21 @@ body{
     /* border: 1px solid rgb(154, 110, 195); */
     display: flex;
     justify-content: center;
+    justify-content: space-around;
     height: 50px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    padding: 0px 30px 0px 30px;
 }
 .update-btn{
     height: 50px;
-    width: 70%;
-    font-size: 30px;
+    width: 30%;
+    font-size: 1em;
     cursor: pointer;
     border: 0px;
-    background-color: #198754;
-    color: white;
+    background-color: #53e9a3;
 }
 .update-btn:hover{
-    font-size: 32px;
+    font-size: 1.5em;
     font-weight: bolder;
 }
 .desUpimg{

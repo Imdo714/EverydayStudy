@@ -25,7 +25,7 @@
 
     <div class="in-btn">
         <button class="back-btn" onClick="location.href='main.te'">Back</button>
-        <button class="insertBtn">UP Load</button>
+        <button class="insertBtn" onclick="upTemplate()">UP Load</button>
         <button class="cbtn">Cancel</button>
     </div>
     
