@@ -157,28 +157,137 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 
 <details>
 <summary>
-  파일 업로드하는 꿀팁 !
+  썸머노트 파일 업로드하는 꿀팁 !
 </summary>
-   
+	
+   ## 썸머노트 에디터를 적용한 후 자바스크립트 구현 
+   onImageUpload : 이미지를 첨부할때 실행되는 함수  <br>
+   onMediaDelete : 이미지를 삭재하였을때 실행되는 함수
+   ````
+makeNote = () => {
+    $('.summernote').summernote({
+      placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 500,
+
+        callbacks:{
+          onImageUpload : function(files, editor) {
+            console.log("이미지 첨부 됨");
+            console.log(files);
+            for (var i = files.length - 1; i >= 0; i--) {
+                console.log(files[i],this);
+                sendFile(files[i],this);
+            }
+          }
+        },
+      });
+}
+   ````
+## data에 파일정보를 담아 컨트롤러에서 처리를 해준다 
+````
+sendFile = (file, editor) => {
+  data = new FormData();
+  data.append("file", file);
+  console.log(data)
+
+  templateAjaxController.insertTemplateImg(data, editor);
+}
+````
+## 성공시 파일 위치와 이름을 통해 에디터에 이미지를 출력하여 보여준다 
+````
+insertTemplateImg : (data, editor) =>{
+        console.log(data)
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "insertTemplateImg.te",  
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',   
+            success: function (data) { // 처리가 성공할 경우
+                console.log(data)
+                // 에디터에 이미지 출력
+                $(editor).summernote('editor.insertImage', data);
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
+````
+## 컨트롤러에서 파일 위치와 이름만 지정해서 다시 리턴하여 보내준다
+````
+//  서머노트 작성시 이미지파일 올렸을때 내 실제 경로 폴더에도 올려주는 메서드
+@ResponseBody
+@RequestMapping(value="/insertTemplateImg.te", produces="application/json; charset=UTF-8")
+public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpSession session )  {
+	
+	System.out.println(multipartFile);
+
+	String cName = saveFile(multipartFile, session, "resources/img/templateImgFile/insertTemplate/");
+	String changeName = "resources/img/templateImgFile/insertTemplate/" + cName;
+	
+	return new Gson().toJson(changeName);
+}
+````
+## onMediaDelete 삭제함수 실행시 target을 통해 파일 위치와 이름을 알아내는 부분이다.
+````
+onMediaDelete : function ($target) {
+            var deletedImageUrl = $target
+
+                .attr('src')
+                .split('/')
+                .pop()
+
+                // $target.attr('src'): 삭제된 미디어 요소의 src 속성을 통해 삭제된 이미지의 URL을 가져옵니다.
+                // .split('/'): URL을 / 기준으로 분할합니다.
+                // .pop(): 분할된 URL에서 마지막 요소를 가져옵니다. 이것은 파일의 이름이 될 것입니다.
+                console.log(deletedImageUrl)
+
+                data = new FormData()
+                data.append('file', deletedImageUrl)
+              
+                console.log('aaaaa', data)
+
+            // summernote에서 이미지 삭제시 실행할 함수 
+            templateAjaxController.deleteFile2(data, fileDele);
+          }
+````
+## ajax를 이용해 컨틀롤러를 보내줘서 
+````
+deleteFile2 : (data, callback) =>{
+        console.log(data)
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "deleteTemplateImage.te",  
+            contentType : false,
+            processData : false,
+            enctype : 'multipart/form-data',   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
+
+
+// 서머노트 작성시 이미지파일 삭제했을때 내 실제 경로 폴더에도 삭제하는 메서드 
+@ResponseBody
+@RequestMapping(value="/deleteTemplateImage.te", produces = "application/json; charset=utf8")
+public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpSession session )  {
+
+	new File(session.getServletContext().getRealPath("resources/img/templateImgFile/insertTemplate/"+file)).delete();
+	
+	return "good";
+}
+````
+
+
 
 </details>
-
-
-
-<hr>
-
-🌐내가 사용하는 언어 비율이야🌐 
-<br>
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=imdo714&layout=compact&theme=tokyonight)
-
-<br>
-깃허브에 대한 평판...🤧🤧
-<br>
-
-![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=imdo714&show_icons=true&theme=tokyonight)
-
-
 
 
 
