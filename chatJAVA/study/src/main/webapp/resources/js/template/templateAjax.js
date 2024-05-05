@@ -4,7 +4,6 @@ const templateAjaxController = {
         $.ajax({
             data : data,
             type : "POST",
-            // url은 자신의 이미지 업로드 처리 컨트롤러 경로로 설정해주세요.
             url : "insertTemplateImg.te",  
             contentType : false,
             processData : false,
@@ -25,7 +24,6 @@ const templateAjaxController = {
         $.ajax({
             data : data,
             type : "POST",
-            // url은 자신의 이미지 업로드 처리 컨트롤러 경로로 설정해주세요.
             url : "deleteTemplateImage.te",  
             contentType : false,
             processData : false,
