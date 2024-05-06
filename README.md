@@ -157,10 +157,10 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 
 <details>
 <summary>
-  썸머노트 파일 업로드하는 꿀팁 !
+  썸머노트 파일 업로드 및 삭제 꿀팁 !
 </summary>
 	
-   ## 썸머노트 에디터를 적용한 후 자바스크립트 구현 
+   ## 썸머노트 에디터를 적용한 callbacks함수를 사용하여여 자바스크립트 구현 
    onImageUpload : 이미지를 첨부할때 실행되는 함수  <br>
    onMediaDelete : 이미지를 삭재하였을때 실행되는 함수
    ````
@@ -241,6 +241,7 @@ insertTemplateImg : (data, editor) =>{
 //  서머노트 작성시 이미지파일 올렸을때 내 실제 경로 폴더에도 올려주는 메서드
 @ResponseBody
 @RequestMapping(value="/insertTemplateImg.te", produces="application/json; charset=UTF-8")
+// @RequestParam은 자바스크립트에서 설정한 이름과 반드시 같아야한다!
 public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpSession session )  {
 	
 	System.out.println(multipartFile);
@@ -256,25 +257,19 @@ public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile mult
 onMediaDelete : function ($target) {
             var deletedImageUrl = $target
 
-                .attr('src')
-                .split('/')
-                .pop()
+                .attr('src') // $target.attr('src'): 삭제된 미디어 요소의 src 속성을 통해 삭제된 이미지의 URL을 가져옵니다.
+                .split('/')  // .split('/'): URL을 / 기준으로 분할합니다.
+                .pop()       // .pop(): 분할된 URL에서 마지막 요소를 가져옵니다. 이것은 파일의 이름이 될 것입니다.
 
-                // $target.attr('src'): 삭제된 미디어 요소의 src 속성을 통해 삭제된 이미지의 URL을 가져옵니다.
-                // .split('/'): URL을 / 기준으로 분할합니다.
-                // .pop(): 분할된 URL에서 마지막 요소를 가져옵니다. 이것은 파일의 이름이 될 것입니다.
                 console.log(deletedImageUrl)
-
                 data = new FormData()
                 data.append('file', deletedImageUrl)
-              
-                console.log('aaaaa', data)
 
             // summernote에서 이미지 삭제시 실행할 함수 
             templateAjaxController.deleteFile2(data, fileDele);
           }
 ````
-## ajax를 이용해 컨틀롤러를 보내줘서 파일 위치와 이름을 가지고있기에 삭제를 해준다.
+## ajax를 이용해 컨틀롤러를 보내줘서 파일 위치와 이름을 통해 삭제를 해주면 끝 참 쉽죠 ~?
 ````
 deleteFile2 : (data, callback) =>{
         console.log(data)
