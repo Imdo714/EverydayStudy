@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.matcha.mvc.member.vo.Member;
 import com.matcha.mvc.template.service.templateService;
 import com.matcha.mvc.template.vo.Template;
 import com.matcha.mvc.template.vo.TemplateImg;
@@ -45,15 +47,6 @@ public class templateController {
 		
 		return "template/detailTemplate";
 	}
-	
-//  템플릿 작성
-	@RequestMapping("/insertTem.te")
-	public String templateInsert(Template t){
-		
-		System.out.println(t);
-		
-		return "template/insertTemplate";
-	} 
 
 	public String saveFile(MultipartFile upfile, HttpSession session, String filepath) {
 		//파일명 수정 후 서버 업로드 시키기(기존파일명 -> 202311091027+5자리랜덤숫자+파일형식)
@@ -85,6 +78,37 @@ public class templateController {
 		}
 		return changeName;
 	}
+	
+	
+//  템플릿 작성
+	@RequestMapping("/insertTem.te")
+	public String templateInsert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
+		
+		System.out.println(t);
+		System.out.println(upfile);
+		
+		Member m = (Member) session.getAttribute("loginUser");
+		int userNo = m.getUserNo();
+		
+		int result = templateService.templateInsert(t, userNo);
+		
+		for(MultipartFile mf : upfile) {
+			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
+			if(!mf.getOriginalFilename().equals("")) {
+				TemplateImg ti = new TemplateImg();
+				String changeName = saveFile(mf, session, "resources/img/templateImgFile/titleTemplate/");
+				
+				ti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
+				ti.setTemplateOrginName(mf.getOriginalFilename());;
+				ti.setTemplateChangName("resources/img/templateImgFile/titleTemplate/" + changeName);
+				
+				int restImg = templateService.templateTitleImg(ti);
+			}
+		}
+		
+		
+		return "redirect:/";
+	} 
 	
 	
 //  서머노트 작성시 이미지파일 올렸을때 내 실제 경로 폴더에도 올려주는 메서드

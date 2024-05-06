@@ -24,12 +24,24 @@
         <h1>템플릿 작성</h1>
     </div>
     
-	<form action="insertTem.te" method="post">
+	<form action="insertTem.te" method="post"  enctype="multipart/form-data">
 	    <div class="in-btn">
 	        <button class="back-btn" onClick="location.href='main.te'">Back</button>
 	        <input type="submit" value="작성" class="insertBtn">
 	        <button class="cbtn">Cancel</button>
 	    </div>
+
+		<div>
+			<div class="filebox">
+				<div class="btn-upload">
+					<img id="file-img1" onclick="clickImg(1)">
+					<h5>★썸내일 이미지를 삽입하시오★</h5>
+				</div>
+			
+				<input type="file" name="upfile" id="fileImgFile1" onchange="loadImg(this,1)" required>
+			</div>
+			
+		</div>
 	    
 	    <div class="insert-container">
 		    <div class="form-group">

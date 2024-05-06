@@ -89,7 +89,7 @@ public class memberController {
 				
 				MemberImg mi = new MemberImg();
 				
-				if(m.getGender() == "남자") {
+				if("남자".equals(m.getGender())) {
 					mi.setMemberImgUrl("/study/resources/img/profile/기본프로필.png"); // 임이로 그냥 만듬
 					mi.setMemberImgOrginName("기본프로필.png");
 					mi.setMemberImgChangName("기본프로필.png");
@@ -119,9 +119,6 @@ public class memberController {
 		int userNo = m.getUserNo();
 		
 		MemberImg mi = memberService.selectMemberImg(userNo);
-		
-		
-		System.out.println(mi);
 		
 		mv.addObject("memberImg", mi)
 		  .setViewName("member/myPage");

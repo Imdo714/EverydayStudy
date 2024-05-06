@@ -100,6 +100,42 @@
     background-color: #333;
     color: #fff;
 }
+.btn-upload {
+  width: 500px;
+  height: 200px;
+  background: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+}
+.btn-upload img{
+  width: 280px;
+  height: 200px;
+}
+.filebox{
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 10px; */
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+.field-insert-input input[type="time"]{
+  width: 75px;
+}
+#fileImgFile {
+display: none;
+}
 
 
 @media (max-width: 617px) {
@@ -224,13 +260,6 @@
     margin: 5px 0px 0px 5px;
     color: #adacac;
   }
-  /* .btn-container{
-    width: 170px;
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  } */
   .btn-container{
     float: right;
   }

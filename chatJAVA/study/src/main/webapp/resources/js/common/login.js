@@ -53,8 +53,11 @@ pwCheck = () => {
 passCheck = () => {
         const inputPwd = document.querySelector("#upPwd").value;
         const checkInputPwd = document.querySelector("#checkPwd").value;
+        const userId = document.querySelector("#upEmail").value;
 
         let reg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
+        let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 
         if (!reg.test(inputPwd)) {
             return "fail1";
@@ -62,6 +65,11 @@ passCheck = () => {
 
         if (inputPwd !== checkInputPwd) {
             return "fail12";
+        }
+
+        if(!emailPattern.test(userId)){
+            console.log(userId)
+            return "emailNo";
         }
 
         return "ok";
@@ -94,6 +102,8 @@ insertLogin = () => {
         }
     } else if (result === "fail1") {
         alert("비밀번호 형식에 맞추어 작성해주세요");
+    } else if (result === "emailNo") {
+        alert("아이디를 이메일 형식에 맞추어 작성해주세요");
     } else {
         alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } 
