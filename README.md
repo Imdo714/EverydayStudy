@@ -306,6 +306,7 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 </summary>
 
 ## PageInfo 객체 만들어주기 !
+이 메서드는 페이지네이션 기능을 구현하기 위해 필요한 정보들을 계산하고 이를 담은 객체를 생성하여 반환하는 메서드입니다.
 ````
 public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
 		
