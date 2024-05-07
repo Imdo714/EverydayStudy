@@ -141,9 +141,6 @@ public class templateController {
 		
 		ArrayList<Template> list = templateService.selectTemplateList(pi);
 		
-		System.out.println("안녕" + list);
-		
-//		ArrayList<ProductImg> firstImage = new ArrayList<>();
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
 		  .setViewName("template/template");
