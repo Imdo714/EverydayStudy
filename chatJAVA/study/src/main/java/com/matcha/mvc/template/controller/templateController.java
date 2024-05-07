@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.matcha.mvc.common.page.Pagenation;
+import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.member.vo.Member;
 import com.matcha.mvc.template.service.templateService;
 import com.matcha.mvc.template.vo.Template;
@@ -30,11 +33,6 @@ public class templateController {
 	@Autowired
 	templateService templateService;
 	
-	@RequestMapping("/template.te")
-	public String tem(Model model){
-		
-		return "template/template";
-	}
 	
 	@RequestMapping("/insertT.te")
 	public String inT(Model model){
@@ -135,8 +133,23 @@ public class templateController {
 		return "yes!";
 	}
 	
-
-
+// 템플릿 리스트 보여주기
+	@RequestMapping("/template.te")
+	public ModelAndView tem(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv){
+		
+		PageInfo pi = Pagenation.getPageInfo(templateService.selectListCount(), currentPage, 5, 9);
+		
+		ArrayList<Template> list = templateService.selectTemplateList(pi);
+		
+		System.out.println("안녕" + list);
+		
+//		ArrayList<ProductImg> firstImage = new ArrayList<>();
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .setViewName("template/template");
+		
+		return mv;
+	}
 	
 
 }

@@ -15,6 +15,8 @@
 		<result column="TEMPLATE_DATE" property="templateDate" />
 		<result column="USER_NO" property="userNo" />
 		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="TEMPLATE_IMG_URL" property="templateImgUrl" />
+		<result column="TEMPLATE_CHANG_NAME" property="templateChangName" />
 	</resultMap>
 	
 		<resultMap type="TemplateImg" id="templateImgResult">
@@ -22,6 +24,7 @@
 		<result column="TEMPLATE_IMG_URL" property="templateImgUrl" />
 		<result column="TEMPLATE_ORGIN_NAME" property="templateOrginName" />
 		<result column="TEMPLATE_CHANG_NAME" property="templateChangName" />
+		<result column="TEMPLATE_THUMBNAIL" property="templateThumbnail" />
 		<result column="TEMPLATE_NO" property="templateNo" />
 	</resultMap>
 
@@ -53,6 +56,7 @@
 			TEMPLATE_IMG_URL,
 			TEMPLATE_ORGIN_NAME,
 			TEMPLATE_CHANG_NAME,
+			TEMPLATE_THUMBNAIL,
 			TEMPLATE_NO
 			)
 		VALUES (
@@ -60,8 +64,36 @@
 			#{templateImgUrl},
 			#{templateOrginName},
 			#{templateChangName},
+			2, 
 			SEQ_TEMPLATE.CURRVAL
 			)
 	</insert>
+	
+	<!-- 템플릿 총 갯수 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM TEMPLATE
+	</select>
+	
+	<!-- 템플릿 리스트 정보 가져오기  -->
+	<select id="selectTemplateList" resultMap="templateResult">
+				SELECT *
+        FROM(
+                SELECT ROWNUM RNUM, A.*
+                FROM (
+                        SELECT TEMPLATE_NO,
+                               TEMPLATE_TITLE,
+                               TEMPLATE_CONTENT,
+                               TEMPLATE_DATE,
+                               USER_NO,
+                               CATEGORY_NO,
+                               TEMPLATE_IMG_URL,
+                               TEMPLATE_CHANG_NAME
+                        FROM TEMPLATE
+                        JOIN TEMPLATE_IMG USING(TEMPLATE_NO)
+                        ORDER BY TEMPLATE_NO DESC
+                    ) A
+                )
+	</select>
 	
 </mapper>
