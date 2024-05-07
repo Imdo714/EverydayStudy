@@ -298,10 +298,66 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 }
 ````
 
-
-
 </details>
 
+<details>
+<summary>
+  Pagenation으로 리스트 활용하기 
+</summary>
+
+## PageInfo 객체 만들어주기 !
+이 메서드는 페이지네이션 기능을 구현하기 위해 필요한 정보들을 계산하고 이를 담은 객체를 생성하여 반환하는 메서드입니다.
+````
+public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
+		
+	int maxPage = (int)Math.ceil((double)listCount / boardLimit);    // 가장 마지막페이지(총 페이지 수)
+	int startPage= (currentPage - 1) / pageLimit*pageLimit + 1;  // 페이징바의 시작수
+	int endPage = startPage + pageLimit - 1;    // 페이징바의 끝수
+	endPage = endPage > maxPage ? maxPage : endPage;
+	
+	//*페이징바를 만들때 필요한 객체
+	PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+	return pi;
+}
+````
+
+## 컨트롤러에서 PageInfo 사용하는 방법
+아래처럼 value 값을 정한 후 defaultValue 값을 무조건 1로 설정 currentPage(현재페이지)가 없을 수 없기 떄문이다 
+````
+// 템플릿 리스트 보여주기
+@RequestMapping("/template.te")
+public ModelAndView tem(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv){
+
+	// PageInfo 객체를 통해 (총 갯수, 현재페이지, 펴이징 바, 보여줄 게시물 수)를 기입한다
+	PageInfo pi = Pagenation.getPageInfo(templateService.selectListCount(), currentPage, 5, 9);
+
+	// pi 정보를 통해 템플릿 정보들을 가가져온다
+	ArrayList<Template> list = templateService.selectTemplateList(pi);
+	
+	mv.addObject("pi", pi)
+	  .addObject("list", list)
+	  .setViewName("template/template");
+	
+	return mv;
+}
+````
+## DAO에서 PageInfo를 사용할때는 RowBounds 클래스를 사용한다 !
+RowBounds 클래스는 MyBatis에서 사용되는 페이징을 처리하기 위한 클래스이다 <br>
+예를 들어 offset 10번째부터 limit 20개의 데이터를 조회하는 식으로 돌아간다 
+````
+// 템플릿 리스트 정보 가져오기 
+public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, PageInfo pi) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();  // 조회를 시작할 행의 인덱스
+	int limit = pi.getBoardLimit();  // 조회할 행의 최대 개수
+	
+	RowBounds rowBounds = new RowBounds(offset, limit);
+
+	// selectList 메서드가 반환하는 값이 실제로는 List 타입이기 때문에 다운 캐스팅(형변환을 함)
+	return (ArrayList)sqlSession.selectList("TemplateMapper.selectTemplateList", null, rowBounds);
+}
+````
+
+</details>
 
 
  
