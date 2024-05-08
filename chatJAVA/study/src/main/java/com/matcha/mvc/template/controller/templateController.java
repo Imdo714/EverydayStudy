@@ -82,13 +82,15 @@ public class templateController {
 	@RequestMapping("/insertTem.te")
 	public String templateInsert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
 		
-		System.out.println(t);
-		System.out.println(upfile);
-		
 		Member m = (Member) session.getAttribute("loginUser");
 		int userNo = m.getUserNo();
 		
-		int result = templateService.templateInsert(t, userNo);
+		int result = 0;
+		int fileUploadResult  = 0;
+		
+		result = templateService.templateInsert(t, userNo);
+		
+		
 		
 		for(MultipartFile mf : upfile) {
 			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
@@ -100,10 +102,15 @@ public class templateController {
 				ti.setTemplateOrginName(mf.getOriginalFilename());;
 				ti.setTemplateChangName("resources/img/templateImgFile/titleTemplate/" + changeName);
 				
-				int restImg = templateService.templateTitleImg(ti);
+				fileUploadResult = templateService.templateTitleImg(ti);
 			}
 		}
 		
+		if(result > 0 && fileUploadResult > 0) {
+			session.setAttribute("alertMsg", "게시글 작성 성공");
+		} else {
+			session.setAttribute("alertMsg", "게시글 작성 Fuck");
+		}
 		
 		return "redirect:/";
 	} 

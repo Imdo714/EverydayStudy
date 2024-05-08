@@ -69,3 +69,28 @@ loadImg = (inputFile,num) => {
       }  
   }
 }
+
+subBtn = () => {
+  console.log('aaaaaa')
+
+  // 입력 필드의 값을 가져옵니다.
+  let inputFile = document.getElementById("fileImgFile1").value;
+  let inputTitle = document.getElementById("title").value;
+  let inputText = document.getElementById("content").value;
+    
+  // 입력 필드의 값이 공백이 아닌지 확인합니다.
+  if (inputFile.trim() === "") {
+      // 공백이면 submit을 실행하지 않고 false를 반환합니다.
+      alert('썸네일을 기입하시오!');
+      return false;
+  } else if (inputTitle.trim() === "") {
+      alert('제목을 작성하시오!');
+      return false;
+  } else if (inputText.trim() === "") {
+    alert('내용을 입력하시오');
+    return false;
+  }
+  
+  // 공백이 아니라면 submit을 실행합니다.
+  return true;
+}

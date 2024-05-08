@@ -2,6 +2,8 @@ package com.matcha.mvc.template.service;
 
 import java.util.ArrayList;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.template.vo.Template;
 import com.matcha.mvc.template.vo.TemplateImg;

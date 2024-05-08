@@ -27,7 +27,7 @@
 	<form action="insertTem.te" method="post"  enctype="multipart/form-data">
 	    <div class="in-btn">
 	        <button class="back-btn" onClick="location.href='main.te'">Back</button>
-	        <input type="submit" value="작성" class="insertBtn">
+	        <input type="submit" onclick="return subBtn()" value="작성" class="insertBtn">
 	        <button class="cbtn">Cancel</button>
 	    </div>
 
@@ -50,7 +50,7 @@
 		    </div>
 		    
 		    <div class="select">
-		        <input type="radio" id="back" name="categoryNo" value="1" ><label for="back">백앤드</label>
+		        <input type="radio" id="back" name="categoryNo" value="1" checked><label for="back">백앤드</label>
 		        <input type="radio" id="and" name="categoryNo" value="2"><label for="and">프론트</label>
 		    </div>
 		    

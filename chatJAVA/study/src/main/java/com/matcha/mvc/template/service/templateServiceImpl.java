@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.template.dao.templateDao;
@@ -39,6 +40,7 @@ public class templateServiceImpl implements templateService{
 	public ArrayList<Template> selectTemplateList(PageInfo pi) {
 		return templateDao.selectTemplateList(sqlSession, pi);
 	}
-	
+
+
 	
 }
