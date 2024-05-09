@@ -297,6 +297,26 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 	return "good";
 }
 ````
+## 업데이트도 똑같아
+위에 처럼 다 똑같이 하고 SQL에서 업데이트 성공시 코드들 저장 ~
+````
+@ResponseBody
+@RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
+public String updateSummernote(Template t, ModelAndView mv)  {
+
+	// 성공하면 success 보내주고 실패시 fail을 보내줌
+	return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail"); 
+}
+
+updateT = (result) => {
+    if(result == 'success'){ // 업데이트 성공시
+        var markup = $('.click2edit').summernote('code'); // 썸머노트가 코드 수정을 저장해줌
+        $('.click2edit').summernote('destroy');
+    } else {
+        alert('템플릿 수정에 실패하였습니다.');
+    }
+}
+````
 
 </details>
 
@@ -356,7 +376,58 @@ public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, Pag
 	return (ArrayList)sqlSession.selectList("TemplateMapper.selectTemplateList", null, rowBounds);
 }
 ````
+</details>
 
+<details>
+<summary>
+  댓글 기능 꿀팁 !
+</summary>
+	
+# Ajax란?	
+자바스크립트를 통해 비동기식으로 서버어ㅔ 데이터를 요청하여 필요한 데이터를 받아와 전체 페이지를 새로 고치지 않고 변경이 필요한 부분만 고치는 기술이다
+	
+## 1. onclick을 통해 함수 실행시 데이터를 담아 Ajax로 보내준다 
+
+````
+reply = (templateNo) => {
+    let templateReplyContent = document.getElementById("text-commet").value;
+
+    data = {
+        templateReplyContent : templateReplyContent,
+        templateNo : templateNo
+    }
+
+    templateAjaxController.replyInsert(data, replySucc);
+}
+
+replyInsert : (data, callback) =>{
+        console.log(data)
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "repltInsert.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
+````
+## 2. 컨트롤러를 통해 요청을 처리 하고 업데이트 쿼리를 실행
+쿼리 성공기 1을 보내기 때문에 0보다 크면 성공시 success라는 문자를 리턴 실패시 fail라는 문자를 리턴
+````
+//  댓글 작성
+@ResponseBody
+@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
+public String Reply(TemplateReply r, ModelAndView mv, HttpSession session)  {
+	
+	Member m = (Member) session.getAttribute("loginUser"); 
+                                                              // 성공하면 success 보내주고 실패시 fail을 보내줌
+	return new Gson().toJson(templateService.replyInsert(r, m.getUserNo()) > 0 ? "success" : "fail");
+}
+````
 </details>
 
 
