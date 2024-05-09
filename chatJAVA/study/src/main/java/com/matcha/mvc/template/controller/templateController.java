@@ -24,6 +24,7 @@ import com.matcha.mvc.member.vo.Member;
 import com.matcha.mvc.template.service.templateService;
 import com.matcha.mvc.template.vo.Template;
 import com.matcha.mvc.template.vo.TemplateImg;
+import com.matcha.mvc.template.vo.TemplateReply;
 
 @Controller
 public class templateController {
@@ -78,7 +79,7 @@ public class templateController {
 	}
 	
 	
-//  템플릿 작성
+//  템플릿 작성 메서드
 	@RequestMapping("/insertTem.te")
 	public String templateInsert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
 		
@@ -89,8 +90,6 @@ public class templateController {
 		int fileUploadResult  = 0;
 		
 		result = templateService.templateInsert(t, userNo);
-		
-		
 		
 		for(MultipartFile mf : upfile) {
 			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
@@ -121,14 +120,11 @@ public class templateController {
 	@RequestMapping(value="/insertTemplateImg.te", produces="application/json; charset=UTF-8")
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpSession session )  {
 		
-		System.out.println(multipartFile);
-
 		String cName = saveFile(multipartFile, session, "resources/img/templateImgFile/insertTemplate/");
 		String changeName = "resources/img/templateImgFile/insertTemplate/" + cName;
 		
 		return new Gson().toJson(changeName);
 	}
-	
 	
 // 서머노트 작성시 이미지파일 삭제했을때 내 실제 경로 폴더에도 삭제하는 메서드 
 	@ResponseBody
@@ -148,12 +144,39 @@ public class templateController {
 		
 		ArrayList<Template> list = templateService.selectTemplateList(pi);
 		
-		mv.addObject("pi", pi)
-		  .addObject("list", list)
-		  .setViewName("template/template");
+		mv.addObject("pi", pi).addObject("list", list).setViewName("template/template");
 		
 		return mv;
 	}
 	
+//  템플릿 작성 메서드
+	@RequestMapping("/detailTemplate.te")
+	public ModelAndView templateDetail(int tno, ModelAndView mv){
+		
+		ArrayList<Template> list = templateService.detailTemplate(tno);
+		System.out.println(list);
+		mv.addObject("list", list).setViewName("template/detailTemplate");
+		
+		return mv;
+	}
 
+//  서머노트 업데이트 메서드
+	@ResponseBody
+	@RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
+	public String updateSummernote(Template t, ModelAndView mv)  {
+		
+		return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail");
+	}
+	
+//  서머노트 업데이트 메서드
+	@ResponseBody
+	@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
+	public String Reply(TemplateReply r, ModelAndView mv, HttpSession session)  {
+		
+		Member m = (Member) session.getAttribute("loginUser");
+
+		return new Gson().toJson(templateService.replyInsert(r, m.getUserNo()) > 0 ? "success" : "fail");
+	}
+	
+	
 }

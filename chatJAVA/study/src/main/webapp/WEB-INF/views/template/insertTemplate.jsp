@@ -25,11 +25,13 @@
     </div>
     
 	<form action="insertTem.te" method="post"  enctype="multipart/form-data">
-	    <div class="in-btn">
-	        <button class="back-btn" onClick="location.href='main.te'">Back</button>
-	        <input type="submit" onclick="return subBtn()" value="작성" class="insertBtn">
-	        <button class="cbtn">Cancel</button>
-	    </div>
+		<div class="btn-box">
+		    <div class="in-btn">
+		        <button class="back-btn" onClick="location.href='main.te'">Back</button>
+		        <input type="submit" onclick="return subBtn()" value="작성" class="insertBtn">
+		        <button class="cbtn">Cancel</button>
+		    </div>
+		 </div>
 
 		<div>
 			<div class="filebox">

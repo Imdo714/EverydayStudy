@@ -1,6 +1,5 @@
 const templateAjaxController = {
     insertTemplateImg : (data, editor) =>{
-        console.log(data)
         $.ajax({
             data : data,
             type : "POST",
@@ -20,7 +19,6 @@ const templateAjaxController = {
     },
 
     deleteFile2 : (data, callback) =>{
-        console.log(data)
         $.ajax({
             data : data,
             type : "POST",
@@ -37,7 +35,34 @@ const templateAjaxController = {
         })
     },
 
+    updateTemplate : (data, callback) =>{
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "updateTemplate.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
 
+    replyInsert : (data, callback) =>{
+        console.log(data)
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "repltInsert.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
 
 }
 

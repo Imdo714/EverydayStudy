@@ -65,7 +65,6 @@ public class memberController {
 			mv.addObject("message", "로그인 성공");
 			return new Gson().toJson(mv);
 		}
-	
     }
 	
 	
@@ -120,8 +119,7 @@ public class memberController {
 		
 		MemberImg mi = memberService.selectMemberImg(userNo);
 		
-		mv.addObject("memberImg", mi)
-		  .setViewName("member/myPage");
+		mv.addObject("memberImg", mi).setViewName("member/myPage");
 		
       return mv;
 	}

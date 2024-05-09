@@ -17,6 +17,7 @@
   		<typeAlias type="com.matcha.mvc.member.vo.MemberImg" alias="MemberImg" />
   		<typeAlias type="com.matcha.mvc.template.vo.Template" alias="Template" />
   		<typeAlias type="com.matcha.mvc.template.vo.TemplateImg" alias="TemplateImg" />
+  		<typeAlias type="com.matcha.mvc.template.vo.TemplateReply" alias="TemplateReply" />
   	</typeAliases>
 
 

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.template.dao.templateDao;
 import com.matcha.mvc.template.vo.Template;
 import com.matcha.mvc.template.vo.TemplateImg;
+import com.matcha.mvc.template.vo.TemplateReply;
 
 @Service
 public class templateServiceImpl implements templateService{
@@ -39,6 +39,21 @@ public class templateServiceImpl implements templateService{
 	@Override
 	public ArrayList<Template> selectTemplateList(PageInfo pi) {
 		return templateDao.selectTemplateList(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Template> detailTemplate(int tno) {
+		return templateDao.detailTemplate(sqlSession, tno);
+	}
+
+	@Override
+	public int updateTemplate(Template t) {
+		return templateDao.updateTemplate(sqlSession, t);
+	}
+
+	@Override
+	public int replyInsert(TemplateReply r, int userNo) {
+		return templateDao.replyInsert(sqlSession, r, userNo);
 	}
 
 

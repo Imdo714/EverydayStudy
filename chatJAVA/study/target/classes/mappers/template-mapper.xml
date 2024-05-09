@@ -7,7 +7,6 @@
 <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
 <mapper namespace="TemplateMapper">
 
-		
 	<resultMap type="Template" id="templateResult">
 		<result column="TEMPLATE_NO" property="templateNo" />
 		<result column="TEMPLATE_TITLE" property="templateTitle" />
@@ -19,12 +18,20 @@
 		<result column="TEMPLATE_CHANG_NAME" property="templateChangName" />
 	</resultMap>
 	
-		<resultMap type="TemplateImg" id="templateImgResult">
+	<resultMap type="TemplateImg" id="templateImgResult">
 		<result column="TEMPLATE_IMG_NO" property="templateImgNo" />
 		<result column="TEMPLATE_IMG_URL" property="templateImgUrl" />
 		<result column="TEMPLATE_ORGIN_NAME" property="templateOrginName" />
 		<result column="TEMPLATE_CHANG_NAME" property="templateChangName" />
 		<result column="TEMPLATE_THUMBNAIL" property="templateThumbnail" />
+		<result column="TEMPLATE_NO" property="templateNo" />
+	</resultMap>
+	
+	<resultMap type="TemplateReply" id="templateReplyResult">
+		<result column="TEMPLATE_REPLY_NO" property="templateReplyNo" />
+		<result column="TEMPLATE_REPLY_CONTENT" property="templateReplyContent" />
+		<result column="TEMPLATE_REPLY_DATE" property="templateReplyDate" />
+		<result column="USER_NO" property="userNo" />
 		<result column="TEMPLATE_NO" property="templateNo" />
 	</resultMap>
 
@@ -96,4 +103,43 @@
                 )
 	</select>
 	
+	<!-- 디테일 템플릿 정보 -->
+	<select id="detailTemplate" resultMap="templateResult">
+		 SELECT TEMPLATE_NO,
+			    TEMPLATE_TITLE,
+				TEMPLATE_CONTENT,
+				TEMPLATE_DATE,
+				USER_NO,
+				CATEGORY_NO
+		   FROM TEMPLATE
+		  WHERE TEMPLATE_NO = #{tno}
+	</select>
+	
+	<!-- 템플릿 수정 업데이트  -->
+	<update id="updateTemplate">
+		UPDATE TEMPLATE 
+		       SET 
+		       TEMPLATE_CONTENT = #{templateContent}
+		       WHERE
+		       TEMPLATE_NO = #{templateNo}
+	</update>
+	
+	<!-- 댓글 작성 -->
+  	<insert id="replyInsert" parameterType="map">
+		INSERT INTO 
+			TEMPLATE_REPLY(
+			TEMPLATE_REPLY_NO,
+			TEMPLATE_REPLY_CONTENT,
+			TEMPLATE_REPLY_DATE,
+			USER_NO,
+			TEMPLATE_NO
+			)
+		VALUES (
+			SEQ_TEMPLATE_REPLY.NEXTVAL,
+			#{r.templateReplyContent},
+			SYSDATE,
+			#{userNo},
+			#{r.templateNo}
+			)
+	</insert>
 </mapper>
