@@ -297,6 +297,26 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 	return "good";
 }
 ````
+## 업데이트도 똑같아
+위에 처럼 다 똑같이 하고 SQL에서 업데이트 성공시 코드들 저장 ~
+````
+@ResponseBody
+@RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
+public String updateSummernote(Template t, ModelAndView mv)  {
+
+	// 성공하면 success 보내주고 실패시 fail을 보내줌
+	return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail"); 
+}
+
+updateT = (result) => {
+    if(result == 'success'){ // 업데이트 성공시
+        var markup = $('.click2edit').summernote('code'); // 썸머노트가 코드 수정을 저장해줌
+        $('.click2edit').summernote('destroy');
+    } else {
+        alert('템플릿 수정에 실패하였습니다.');
+    }
+}
+````
 
 </details>
 
@@ -356,6 +376,12 @@ public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, Pag
 	return (ArrayList)sqlSession.selectList("TemplateMapper.selectTemplateList", null, rowBounds);
 }
 ````
+</details>
+
+<details>
+<summary>
+  input password 폰트
+</summary>
 
 </details>
 
