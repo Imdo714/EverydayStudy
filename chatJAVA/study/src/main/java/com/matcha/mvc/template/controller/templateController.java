@@ -154,7 +154,7 @@ public class templateController {
 	public ModelAndView templateDetail(int tno, ModelAndView mv){
 		
 		ArrayList<Template> list = templateService.detailTemplate(tno);
-		System.out.println(list);
+		
 		mv.addObject("list", list).setViewName("template/detailTemplate");
 		
 		return mv;
@@ -168,7 +168,7 @@ public class templateController {
 		return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail");
 	}
 	
-//  서머노트 업데이트 메서드
+//  댓글 작성
 	@ResponseBody
 	@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
 	public String Reply(TemplateReply r, ModelAndView mv, HttpSession session)  {
