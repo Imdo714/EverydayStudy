@@ -9,6 +9,7 @@ public class TemplateReply {
 	private Date templateReplyDate;
 	private int userNo;
 	private int templateNo;
+	private String userName;
 
 	
 	public TemplateReply() {}
@@ -22,6 +23,28 @@ public class TemplateReply {
 		this.templateReplyDate = templateReplyDate;
 		this.userNo = userNo;
 		this.templateNo = templateNo;
+	}
+
+	// 이름 포함
+	public TemplateReply(int templateReplyNo, String templateReplyContent, Date templateReplyDate, int userNo,
+			int templateNo, String userName) {
+		super();
+		this.templateReplyNo = templateReplyNo;
+		this.templateReplyContent = templateReplyContent;
+		this.templateReplyDate = templateReplyDate;
+		this.userNo = userNo;
+		this.templateNo = templateNo;
+		this.userName = userName;
+	}
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 
@@ -79,8 +102,9 @@ public class TemplateReply {
 	public String toString() {
 		return "TemplateReply [templateReplyNo=" + templateReplyNo + ", templateReplyContent=" + templateReplyContent
 				+ ", templateReplyDate=" + templateReplyDate + ", userNo=" + userNo + ", templateNo=" + templateNo
-				+ "]";
+				+ ", userName=" + userName + "]";
 	}
-	
+
+
 	
 }

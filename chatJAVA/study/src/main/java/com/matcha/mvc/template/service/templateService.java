@@ -24,6 +24,12 @@ public interface templateService {
 	// 디테일 템플릿 정보
 	ArrayList<Template> detailTemplate(int tno);
 	
+	// 템플릿 댓글 가져오기 
+	ArrayList<TemplateReply> detailReplyTemplate(PageInfo pi, int tno);
+	
+	// 댓글 총 갯수 
+	int selectReplyCount(int tno);
+	
 	// 템플릿 수정 업데이트 
 	int updateTemplate(Template t);
 	

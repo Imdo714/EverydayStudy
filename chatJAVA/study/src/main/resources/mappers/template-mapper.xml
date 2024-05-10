@@ -33,6 +33,7 @@
 		<result column="TEMPLATE_REPLY_DATE" property="templateReplyDate" />
 		<result column="USER_NO" property="userNo" />
 		<result column="TEMPLATE_NO" property="templateNo" />
+		<result column="USER_NAME" property="userName" />
 	</resultMap>
 
 
@@ -113,6 +114,33 @@
 				CATEGORY_NO
 		   FROM TEMPLATE
 		  WHERE TEMPLATE_NO = #{tno}
+	</select>
+	
+	<!-- 템플릿 댓글 가져오기  -->
+	<select id="detailReplyTemplate" resultMap="templateReplyResult">
+	SELECT *
+        FROM(
+                SELECT ROWNUM RNUM, A.*
+                FROM (
+                        SELECT TEMPLATE_REPLY_NO,
+                                TEMPLATE_REPLY_CONTENT,
+                                TEMPLATE_REPLY_DATE,
+                                USER_NO,
+                                TEMPLATE_NO,
+                                USER_NAME
+                        FROM TEMPLATE_REPLY
+                        JOIN MEMBER USING(USER_NO)
+                        WHERE TEMPLATE_NO = #{tno}
+                        ORDER BY TEMPLATE_REPLY_NO DESC
+                    ) A
+                )
+	</select>
+	
+	<!-- 템플릿 댓글 총 갯수 -->
+	<select id="selectReplyCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM TEMPLATE_REPLY
+		 WHERE TEMPLATE_NO = #{tno} 
 	</select>
 	
 	<!-- 템플릿 수정 업데이트  -->

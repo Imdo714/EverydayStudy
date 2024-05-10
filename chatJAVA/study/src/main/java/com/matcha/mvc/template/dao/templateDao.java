@@ -50,6 +50,21 @@ public class templateDao {
 		return (ArrayList)sqlSession.selectList("TemplateMapper.detailTemplate", tno);
 	}
 	
+	// 템플릿 댓글 총 갯수
+	public int selectReplyCount(SqlSessionTemplate sqlSession, int tno) {
+		return sqlSession.selectOne("TemplateMapper.selectReplyCount", tno);
+	}
+	
+	// 템플릿 댓글 가져오기 
+	public ArrayList<TemplateReply> detailReplyTemplate(SqlSessionTemplate sqlSession, PageInfo pi, int tno) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		int limit = pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("TemplateMapper.detailReplyTemplate",  tno, rowBounds);
+	}
+	
 	// 템플릿 수정 업데이트 
 	public int updateTemplate(SqlSessionTemplate sqlSession, Template t) {
 		return sqlSession.update("TemplateMapper.updateTemplate", t);

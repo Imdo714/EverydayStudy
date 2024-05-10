@@ -45,6 +45,16 @@ public class templateServiceImpl implements templateService{
 	public ArrayList<Template> detailTemplate(int tno) {
 		return templateDao.detailTemplate(sqlSession, tno);
 	}
+	
+	@Override
+	public ArrayList<TemplateReply> detailReplyTemplate(PageInfo pi, int tno) {
+		return templateDao.detailReplyTemplate(sqlSession, pi, tno);
+	}
+	
+	@Override
+	public int selectReplyCount(int tno) {
+		return templateDao.selectReplyCount(sqlSession, tno);
+	}
 
 	@Override
 	public int updateTemplate(Template t) {
@@ -55,6 +65,10 @@ public class templateServiceImpl implements templateService{
 	public int replyInsert(TemplateReply r, int userNo) {
 		return templateDao.replyInsert(sqlSession, r, userNo);
 	}
+
+
+
+
 
 
 	

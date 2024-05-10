@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/study/resources/css/summernote/summernote-lite.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
-<body>
+<body onload="replyCommont(${tno})">
 	
 	<!-- https://summernote.org/ -->
     <div class="writer">
@@ -63,64 +63,70 @@
   </div>
 </c:forEach>
   
-  <!-- 댓글 -->
-  <div class="comment-container">
-    <div class="reply-container">
-      <div class="profile">
-        <img src="/study/resources/img/빵빵이.jpg" alt="">
-      </div>
+  	<!-- 댓글 
+	<c:forEach var="r" items="${ReplyList}">
+		<div class="comment-container" id="ReplyContent">
+		  <div class="reply-container">
+		    <div class="profile">
+		      <img src="/study/resources/img/빵빵이.jpg" alt="">
+		    </div>
+		
+		    <div class="reply-center">
+		      <div class="name-container">
+		        <div class="name-container">
+		          <h3 style="font-size: 1.5rem;">${r.userName}</h3>
+		          <p>${r.templateReplyDate}</p>
+		        </div>
+		        
+		
+		        <div class="btn-container">
+		          <button class="edit-btn">edit</button>
+		          <button class="del-btn">delete</button>
+		        </div>
+		      </div>
+		
+		      <div class="reply-comment">
+		        <span>${r.templateReplyContent}</span>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	</c:forEach>-->
+	<!-- 댓글 -->
+	<div class="comment-container" id="ReplyContent"></div>
 
-      <div class="reply-center">
-        <div class="name-container">
-          <div class="name-container">
-            <h3>임도현</h3>
-            <p>2024.04.14</p>
-          </div>
-          
+	<!-- 페이징 바 -->
+	<div class="navPage">
+		<nav aria-label="Page navigation example" id="pagingArea">
+			<ul class="pagination justify-content-center">
+				<!-- 
+				<c:choose>
+					<c:when test="${pi.currentPage eq 1}">
+						<li class="page-item disabled"><a class="page-link">Previous</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=${tno}&tpage=pi.currentPage - 1">Previous</a></li>
+					</c:otherwise>
+				</c:choose>
 
-          <div class="btn-container">
-            <button class="edit-btn">edit</button>
-            <button class="del-btn">delete</button>
-          </div>
-        </div>
-  
-        <div class="reply-comment">
-          <span>테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.테스트 댓글입니다.</span>
-        </div>
-      </div>
+				<c:forEach var="d" begin="${pi.startPage}" end="${pi.endPage}">
+					<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=${tno}&tpage=${d}" id="text">${d}</a></li>
+				</c:forEach>
 
-    </div>
-  </div>
-
-  <div class="comment-container">
-    <div class="reply-container">
-      <div class="profile">
-        <img src="/study/resources/img/빵빵이.jpg" alt="">
-      </div>
-
-      <div class="reply-center">
-        <div class="name-container">
-          <div class="name-container">
-            <h3>임도현</h3>
-            <p>2024.04.14</p>
-          </div>
-          
-
-          <div class="btn-container">
-            <button class="edit-btn">edit</button>
-            <button class="del-btn">delete</button>
-          </div>
-        </div>
-  
-        <div class="reply-comment">
-          <span>테스트 댓글입니다.테스트 댓다.</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
+				<c:choose>
+					<c:when test="${pi.currentPage eq pi.maxPage}">
+						<li class="page-item disabled"><a class="page-link">Next</a>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=${tno}&tpage=pi.currentPage + 1">Next</a></li>
+					</c:otherwise>
+				</c:choose>
+				 -->
+			</ul>
+		</nav>
+	</div>
+	
 
 </body>
 </html>
