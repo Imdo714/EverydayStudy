@@ -57,7 +57,7 @@
         <textarea class="text-commet" id="text-commet"></textarea>
       </div>
       <div class="comment-btn">
-        <button class="submit-btn" onclick="reply(${p.templateNo})">Submit</button>
+        <button class="submit-btn" onclick="reply('${p.templateNo}', '${tno}')">Submit</button>
       </div>
     </div>
   </div>
@@ -92,7 +92,8 @@
 		
 		  </div>
 		</div>
-	</c:forEach>-->
+	</c:forEach> -->
+	
 	<!-- 댓글 -->
 	<div class="comment-container" id="ReplyContent"></div>
 
@@ -111,7 +112,7 @@
 				</c:choose>
 
 				<c:forEach var="d" begin="${pi.startPage}" end="${pi.endPage}">
-					<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=${tno}&tpage=${d}" id="text">${d}</a></li>
+					<li class="page-item"><a class="page-link" onclick="choicePage('${d}', '${tno}')" id="text">${d}</a></li>
 				</c:forEach>
 
 				<c:choose>
@@ -121,8 +122,8 @@
 					<c:otherwise>
 						<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=${tno}&tpage=pi.currentPage + 1">Next</a></li>
 					</c:otherwise>
-				</c:choose>
-				 -->
+				</c:choose> -->
+				 
 			</ul>
 		</nav>
 	</div>

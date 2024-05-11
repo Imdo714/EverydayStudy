@@ -62,43 +62,41 @@ updateT = (result) => {
     }
 }
 
-reply = (templateNo) => {
+
+
+choicePage = (page, tno) =>{ // 페이징 번호 바뀌는 메서드 
+
+    console.log(tno)
+    console.log('2번', page)
+
+    data = {
+        tpage : page,
+        tno : tno
+    }
+
+    console.log(data)
+    templateAjaxController.onloadReply(data, replySucc)
+}
+
+reply = (templateNo, tno) => { // 댓글 작성 하는 메서드
     let templateReplyContent = document.getElementById("text-commet").value;
 
     data = {
         templateReplyContent : templateReplyContent,
-        templateNo : templateNo
+        templateNo : templateNo,
+        tno : tno
     }
 
     templateAjaxController.replyInsert(data, replySucc);
 }
 
-replyCommont = (tno) => {
+replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페이징 바 그려주는 메서드
     console.log(tno)
+
     data = {
         tno : tno
     }
     templateAjaxController.onloadReply(data, replySucc);
-}
-
-const replyFilterValue = {
-    tpage : 1
-}
-
-choicePage = (page, tno) =>{
-    console.log(tno)
-    console.log(page)
-    replyFilterValue.tpage = page;
-    console.log(replyFilterValue)
-
-    var url = 'detailTemplate.te?tno=' + tno + '&tpage=' + replyFilterValue.tpage;
-    location.href = url; // 계속 currentPage가 1로 들어감 수정해야 함 
-    // data = {
-    //     tpage : replyFilterValue,
-    //     tno : tno
-    // }
-    // console.log(data)
-    // templateAjaxController.ReplyList(data, replySucc)
 }
 
 replySucc = (result) => {
@@ -160,26 +158,24 @@ replySucc = (result) => {
     // 페이징 바 그려주기
     let str2 = "";
     
-        if(pi.currentPage == 1){
-            str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
-        } else {
-            // str2 += '<li class="page-item"><button class="page-link" onclick="choicePage(' + (pi.currentPage - 1 ) + ')">Previous</button></li>'
-            // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=` + tno + `&tpage=`+ (pi.currentPage - 1) +`"</a></li>`
-            str2 += `<li class="page-item"><a class="page-link" onclick="choicePage(`+ (pi.currentPage - 1 ) + `,` + tno + `)" </a></li>`
-        }
+        // if(pi.currentPage == 1){
+        //     str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
+        // } else {
+        //     // str2 += '<li class="page-item"><button class="page-link" onclick="choicePage(' + (pi.currentPage - 1 ) + ')">Previous</button></li>'
+        //     // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=` + tno + `&tpage=`+ (pi.currentPage - 1) +`"</a></li>`
+        //     str2 += `<li class="page-item"><a class="page-link" onclick="choicePage22(`+ (pi.currentPage - 1 ) + `,` + tno + `)" </a></li>`
+        // }
 
         for (let i = pi.startPage; i <= pi.endPage; i++) {
             str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ i + `,` + tno  +')">' + i + '</button></li>'
-            // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=`+ tno +`&tpage=`+ i +`" id="text">` + i + `</a></li>`
-            // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=`+ tno +`&tpage=`+ i +`" id="text">` + i + `</a></li>`
         }
 
-        if(pi.currentPage != pi.maxPage){
-            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
-            // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=`+ tno +`&tpage=`+ (pi.currentPage + 1)+`">Next</a></li>`
-        } else {
-            str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
-        } 
+        // if(pi.currentPage != pi.maxPage){
+        //     str2 += '<li class="page-item"><button class="page-link" onclick="choicePage22('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
+        //     // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=`+ tno +`&tpage=`+ (pi.currentPage + 1)+`">Next</a></li>`
+        // } else {
+        //     str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
+        // } 
 
         
         document.querySelector("#ReplyContent").innerHTML = str;

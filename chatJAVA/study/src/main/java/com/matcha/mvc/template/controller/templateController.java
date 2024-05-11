@@ -136,7 +136,7 @@ public class templateController {
 		return "yes!";
 	}
 	
-// 템플릿 리스트 보여주기
+// ----------------------------- 템플릿 리스트 보여주기 -----------------------------
 	@RequestMapping("/template.te")
 	public ModelAndView tem(@RequestParam(value="cpage", defaultValue="1") int currentPage, ModelAndView mv){
 		
@@ -149,7 +149,7 @@ public class templateController {
 		return mv;
 	}
 	
-//  디테일 템플릿 자세히보기 메서드
+//  ----------------------------- 디테일 템플릿 자세히보기 메서드 -----------------------------
 	@RequestMapping("/detailTemplate.te")
 	public ModelAndView templateDetail(@RequestParam(value="tpage", defaultValue="1") int currentPage, int tno, ModelAndView mv){
 		
@@ -157,17 +157,14 @@ public class templateController {
 		
 		PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5);
 		
-//		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno);
+		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno);
 		
-		mv.addObject("list", list)
-//		.addObject("ReplyList", ReplyList)
-		.addObject("pi", pi)
-		.addObject("tno", tno).setViewName("template/detailTemplate");
+		mv.addObject("list", list).addObject("ReplyList", ReplyList).addObject("pi", pi).addObject("tno", tno).setViewName("template/detailTemplate");
 		
 		return mv;
 	}
 
-//  서머노트 업데이트 메서드
+//  ----------------------------- 템플릿 서머노트 업데이트 메서드 -------------------------
 	@ResponseBody
 	@RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
 	public String updateSummernote(Template t, ModelAndView mv)  {
@@ -175,10 +172,10 @@ public class templateController {
 		return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail");
 	}
 	
-//  댓글 작성
+//  ----------------------------- Ajax 댓글 작성하는 메서드 -------------------------------
 	@ResponseBody
 	@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
-	public String Reply(TemplateReply r, ModelAndView mv, HttpSession session, @RequestParam(value="cpage", defaultValue="1") int currentPage)  {
+	public String Reply(TemplateReply r, int tno, ModelAndView mv, HttpSession session, @RequestParam(value="cpage", defaultValue="1") int currentPage)  {
 		
 		Member m = (Member) session.getAttribute("loginUser");
 		int res = templateService.replyInsert(r, m.getUserNo()); // 댓글 삽입
@@ -187,12 +184,13 @@ public class templateController {
 		
 		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, r.getTemplateNo()); // 댓글 정보
 
-		mv.addObject("ReplyList", ReplyList).addObject("userNo", m.getUserNo()).addObject("pi", pi);
+		mv.addObject("ReplyList", ReplyList).addObject("userNo", m.getUserNo()).addObject("pi", pi).addObject("tno", tno);
 		
 		return new Gson().toJson(mv);
 	}
 	
-//  디테일 들어오는 순간 댓글 보여주는 메서드
+
+//  ---------------------- Ajax 디테일뷰 댓글, 페이징 바 그려주는 메서드 --------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/onloadReply.te", produces="application/json; charset=UTF-8")
 	public String Replyload(int tno, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
@@ -201,31 +199,12 @@ public class templateController {
 		
 		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno); // 댓글 정보
 
-		mv.addObject("ReplyList", ReplyList)
-		.addObject("tno", tno)
-//		.addObject("userNo", m.getUserNo())
-		.addObject("pi", pi);
-		
-		return new Gson().toJson(mv);
-	}
-	
-//  Ajax 페이징 처리
-	@ResponseBody
-	@RequestMapping(value="/ReplyList.te", produces="application/json; charset=UTF-8")
-	public String ReplyPage(@RequestParam(value="tpage", defaultValue="1") int currentPage, int tno, ModelAndView mv, HttpSession session)  {
-		
-		System.out.println(tno);
-		System.out.println(currentPage);
-		
-		PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5); // 페이징 처리
-		
-		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno); // 댓글 정보
+		int userNo = session.getAttribute("loginUser") == null ? 0 : ((Member) session.getAttribute("loginUser")).getUserNo();
 
-		mv.addObject("ReplyList", ReplyList)
-		.addObject("tno", tno)
-		.addObject("pi", pi);
+		mv.addObject("ReplyList", ReplyList).addObject("tno", tno).addObject("userNo", userNo).addObject("pi", pi);
 		
 		return new Gson().toJson(mv);
 	}
 	
+
 }

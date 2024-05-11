@@ -79,20 +79,6 @@ const templateAjaxController = {
         })
     },
 
-    ReplyList : (data, callback) =>{
-        console.log(data)
-        $.ajax({
-            data : data,
-            type : "POST",
-            url : "ReplyList.te",   
-            success: (result) => {
-                callback(result)
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
-    },
 
 }
 
