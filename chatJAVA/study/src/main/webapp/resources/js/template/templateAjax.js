@@ -50,7 +50,6 @@ const templateAjaxController = {
     },
 
     replyInsert : (data, callback) =>{
-        console.log(data)
         $.ajax({
             data : data,
             type : "POST",
@@ -65,7 +64,6 @@ const templateAjaxController = {
     },
 
     onloadReply : (data, callback) =>{
-        console.log(data)
         $.ajax({
             data : data,
             type : "POST",
@@ -79,6 +77,20 @@ const templateAjaxController = {
         })
     },
 
+    replyDel : (data, callback) =>{
+        console.log(data)
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "replyDelte.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
 
 }
 

@@ -91,11 +91,11 @@ public class memberController {
 				if("남자".equals(m.getGender())) {
 					mi.setMemberImgUrl("/study/resources/img/profile/기본프로필.png"); // 임이로 그냥 만듬
 					mi.setMemberImgOrginName("기본프로필.png");
-					mi.setMemberImgChangName("기본프로필.png");
+					mi.setMemberImgChangName("/study/resources/img/profile/기본프로필.png");
 				} else {
 					mi.setMemberImgUrl("/study/resources/img/profile/여자기본프로필.png"); 
 					mi.setMemberImgOrginName("여자기본프로필.png");
-					mi.setMemberImgChangName("여자기본프로필.png");
+					mi.setMemberImgChangName("/study/resources/img/profile/여자기본프로필.png");
 				}
 				
 				int profile = memberService.defaultImg(mi);

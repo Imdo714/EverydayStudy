@@ -66,9 +66,6 @@ updateT = (result) => {
 
 choicePage = (page, tno) =>{ // 페이징 번호 바뀌는 메서드 
 
-    console.log(tno)
-    console.log('2번', page)
-
     data = {
         tpage : page,
         tno : tno
@@ -91,7 +88,6 @@ reply = (templateNo, tno) => { // 댓글 작성 하는 메서드
 }
 
 replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페이징 바 그려주는 메서드
-    console.log(tno)
 
     data = {
         tno : tno
@@ -99,20 +95,32 @@ replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페�
     templateAjaxController.onloadReply(data, replySucc);
 }
 
+delReply = (replyNo, tno) => {
+    console.log(replyNo)
+    console.log(tno)
+
+    data = {
+        templateReplyNo : replyNo,
+        templateNo : tno
+    }
+    templateAjaxController.replyDel(data, replySucc);
+}
+
 replySucc = (result) => {
-    console.log(result)
+    // console.log(result)
     let list = result.model.ReplyList;
     let loginUser = result.model.userNo;
     let pi = result.model.pi;
     let tno = result.model.tno;
-    
+
+    // 댓글 그려주기
     let str = "";
     for (let r of list) {
         if(loginUser === r.userNo){
             str += `<div class="comment-container">`
                     + `<div class="reply-container">`
                     + `<div class="profile">`
-                        + `<img src="/study/resources/img/빵빵이.jpg" alt="">`
+                        + `<img src="`+ r.memberImgChangName +`" alt="">`
                     + `</div>`
                     + `<div class="reply-center">`
                         +`<div class="name-container">`
@@ -122,7 +130,7 @@ replySucc = (result) => {
                         +`</div>`
                         +`<div class="btn-container">`
                             +`<button class="edit-btn">edit</button>`
-                            +`<button class="del-btn">delete</button>`
+                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo +`)">delete</button>`
                         +`</div>`
                         +`</div>`
                 
@@ -136,7 +144,7 @@ replySucc = (result) => {
             str += `<div class="comment-container">`
             + `<div class="reply-container">`
             + `<div class="profile">`
-                + `<img src="/study/resources/img/빵빵이.jpg" alt="">`
+                + `<img src="`+ r.memberImgChangName +`" alt="">`
             + `</div>`
             + `<div class="reply-center">`
                 +`<div class="name-container">`
@@ -158,26 +166,22 @@ replySucc = (result) => {
     // 페이징 바 그려주기
     let str2 = "";
     
-        // if(pi.currentPage == 1){
-        //     str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
-        // } else {
-        //     // str2 += '<li class="page-item"><button class="page-link" onclick="choicePage(' + (pi.currentPage - 1 ) + ')">Previous</button></li>'
-        //     // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=` + tno + `&tpage=`+ (pi.currentPage - 1) +`"</a></li>`
-        //     str2 += `<li class="page-item"><a class="page-link" onclick="choicePage22(`+ (pi.currentPage - 1 ) + `,` + tno + `)" </a></li>`
-        // }
+        if(pi.currentPage == 1){
+            str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
+        } else {
+            str2 += `<li class="page-item"><a class="page-link" onclick="choicePage(`+ (pi.currentPage - 1 ) + `,` + tno + `)">Previous</a></li>`
+        }
 
         for (let i = pi.startPage; i <= pi.endPage; i++) {
             str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ i + `,` + tno  +')">' + i + '</button></li>'
         }
 
-        // if(pi.currentPage != pi.maxPage){
-        //     str2 += '<li class="page-item"><button class="page-link" onclick="choicePage22('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
-        //     // str2 += `<li class="page-item"><a class="page-link" href="detailTemplate.te?tno=`+ tno +`&tpage=`+ (pi.currentPage + 1)+`">Next</a></li>`
-        // } else {
-        //     str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
-        // } 
+        if(pi.currentPage != pi.maxPage){
+            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
+        } else {
+            str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
+        } 
 
-        
         document.querySelector("#ReplyContent").innerHTML = str;
         document.querySelector("#pagingArea ul").innerHTML = str2;
 

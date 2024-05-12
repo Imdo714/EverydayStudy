@@ -10,6 +10,8 @@ public class TemplateReply {
 	private int userNo;
 	private int templateNo;
 	private String userName;
+	private String memberImgUrl;
+	private String memberImgChangName;
 
 	
 	public TemplateReply() {}
@@ -24,10 +26,10 @@ public class TemplateReply {
 		this.userNo = userNo;
 		this.templateNo = templateNo;
 	}
-
-	// 이름 포함
+	
+// 이미지
 	public TemplateReply(int templateReplyNo, String templateReplyContent, Date templateReplyDate, int userNo,
-			int templateNo, String userName) {
+			int templateNo, String userName, String memberImgUrl, String memberImgChangName) {
 		super();
 		this.templateReplyNo = templateReplyNo;
 		this.templateReplyContent = templateReplyContent;
@@ -35,6 +37,8 @@ public class TemplateReply {
 		this.userNo = userNo;
 		this.templateNo = templateNo;
 		this.userName = userName;
+		this.memberImgUrl = memberImgUrl;
+		this.memberImgChangName = memberImgChangName;
 	}
 
 
@@ -98,13 +102,36 @@ public class TemplateReply {
 	}
 
 
+	public String getMemberImgUrl() {
+		return memberImgUrl;
+	}
+
+
+	public void setMemberImgUrl(String memberImgUrl) {
+		this.memberImgUrl = memberImgUrl;
+	}
+
+
+	public String getMemberImgChangName() {
+		return memberImgChangName;
+	}
+
+
+	public void setMemberImgChangName(String memberImgChangName) {
+		this.memberImgChangName = memberImgChangName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "TemplateReply [templateReplyNo=" + templateReplyNo + ", templateReplyContent=" + templateReplyContent
 				+ ", templateReplyDate=" + templateReplyDate + ", userNo=" + userNo + ", templateNo=" + templateNo
-				+ ", userName=" + userName + "]";
+				+ ", userName=" + userName + ", memberImgUrl=" + memberImgUrl + ", memberImgChangName="
+				+ memberImgChangName + "]";
 	}
 
+
+	
 
 	
 }

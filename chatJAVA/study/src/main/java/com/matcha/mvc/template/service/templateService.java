@@ -35,4 +35,7 @@ public interface templateService {
 	
 	// 댓글 작성
 	int replyInsert(TemplateReply r, int userNo);
+	
+	// 댓글 삭제 
+	int replyDelt(int templateReplyNo);
 }

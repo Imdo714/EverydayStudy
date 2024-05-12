@@ -34,6 +34,8 @@
 		<result column="USER_NO" property="userNo" />
 		<result column="TEMPLATE_NO" property="templateNo" />
 		<result column="USER_NAME" property="userName" />
+		<result column="MEMBER_IMG_URL" property="memberImgUrl" />
+		<result column="MEMBER_CHANG_NAME" property="memberImgChangName" />
 	</resultMap>
 
 
@@ -127,9 +129,12 @@
                                 TEMPLATE_REPLY_DATE,
                                 USER_NO,
                                 TEMPLATE_NO,
-                                USER_NAME
+                                USER_NAME,
+                                MEMBER_IMG_URL,
+                                MEMBER_CHANG_NAME
                         FROM TEMPLATE_REPLY
                         JOIN MEMBER USING(USER_NO)
+                        JOIN MEMBER_IMG USING(USER_NO)
                         WHERE TEMPLATE_NO = #{tno}
                         ORDER BY TEMPLATE_REPLY_NO DESC
                     ) A
@@ -170,4 +175,11 @@
 			#{r.templateNo}
 			)
 	</insert>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelt">
+		DELETE FROM TEMPLATE_REPLY
+		WHERE
+		TEMPLATE_REPLY_NO = #{templateReplyNo}
+	</delete>
 </mapper>

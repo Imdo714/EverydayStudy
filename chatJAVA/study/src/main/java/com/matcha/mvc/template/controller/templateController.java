@@ -171,40 +171,55 @@ public class templateController {
 		
 		return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail");
 	}
-	
-//  ----------------------------- Ajax 댓글 작성하는 메서드 -------------------------------
+
+// --------------------------------- 공통된 작업을 수행하는 메서드 ---------------------------------
+	private ModelAndView getReplyModelAndView(int tno, HttpSession session, int currentPage) {
+		
+	    PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5); // 페이징 처리
+	    ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno); // 댓글 정보
+	    
+	    // 삼항 연산자 세션이 없으면 0반환 있으면 회원 번호 반환
+	    int userNo = session.getAttribute("loginUser") == null ? 0 : ((Member) session.getAttribute("loginUser")).getUserNo();
+	    
+	    ModelAndView mv = new ModelAndView(); // 객체 생성 조회된 댓글 정보와 페이징 정보 그리고 사용자 번호를 ModelAndView 객체에 담아 반환
+	    mv.addObject("ReplyList", ReplyList).addObject("tno", tno).addObject("userNo", userNo).addObject("pi", pi);
+	    
+	    return mv;
+	}
+
+// --------------------------------- Ajax 댓글 작성하는 메서드 ---------------------------------
 	@ResponseBody
 	@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
 	public String Reply(TemplateReply r, int tno, ModelAndView mv, HttpSession session, @RequestParam(value="cpage", defaultValue="1") int currentPage)  {
 		
-		Member m = (Member) session.getAttribute("loginUser");
-		int res = templateService.replyInsert(r, m.getUserNo()); // 댓글 삽입
-		
-		PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(r.getTemplateNo()), currentPage, 5, 5); // 페이징 처리
-		
-		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, r.getTemplateNo()); // 댓글 정보
-
-		mv.addObject("ReplyList", ReplyList).addObject("userNo", m.getUserNo()).addObject("pi", pi).addObject("tno", tno);
-		
-		return new Gson().toJson(mv);
+	    Member m = (Member) session.getAttribute("loginUser");
+	    int res = templateService.replyInsert(r, m.getUserNo()); // 댓글 삽입
+	    
+	    ModelAndView newMv = getReplyModelAndView(tno, session, currentPage);  // 메서드 호출 매개변수로는 댓글번호, 세션, currentPage를 전달 
+	    
+	    return new Gson().toJson(newMv); // newMv로 리턴 받은 조회된 댓글 정보와 페이징 정보 그리고 사용자 번호를 반환
 	}
-	
 
-//  ---------------------- Ajax 디테일뷰 댓글, 페이징 바 그려주는 메서드 --------------------------------------------------------
+// --------------------------------- Ajax onload로 디테일뷰 댓글, 페이징 바 그려주는 메서드 ---------------------------------
 	@ResponseBody
 	@RequestMapping(value="/onloadReply.te", produces="application/json; charset=UTF-8")
 	public String Replyload(int tno, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
 		
-		PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5); // 페이징 처리
-		
-		ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno); // 댓글 정보
-
-		int userNo = session.getAttribute("loginUser") == null ? 0 : ((Member) session.getAttribute("loginUser")).getUserNo();
-
-		mv.addObject("ReplyList", ReplyList).addObject("tno", tno).addObject("userNo", userNo).addObject("pi", pi);
-		
-		return new Gson().toJson(mv);
+	    ModelAndView newMv = getReplyModelAndView(tno, session, currentPage);
+	    return new Gson().toJson(newMv);
 	}
+
+//  --------------------------------- Ajax 댓글 삭제해주는 메서드 -------------------------------------
+	@ResponseBody
+	@RequestMapping(value="/replyDelte.te", produces="application/json; charset=UTF-8")
+	public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
+		
+	    int res = templateService.replyDelt(tr.getTemplateReplyNo()); // 댓글 삭제
+	    
+	    ModelAndView newMv = getReplyModelAndView(tr.getTemplateNo(), session, currentPage);
+	    return new Gson().toJson(newMv);
+	}
+
 	
 
 }

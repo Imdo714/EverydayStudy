@@ -78,4 +78,9 @@ public class templateDao {
 		
 		return sqlSession.insert("TemplateMapper.replyInsert", params);
 	}
+	
+	// 댓글 삭제
+	public int replyDelt(SqlSessionTemplate sqlSession, int templateReplyNo) {
+		return sqlSession.delete("TemplateMapper.replyDelt", templateReplyNo);
+	}
 }
