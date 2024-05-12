@@ -211,7 +211,7 @@ sendFile = (file, editor) => {
   templateAjaxController.insertTemplateImg(data, editor);
 }
 ````
-## 성공시 파일 위치와 이름을 통해 에디터에 이미지를 출력하여 보여준다 
+## 성공시 파일 위치와 이름을 통해 에디터에 이미지를 출력하여 보여준다. 
 ````
 insertTemplateImg : (data, editor) =>{
         console.log(data)
@@ -233,7 +233,7 @@ insertTemplateImg : (data, editor) =>{
         })
     },
 ````
-## 컨트롤러에서 파일 위치와 이름만 지정해서 다시 리턴하여 보내준다
+## 컨트롤러에서 파일 위치와 이름만 지정해서 다시 리턴하여 보내준다.
 ````
 //  서머노트 작성시 이미지파일 올렸을때 내 실제 경로 폴더에도 올려주는 메서드
 @ResponseBody
@@ -342,7 +342,7 @@ public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit
 ````
 
 ## 컨트롤러에서 PageInfo 사용하는 방법
-아래처럼 value 값을 정한 후 defaultValue 값을 무조건 1로 설정 currentPage(현재페이지)가 없을 수 없기 떄문이다 
+아래처럼 value 값을 정한 후 defaultValue 값을 무조건 1로 설정 currentPage(현재페이지)가 없을 수 없기 떄문이다. 
 ````
 // 템플릿 리스트 보여주기
 @RequestMapping("/template.te")
@@ -362,8 +362,8 @@ public ModelAndView tem(@RequestParam(value="cpage", defaultValue="1") int curre
 }
 ````
 ## DAO에서 PageInfo를 사용할때는 RowBounds 클래스를 사용한다 !
-RowBounds 클래스는 MyBatis에서 사용되는 페이징을 처리하기 위한 클래스이다 <br>
-예를 들어 offset 10번째부터 limit 20개의 데이터를 조회하는 식으로 돌아간다 
+RowBounds 클래스는 MyBatis에서 사용되는 페이징을 처리하기 위한 클래스이다. <br>
+예를 들어 offset 10번째부터 limit 20개의 데이터를 조회하는 식으로 돌아간다.
 ````
 // 템플릿 리스트 정보 가져오기 
 public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -384,28 +384,23 @@ public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, Pag
 </summary>
 	
 # Ajax란?	
-자바스크립트를 통해 비동기식으로 서버어ㅔ 데이터를 요청하여 필요한 데이터를 받아와 전체 페이지를 새로 고치지 않고 변경이 필요한 부분만 고치는 기술이다
+자바스크립트를 통해 비동기식으로 서버에 데이터를 요청하여 필요한 데이터를 받아와 전체 페이지를 새로 고치지 않고 변경이 필요한 부분만 고치는 기술이다.
 	
-## 1. onclick을 통해 함수 실행시 데이터를 담아 Ajax로 보내준다 
-
+## 1. <body onload="replyCommont(${tno})"> 통해 페이지 그리는 동시에 함수를 실행하는 방식을 선택!
 ````
-reply = (templateNo) => {
-    let templateReplyContent = document.getElementById("text-commet").value;
+replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페이징 바 그려주는 메서드
 
     data = {
-        templateReplyContent : templateReplyContent,
-        templateNo : templateNo
+        tno : tno
     }
-
-    templateAjaxController.replyInsert(data, replySucc);
+    templateAjaxController.onloadReply(data, replySucc);
 }
 
-replyInsert : (data, callback) =>{
-        console.log(data)
+    onloadReply : (data, callback) =>{
         $.ajax({
             data : data,
             type : "POST",
-            url : "repltInsert.te",   
+            url : "onloadReply.te",   
             success: (result) => {
                 callback(result)
             },
@@ -413,21 +408,189 @@ replyInsert : (data, callback) =>{
                 console.log(err)
             }
         })
-    },
+    }
 ````
-## 2. 컨트롤러를 통해 요청을 처리 하고 업데이트 쿼리를 실행
-쿼리 성공기 1을 보내기 때문에 0보다 크면 성공시 success라는 문자를 리턴 실패시 fail라는 문자를 리턴
+## 2. 컨트롤러를 통해 요청을 처리 하고 업데이트 쿼리를 실행!
+공통으로 수행되는 작업 코드를 줄이기 위해 ModelAndView 객체에 담아 반환하는 메서드를 만들었다. <br>
+getReplyModelAndView메서드를 만들기 전에는 페이징 처리, 댓글 정보 조회, 세션에서 로그인한 사용자의 번호 가져오기 같은 증복 코드들이 많았다 <br>
+이렇게 하면 중복 코드를 최소화하고 코드를 더 간결하고 코드의 가독성이 향상되고 유지보수가 쉬워집니다.
 ````
-//  댓글 작성
-@ResponseBody
-@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
-public String Reply(TemplateReply r, ModelAndView mv, HttpSession session)  {
+// --------------------------------- 공통된 작업을 수행하는 메서드 ---------------------------------
+private ModelAndView getReplyModelAndView(int tno, HttpSession session, int currentPage) {
 	
-	Member m = (Member) session.getAttribute("loginUser"); 
-                                                              // 성공하면 success 보내주고 실패시 fail을 보내줌
-	return new Gson().toJson(templateService.replyInsert(r, m.getUserNo()) > 0 ? "success" : "fail");
+    PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5); // 페이징 처리
+    
+    ArrayList<TemplateReply> ReplyList = templateService.detailReplyTemplate(pi, tno); // 댓글 정보
+    
+    // 삼항 연산자 세션이 없으면 0반환 있으면 회원 번호 반환
+    int userNo = session.getAttribute("loginUser") == null ? 0 : ((Member) session.getAttribute("loginUser")).getUserNo();
+    
+    // 객체 생성 조회된 댓글 정보와 페이징 정보 그리고 사용자 번호를 ModelAndView 객체에 담아 반환
+    ModelAndView mv = new ModelAndView();
+    mv.addObject("ReplyList", ReplyList).addObject("tno", tno).addObject("userNo", userNo).addObject("pi", pi);
+    
+    return mv;
+}
+
+// --------------------------------- Ajax onload로 디테일뷰 댓글, 페이징 바 그려주는 메서드 ---------------------------------
+@ResponseBody
+@RequestMapping(value="/onloadReply.te", produces="application/json; charset=UTF-8")
+public String Replyload(int tno, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
+	
+    ModelAndView newMv = getReplyModelAndView(tno, session, currentPage);
+    return new Gson().toJson(newMv);
 }
 ````
+## 받아온 정보들로 내가 새로 고치고 싶은 부분을 작성한다!
+````
+replySucc = (result) => {
+    // console.log(result)
+    let list = result.model.ReplyList;
+    let loginUser = result.model.userNo;
+    let pi = result.model.pi;
+    let tno = result.model.tno;
+
+    // 댓글 그려주기
+    let str = "";
+    for (let r of list) {
+        if(loginUser === r.userNo){
+            str += `<div class="comment-container">`
+                    + `<div class="reply-container">`
+                    + `<div class="profile">`
+                        + `<img src="`+ r.memberImgChangName +`" alt="">`
+                    + `</div>`
+                    + `<div class="reply-center">`
+                        +`<div class="name-container">`
+                        +`<div class="name-container">`
+                            +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
+                            +`<p>` + r.templateReplyDate +`</p>`
+                        +`</div>`
+                        +`<div class="btn-container">`
+                            +`<button class="edit-btn">edit</button>`
+                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo +`)">delete</button>`
+                        +`</div>`
+                        +`</div>`
+                
+                        +`<div class="reply-comment">`
+                        +`<span>` + r.templateReplyContent +`</span>`
+                        +`</div>`
+                    +`</div>`
+                    +`</div>`
+                +`</div>`;
+        } else {
+            str += `<div class="comment-container">`
+            + `<div class="reply-container">`
+            + `<div class="profile">`
+                + `<img src="`+ r.memberImgChangName +`" alt="">`
+            + `</div>`
+            + `<div class="reply-center">`
+                +`<div class="name-container">`
+                +`<div class="name-container">`
+                    +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
+                    +`<p>` + r.templateReplyDate +`</p>`
+                +`</div>`
+                +`</div>`
+        
+                +`<div class="reply-comment">`
+                +`<span>` + r.templateReplyContent +`</span>`
+                +`</div>`
+            +`</div>`
+            +`</div>`
+        +`</div>`;
+        }
+    }
+
+    // 페이징 바 그려주기
+    let str2 = "";
+    
+        if(pi.currentPage == 1){
+            str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
+        } else {
+            str2 += `<li class="page-item"><a class="page-link" onclick="choicePage(`+ (pi.currentPage - 1 ) + `,` + tno + `)">Previous</a></li>`
+        }
+
+        for (let i = pi.startPage; i <= pi.endPage; i++) {
+            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ i + `,` + tno  +')">' + i + '</button></li>'
+        }
+
+        if(pi.currentPage != pi.maxPage){
+            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
+        } else {
+            str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
+        } 
+
+        document.querySelector("#ReplyContent").innerHTML = str;
+        document.querySelector("#pagingArea ul").innerHTML = str2;
+
+        result = ''
+        document.getElementById("text-commet").value = result;
+}
+````
+## 페이징 바를 그려주고 페이지 누를때마다 페이징 번호를 바꿔주는 메서드 
+````
+choicePage = (page, tno) =>{ // 페이징 번호 바뀌는 메서드 
+
+    data = {
+        tpage : page,
+        tno : tno
+    }
+
+    console.log(data)
+    templateAjaxController.onloadReply(data, replySucc)
+}
+````
+## 댓글 작성, 삭제 메서드
+위에 내가 그려준 부분에있는 onclick함수 코드이다
+````
+reply = (templateNo, tno) => { // 댓글 작성 하는 메서드
+    let templateReplyContent = document.getElementById("text-commet").value;
+
+    data = {
+        templateReplyContent : templateReplyContent,
+        templateNo : templateNo,
+        tno : tno
+    }
+
+    templateAjaxController.replyInsert(data, replySucc);
+}
+
+delReply = (replyNo, tno) => {
+    data = {
+        templateReplyNo : replyNo,
+        templateNo : tno
+    }
+    templateAjaxController.replyDel(data, replySucc);
+}
+````
+## 댓글 작성, 삭제 컨트롤러 
+ getReplyModelAndView메서드를 안 만들었으면 댓글 작성 삭제 메서드에도 증복 코드가 들어가 코드 생겼을 것이다.
+````
+// --------------------------------- Ajax 댓글 작성하는 메서드 ---------------------------------
+@ResponseBody
+@RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
+public String Reply(TemplateReply r, int tno, ModelAndView mv, HttpSession session, @RequestParam(value="cpage", defaultValue="1") int currentPage)  {
+	
+    Member m = (Member) session.getAttribute("loginUser");
+    int res = templateService.replyInsert(r, m.getUserNo()); // 댓글 삽입
+    
+    // 메서드 호출 매개변수로는 댓글번호, 세션, currentPage를 전달 
+    ModelAndView newMv = getReplyModelAndView(tno, session, currentPage); 
+    // newMv로 리턴 받은 조회된 댓글 정보와 페이징 정보 그리고 사용자 번호를 반환
+    return new Gson().toJson(newMv);
+}
+
+//  --------------------------------- Ajax 댓글 삭제해주는 메서드 -------------------------------------
+@ResponseBody
+@RequestMapping(value="/replyDelte.te", produces="application/json; charset=UTF-8")
+public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
+	
+    int res = templateService.replyDelt(tr.getTemplateReplyNo()); // 댓글 삭제
+    
+    ModelAndView newMv = getReplyModelAndView(tr.getTemplateNo(), session, currentPage);
+    return new Gson().toJson(newMv);
+}
+````
+
 </details>
 
 
