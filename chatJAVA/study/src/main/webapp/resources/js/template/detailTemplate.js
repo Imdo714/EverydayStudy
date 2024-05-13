@@ -95,7 +95,7 @@ replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페�
     templateAjaxController.onloadReply(data, replySucc);
 }
 
-delReply = (replyNo, tno) => {
+delReply = (replyNo, tno) => { // 댓글 삭제
     console.log(replyNo)
     console.log(tno)
 
@@ -104,6 +104,12 @@ delReply = (replyNo, tno) => {
         templateNo : tno
     }
     templateAjaxController.replyDel(data, replySucc);
+}
+
+editReply = (replyNo, tno, templateReplyContent) => { // 댓글 수정
+    console.log(replyNo)
+    console.log(tno)
+    console.log(templateReplyContent)
 }
 
 replySucc = (result) => {
@@ -128,9 +134,9 @@ replySucc = (result) => {
                             +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
                             +`<p>` + r.templateReplyDate +`</p>`
                         +`</div>`
-                        +`<div class="btn-container">`
-                            +`<button class="edit-btn">edit</button>`
-                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo +`)">delete</button>`
+                        +`<div class="btn-container">`       //JavaScript 함수에 전달된 문자열은 따옴표로 감싸져야 함 그렇지 않으면 JavaScript는 이를 변수나 함수 호출로 인식하려고 시도하며, 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환됩니다.
+                            +`<button class="edit-btn" onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.templateReplyContent}')">edit</button>`
+                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo + `)">delete</button>`
                         +`</div>`
                         +`</div>`
                 
