@@ -380,7 +380,7 @@ public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, Pag
 
 <details>
 <summary>
-  댓글 기능 꿀팁 !
+  Ajax 댓글 리스트, 작성, 삭제, 기능 꿀팁 !
 </summary>
 	
 # Ajax란?	
@@ -446,6 +446,7 @@ public String Replyload(int tno, ModelAndView mv, HttpSession session, @RequestP
 }
 ````
 ## 받아온 정보들로 내가 새로 고치고 싶은 부분을 작성한다!
+
 ````
 replySucc = (result) => {
     // console.log(result)
@@ -458,7 +459,8 @@ replySucc = (result) => {
     let str = "";
     for (let r of list) {
         if(loginUser === r.userNo){
-            str += `<div class="comment-container">`
+		// id를 잘보면 댓글 컨테이너에 고유한 ID를 추가하여 해당 댓글을 쉽게 찾을 수 있도록 합니다.
+            str += `<div id="comment-${r.templateReplyNo}" class="comment-container">`
                     + `<div class="reply-container">`
                     + `<div class="profile">`
                         + `<img src="`+ r.memberImgChangName +`" alt="">`
@@ -469,9 +471,9 @@ replySucc = (result) => {
                             +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
                             +`<p>` + r.templateReplyDate +`</p>`
                         +`</div>`
-                        +`<div class="btn-container">`
-                            +`<button class="edit-btn">edit</button>`
-                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo +`)">delete</button>`
+                        +`<div class="btn-container">` //JavaScript 함수에 전달된 문자열은 따옴표로 감싸져야 함 그렇지 않으면 JavaScript는 이를 변수나 함수 호출로 인식하려고 시도하며, 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환됩니다.
+                            +`<button class="edit-btn" onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>`
+                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo + `)">delete</button>`
                         +`</div>`
                         +`</div>`
                 
@@ -594,7 +596,86 @@ public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session,
     return new Gson().toJson(newMv);
 }
 ````
+</details>
 
+<details>
+<summary>
+  댓글 수정 꿀팁 !@!@
+</summary>
+	
+## 댓글 수정 버튼 을 눌렀을때 실행되는 함수 
+!! 중요한 부분 이전 코드에서 그려주는 함수에서 변수에 따옴표로 감싸지 않으면 함수 호출로 인식하려고 시도하며 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환되어 따옴표로 감싸줘야 합니다. 
+````
+onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>
+````
+똑같이 밑에 코드도 보여주는 부분을 그려주고 span태그에서 textarea태그로 바꿔줘서 작성을 할 수 있게 만들어줍니다. 
+중요한 포인트는 내가 수정하는 댓글만 textarea태그로 바꿔줘야 하기 떄문에 id가 comment-${replyNo} 인 요소만 선택 해서 그려줍니다.
+````
+const disableAllButtons = () => {  // 모든 버튼 비활성화 함
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+}
+
+editReply = (replyNo, tno, ImgChangName, userName, ReplyDate, ReplyContent) => { // 댓글 수정
+
+    disableAllButtons(); // 모든 버튼 비활성화
+
+    let str = "";
+    str +=  `<div class="comment-container">`
+                + `<div class="reply-container">`
+                + `<div class="profile">`
+                    + `<img src="`+ ImgChangName +`" alt="">`
+                + `</div>`
+                + `<div class="reply-center">`
+                    +`<div class="name-container">`
+                    +`<div class="name-container">`
+                        +`<h3 style="font-size: 1.5rem;">`+ userName +`</h3>`
+                        +`<p>` + ReplyDate +`</p>`
+                    +`</div>`
+                    +`<div class="btn-container">`       
+                        +`<button class="edit-btn" onclick="editCheck(`+ replyNo + `,` + tno +`)">check</button>`
+                        +`<button class="del-btn" onclick="replyCommont(`+ tno +`)">cancel</button>`
+                    +`</div>`
+                    +`</div>`
+
+                    +`<div class="reply-comment">`
+                    +`<textarea id="updateReply" style="width: 100%;">` + ReplyContent +`</textarea>`
+                    +`</div>`
+                +`</div>`
+                +`</div>`
+            +`</div>`;
+
+        document.getElementById(`comment-${replyNo}`).innerHTML = str;
+}
+````
+## 댓글 수정확인을 누르면 내가 입력한 값을 들고 와 컨트롤러로 보내줘서 쿼리를 작성하면 끝!
+````
+editCheck = (replyNo, tno) => {
+    const updateReply = document.getElementById("updateReply").value;
+
+    data = {
+        templateReplyNo : replyNo,
+        templateReplyContent : updateReply,
+        templateNo : tno
+    }
+    
+    templateAjaxController.upDateReply(data, replySucc);
+}
+````
+````
+//  --------------------------------- Ajax 댓글 수정해주는 메서드 -------------------------------------
+	@ResponseBody
+	@RequestMapping(value="/replyUpdate.te", produces="application/json; charset=UTF-8")
+	public String replyUpdate(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
+		
+	    int upReply = templateService.replyUpdate(tr);
+	    
+	    ModelAndView newMv = getReplyModelAndView(tr.getTemplateNo(), session, currentPage);
+	    return new Gson().toJson(newMv);
+	}
+````
 </details>
 
 
