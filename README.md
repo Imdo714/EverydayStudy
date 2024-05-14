@@ -438,8 +438,8 @@ private ModelAndView getReplyModelAndView(int tno, HttpSession session, int curr
 
 // --------------------------------- Ajax onload로 디테일뷰 댓글, 페이징 바 그려주는 메서드 ---------------------------------
 @ResponseBody
-@RequestMapping(value="/onloadReply.te", produces="application/json; charse행 코드이다. <br>
-````
+@RequestMapping(value="/onloadReply.te", produces="application/json; charse행 코드이다. 
+
 reply = (templateNo, tno) => { // 댓글 작성 하는 메서드
     let templateReplyContent = document.getElementById("text-commet").value;
 
@@ -462,6 +462,7 @@ delReply = (replyNo, tno) => {
 ````
 ## 댓글 작성, 삭제 컨트롤러 
  getReplyModelAndView메서드를 안 만들었으면 댓글 작성 삭제 메서드에도 증복 코드가 들어가 코드 생겼을 것이다. <br>
+ 
 ````
 // --------------------------------- Ajax 댓글 작성하는 메서드 ---------------------------------
 @ResponseBody
@@ -500,8 +501,9 @@ public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session,
 ````
 onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>
 ````
-똑같이 밑에 코드도 보여주는 부분을 그려주고 span태그에서 textarea태그로 바꿔줘서 작성을 할 수 있게 만들어줍니다. 
-중요한 포인트는 내가 수정하는 댓글만 textarea태그로 바꿔줘야 하기 떄문에 id가 comment-${replyNo} 인 요소만 선택 해서 그려줍니다. <br>
+
+### 똑같이 밑에 코드도 보여주는 부분을 그려주고 span태그에서 textarea태그로 바꿔줘서 작성을 할 수 있게 만들어줍니다. 중요한 포인트는 내가 수정하는 댓글만 textarea태그로 바꿔줘야 하기 때문에 id가 comment-${replyNo} 인 요소만 선택 해서 그려줍니다.
+
 ````
 const disableAllButtons = () => {  // 모든 버튼 비활성화 함
     const buttons = document.querySelectorAll('button');
@@ -542,7 +544,7 @@ editReply = (replyNo, tno, ImgChangName, userName, ReplyDate, ReplyContent) => {
         document.getElementById(`comment-${replyNo}`).innerHTML = str;
 }
 ````
-## 댓글 수정확인을 누르면 내가 입력한 값을 들고 와 컨트롤러로 보내줘서 쿼리를 작성하면 끝!
+## 댓글 수정확인을 누르면 내가 입력한 값을 들고 와 컨트롤러를 통해 요청을 처리 하고 쿼리를 실행!
 ````
 editCheck = (replyNo, tno) => {
     const updateReply = document.getElementById("updateReply").value;
@@ -557,7 +559,6 @@ editCheck = (replyNo, tno) => {
 }
 ````
 ````
-//  --------------------------------- Ajax 댓글 수정해주는 메서드 -------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/replyUpdate.te", produces="application/json; charset=UTF-8")
 	public String replyUpdate(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
