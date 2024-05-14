@@ -52,7 +52,7 @@ RequestMapping으로 설정할 것들을 Web에 들어가서 밑에 처럼 추�
 
 ## 서블릿
 view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경로를 따라서 컨트롤러가 날린 뷰의 이름에 해당하는 뷰가 있는지 찾아봄. <br>
- model에 대한 패키지명을 추가해주어야 한다 추가하지 않으면 못 찾는다
+ model에 대한 패키지명을 추가해주어야 한다 추가하지 않으면 못 찾는다 <br>
  
 ```
 <!-- ViewResolver 생성 -->
@@ -116,7 +116,7 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
   ```
   ## 회원가입 하는 과정 (encode)
   encode : 해당 암호화 방식으로 암호화한 문자열을 리턴해줍니다. 회원가입 시 DB에 넣기전에 사용하면 됩니다. <br>
-  DB확인을 하면 평문이였였던 비밀번호가 암호문으로 바꿔있는 것을 확인할 수 있다.
+  DB확인을 하면 평문이였였던 비밀번호가 암호문으로 바꿔있는 것을 확인할 수 있다. <br>
   ```
   @ResponseBody
   @RequestMapping(value="/insert.me", produces="application/json; charset=UTF-8")
@@ -131,7 +131,7 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
     }
   ```
   ## 로그인 하는 과정 (matches)
-  matches : Member m으로 들어온 비밀번호는 암호화되어 DB에 저장된 암호화된 비밀번호와 같은지 비교를 하여 확인할 수 있습니다.
+  matches : Member m으로 들어온 비밀번호는 암호화되어 DB에 저장된 암호화된 비밀번호와 같은지 비교를 하여 확인할 수 있습니다. <br>
   ````
 	@ResponseBody
 	@RequestMapping(value="/loginMember.me", produces="application/json; charset=UTF-8")
@@ -159,7 +159,7 @@ view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경�
 	
    ## 썸머노트 에디터를 적용한 callbacks함수를 사용하여여 자바스크립트 구현 
    onImageUpload : 이미지를 첨부할때 실행되는 함수  <br>
-   onMediaDelete : 이미지를 삭재하였을때 실행되는 함수
+   onMediaDelete : 이미지를 삭재하였을때 실행되는 함수 <br>
    ````
 makeNote = () => {
     $('.summernote').summernote({
@@ -298,7 +298,7 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 }
 ````
 ## 업데이트도 똑같아
-위에 처럼 다 똑같이 하고 SQL에서 업데이트 성공시 코드들 저장 ~
+위에 처럼 다 똑같이 하고 SQL에서 업데이트 성공시 코드들 저장 ~ <br>
 ````
 @ResponseBody
 @RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
@@ -326,7 +326,7 @@ updateT = (result) => {
 </summary>
 
 ## PageInfo 객체 만들어주기 !
-이 메서드는 페이지네이션 기능을 구현하기 위해 필요한 정보들을 계산하고 이를 담은 객체를 생성하여 반환하는 메서드입니다.
+이 메서드는 페이지네이션 기능을 구현하기 위해 필요한 정보들을 계산하고 이를 담은 객체를 생성하여 반환하는 메서드입니다. <br>
 ````
 public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit, int boardLimit) {
 		
@@ -342,7 +342,7 @@ public static PageInfo getPageInfo(int listCount, int currentPage, int pageLimit
 ````
 
 ## 컨트롤러에서 PageInfo 사용하는 방법
-아래처럼 value 값을 정한 후 defaultValue 값을 무조건 1로 설정 currentPage(현재페이지)가 없을 수 없기 떄문이다. 
+아래처럼 value 값을 정한 후 defaultValue 값을 무조건 1로 설정 currentPage(현재페이지)가 없을 수 없기 떄문이다.  <br>
 ````
 // 템플릿 리스트 보여주기
 @RequestMapping("/template.te")
@@ -363,7 +363,7 @@ public ModelAndView tem(@RequestParam(value="cpage", defaultValue="1") int curre
 ````
 ## DAO에서 PageInfo를 사용할때는 RowBounds 클래스를 사용한다 !
 RowBounds 클래스는 MyBatis에서 사용되는 페이징을 처리하기 위한 클래스이다. <br>
-예를 들어 offset 10번째부터 limit 20개의 데이터를 조회하는 식으로 돌아간다.
+예를 들어 offset 10번째부터 limit 20개의 데이터를 조회하는 식으로 돌아간다. <br>
 ````
 // 템플릿 리스트 정보 가져오기 
 public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, PageInfo pi) {
@@ -387,7 +387,7 @@ public ArrayList<Template> selectTemplateList(SqlSessionTemplate sqlSession, Pag
 자바스크립트를 통해 비동기식으로 서버에 데이터를 요청하여 필요한 데이터를 받아와 전체 페이지를 새로 고치지 않고 변경이 필요한 부분만 고치는 기술이다.
 	
 ## 1.  onload 이벤트를 통해 body 페이지 그리는 동시에 함수를 실행하는 방식을 선택!
-onload란 웹 페이지가 로드될 때 발생하는 이벤트입니다. 예를 들어, 웹 페이지가 로드될 때 초기 데이터를 로드하여 화면에 표시하는 등의 작업을 onload 이벤트 핸들러에서 처리할 수 있습니다.
+onload란 웹 페이지가 로드될 때 발생하는 이벤트입니다. 예를 들어, 웹 페이지가 로드될 때 초기 데이터를 로드하여 화면에 표시하는 등의 작업을 onload 이벤트 핸들러에서 처리할 수 있습니다. <br>
 ````
 <body onload="replyCommont(${tno})">
 
@@ -417,7 +417,7 @@ replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페�
 
 공통으로 수행되는 작업 코드를 줄이기 위해 ModelAndView 객체에 담아 반환하는 메서드를 만들었다. 
 getReplyModelAndView메서드를 <br>만들기 전에는 페이징 처리, 댓글 정보 조회, 세션에서 로그인한 사용자의 번호 가져오기 같은 증복 코드들이 많았다 <br>
-이렇게 하면 중복 코드를 최소화하고 코드를 더 간결하고 코드의 가독성이 향상되고 유지보수가 쉬워집니다.
+이렇게 하면 중복 코드를 최소화하고 코드를 더 간결하고 코드의 가독성이 향상되고 유지보수가 쉬워집니다. <br>
 ````
 // --------------------------------- 공통된 작업을 수행하는 메서드 ---------------------------------
 private ModelAndView getReplyModelAndView(int tno, HttpSession session, int currentPage) {
@@ -438,115 +438,7 @@ private ModelAndView getReplyModelAndView(int tno, HttpSession session, int curr
 
 // --------------------------------- Ajax onload로 디테일뷰 댓글, 페이징 바 그려주는 메서드 ---------------------------------
 @ResponseBody
-@RequestMapping(value="/onloadReply.te", produces="application/json; charset=UTF-8")
-public String Replyload(int tno, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
-	
-    ModelAndView newMv = getReplyModelAndView(tno, session, currentPage);
-    return new Gson().toJson(newMv);
-}
-````
-## 받아온 정보들로 내가 새로 고치고 싶은 부분을 작성한다!
-
-````
-replySucc = (result) => {
-    // console.log(result)
-    let list = result.model.ReplyList;
-    let loginUser = result.model.userNo;
-    let pi = result.model.pi;
-    let tno = result.model.tno;
-
-    // 댓글 그려주기
-    let str = "";
-    for (let r of list) {
-        if(loginUser === r.userNo){
-		// id를 잘보면 댓글 컨테이너에 고유한 ID를 추가하여 해당 댓글을 쉽게 찾을 수 있도록 합니다.
-            str += `<div id="comment-${r.templateReplyNo}" class="comment-container">`
-                    + `<div class="reply-container">`
-                    + `<div class="profile">`
-                        + `<img src="`+ r.memberImgChangName +`" alt="">`
-                    + `</div>`
-                    + `<div class="reply-center">`
-                        +`<div class="name-container">`
-                        +`<div class="name-container">`
-                            +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
-                            +`<p>` + r.templateReplyDate +`</p>`
-                        +`</div>`
-                        +`<div class="btn-container">` //JavaScript 함수에 전달된 문자열은 따옴표로 감싸져야 함 그렇지 않으면 JavaScript는 이를 변수나 함수 호출로 인식하려고 시도하며, 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환됩니다.
-                            +`<button class="edit-btn" onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>`
-                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo + `)">delete</button>`
-                        +`</div>`
-                        +`</div>`
-                
-                        +`<div class="reply-comment">`
-                        +`<span>` + r.templateReplyContent +`</span>`
-                        +`</div>`
-                    +`</div>`
-                    +`</div>`
-                +`</div>`;
-        } else {
-            str += `<div class="comment-container">`
-            + `<div class="reply-container">`
-            + `<div class="profile">`
-                + `<img src="`+ r.memberImgChangName +`" alt="">`
-            + `</div>`
-            + `<div class="reply-center">`
-                +`<div class="name-container">`
-                +`<div class="name-container">`
-                    +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
-                    +`<p>` + r.templateReplyDate +`</p>`
-                +`</div>`
-                +`</div>`
-        
-                +`<div class="reply-comment">`
-                +`<span>` + r.templateReplyContent +`</span>`
-                +`</div>`
-            +`</div>`
-            +`</div>`
-        +`</div>`;
-        }
-    }
-
-    // 페이징 바 그려주기
-    let str2 = "";
-    
-        if(pi.currentPage == 1){
-            str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
-        } else {
-            str2 += `<li class="page-item"><a class="page-link" onclick="choicePage(`+ (pi.currentPage - 1 ) + `,` + tno + `)">Previous</a></li>`
-        }
-
-        for (let i = pi.startPage; i <= pi.endPage; i++) {
-            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ i + `,` + tno  +')">' + i + '</button></li>'
-        }
-
-        if(pi.currentPage != pi.maxPage){
-            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
-        } else {
-            str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
-        } 
-
-        document.querySelector("#ReplyContent").innerHTML = str;
-        document.querySelector("#pagingArea ul").innerHTML = str2;
-
-        result = ''
-        document.getElementById("text-commet").value = result;
-}
-````
-## 페이징 바를 그려주고 페이지 누를때마다 페이징 번호를 바꿔주는 메서드 
-````
-choicePage = (page, tno) =>{ // 페이징 번호 바뀌는 메서드 
-
-    data = {
-        tpage : page,
-        tno : tno
-    }
-
-    console.log(data)
-    templateAjaxController.onloadReply(data, replySucc)
-}
-````
-## 댓글 작성, 삭제 메서드
-위에 내가 그려준 부분에있는 onclick함수 코드이다
+@RequestMapping(value="/onloadReply.te", produces="application/json; charse행 코드이다. <br>
 ````
 reply = (templateNo, tno) => { // 댓글 작성 하는 메서드
     let templateReplyContent = document.getElementById("text-commet").value;
@@ -569,7 +461,7 @@ delReply = (replyNo, tno) => {
 }
 ````
 ## 댓글 작성, 삭제 컨트롤러 
- getReplyModelAndView메서드를 안 만들었으면 댓글 작성 삭제 메서드에도 증복 코드가 들어가 코드 생겼을 것이다.
+ getReplyModelAndView메서드를 안 만들었으면 댓글 작성 삭제 메서드에도 증복 코드가 들어가 코드 생겼을 것이다. <br>
 ````
 // --------------------------------- Ajax 댓글 작성하는 메서드 ---------------------------------
 @ResponseBody
@@ -604,12 +496,12 @@ public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session,
 </summary>
 	
 ## 댓글 수정 버튼 을 눌렀을때 실행되는 함수 
-!! 중요한 부분 이전 코드에서 그려주는 함수에서 변수에 따옴표로 감싸지 않으면 함수 호출로 인식하려고 시도하며 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환되어 따옴표로 감싸줘야 합니다. 
+!! 중요한 부분 이전 코드에서 그려주는 함수에서 변수에 따옴표로 감싸지 않으면 함수 호출로 인식하려고 시도하며 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환되어 따옴표로 감싸줘야 합니다. <br>
 ````
 onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>
 ````
 똑같이 밑에 코드도 보여주는 부분을 그려주고 span태그에서 textarea태그로 바꿔줘서 작성을 할 수 있게 만들어줍니다. 
-중요한 포인트는 내가 수정하는 댓글만 textarea태그로 바꿔줘야 하기 떄문에 id가 comment-${replyNo} 인 요소만 선택 해서 그려줍니다.
+중요한 포인트는 내가 수정하는 댓글만 textarea태그로 바꿔줘야 하기 떄문에 id가 comment-${replyNo} 인 요소만 선택 해서 그려줍니다. <br>
 ````
 const disableAllButtons = () => {  // 모든 버튼 비활성화 함
     const buttons = document.querySelectorAll('button');
