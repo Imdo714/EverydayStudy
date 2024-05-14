@@ -78,11 +78,24 @@ const templateAjaxController = {
     },
 
     replyDel : (data, callback) =>{
-        console.log(data)
         $.ajax({
             data : data,
             type : "POST",
             url : "replyDelte.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
+
+    upDateReply : (data, callback) =>{
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "replyUpdate.te",   
             success: (result) => {
                 callback(result)
             },

@@ -105,11 +105,7 @@ public class templateController {
 			}
 		}
 		
-		if(result > 0 && fileUploadResult > 0) {
-			session.setAttribute("alertMsg", "게시글 작성 성공");
-		} else {
-			session.setAttribute("alertMsg", "게시글 작성 Fuck");
-		}
+		session.setAttribute("alertMsg", (result > 0 && fileUploadResult > 0) ? "템플릿 작성 성공" : "템플릿 작성 실패");
 		
 		return "redirect:/";
 	} 
@@ -215,6 +211,17 @@ public class templateController {
 	public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
 		
 	    int res = templateService.replyDelt(tr.getTemplateReplyNo()); // 댓글 삭제
+	    
+	    ModelAndView newMv = getReplyModelAndView(tr.getTemplateNo(), session, currentPage);
+	    return new Gson().toJson(newMv);
+	}
+	
+//  --------------------------------- Ajax 댓글 수정해주는 메서드 -------------------------------------
+	@ResponseBody
+	@RequestMapping(value="/replyUpdate.te", produces="application/json; charset=UTF-8")
+	public String replyUpdate(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
+		
+	    int upReply = templateService.replyUpdate(tr);
 	    
 	    ModelAndView newMv = getReplyModelAndView(tr.getTemplateNo(), session, currentPage);
 	    return new Gson().toJson(newMv);

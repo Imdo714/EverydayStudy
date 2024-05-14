@@ -182,4 +182,14 @@
 		WHERE
 		TEMPLATE_REPLY_NO = #{templateReplyNo}
 	</delete>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate">
+		UPDATE TEMPLATE_REPLY 
+		       SET 
+		       TEMPLATE_REPLY_CONTENT = #{templateReplyContent}
+		       WHERE
+		       TEMPLATE_REPLY_NO = #{templateReplyNo}
+	</update>
+	
 </mapper>

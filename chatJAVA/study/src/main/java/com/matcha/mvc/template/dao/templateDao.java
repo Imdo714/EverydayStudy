@@ -83,4 +83,9 @@ public class templateDao {
 	public int replyDelt(SqlSessionTemplate sqlSession, int templateReplyNo) {
 		return sqlSession.delete("TemplateMapper.replyDelt", templateReplyNo);
 	}
+	
+	// 댓글 수정
+	public int replyUpdate(SqlSessionTemplate sqlSession, TemplateReply tr) {
+		return sqlSession.update("TemplateMapper.replyUpdate", tr);
+	}
 }

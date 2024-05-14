@@ -38,4 +38,7 @@ public interface templateService {
 	
 	// 댓글 삭제 
 	int replyDelt(int templateReplyNo);
+	
+	// 댓글 수정
+	int replyUpdate(TemplateReply tr);
 }
