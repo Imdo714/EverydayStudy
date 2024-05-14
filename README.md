@@ -168,7 +168,7 @@ makeNote = () => {
         height: 500,
 
         callbacks:{
-          onImageUpload : function(files, editor,	welEditable) {
+          onImageUpload : function(files, editor,	welEditable) { // 이미지를 첨부할때 실행되는 함수
             console.log("이미지 첨부 됨");
             console.log(files);
             for (var i = files.length - 1; i >= 0; i--) {
@@ -176,7 +176,7 @@ makeNote = () => {
                 sendFile(files[i],this);
             }
           },
-          onMediaDelete : function ($target, editor, $editable) {
+          onMediaDelete : function ($target, editor, $editable) { // 이미지를 삭재하였을때 실행되는 함수
             var deletedImageUrl = $target
 
                 .attr('src')
