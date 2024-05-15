@@ -20,9 +20,5 @@ public class MVCController {
 		return "board/test";
 	}
 	
-	@RequestMapping("/review.te")
-	public String tem(Model model){
-		
-		return "review/review";
-	}
+
 }

@@ -90,7 +90,7 @@
     
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰 작성하시오</h1>
@@ -113,6 +113,14 @@
 
                 <div>
                     <input id="reviewTitle" type="text" placeholder="제목을 작성해주세요">
+                </div>
+
+                <div class="desUpimg">
+                    <img id="preview" />
+                    <label for="file">
+                        <div class="btn-upload">파일 업로드하기</div>
+                    </label>
+                    <input type="file" onchange="readURL(this)" name="file" id="file">
                 </div>
 
                 <div>

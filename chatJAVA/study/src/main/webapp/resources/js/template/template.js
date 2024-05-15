@@ -68,7 +68,6 @@ loadImg = (inputFile,num) => {
 }
 
 subBtn = () => {
-  console.log('aaaaaa')
 
   // 입력 필드의 값을 가져옵니다.
   let inputFile = document.getElementById("fileImgFile1").value;

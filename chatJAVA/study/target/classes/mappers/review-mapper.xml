@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="ReviewMapper">
+	
+	<resultMap type="Review" id="reviewResult">
+		<result column="REVIEW_NO" property="reviewNo" />
+		<result column="REVIEW_TITLE" property="reviewTitle" />
+		<result column="REVIEW_CONTENT" property="reviewContent" />
+		<result column="REVIEW_DATE" property="reviewDate" />
+		<result column="REVIEW_STAR" property="reviewStar" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REVIEW_CHANG_NAME" property="reviewChangName" />
+	</resultMap>
+	
+	<resultMap type="ReviewImg" id="reviewImgResult">
+		<result column="REVIEW_IMG_NO" property="reviewImgNo" />
+		<result column="REVIEW_IMG_URL" property="reviewImgUrl" />
+		<result column="REVIEW_ORGIN_NAME" property="reviewOrginName" />
+		<result column="REVIEW_CHANG_NAME" property="reviewChangName" />
+		<result column="REVIEW_NO" property="reviewNo" />
+	</resultMap>
+	
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview">
+		INSERT INTO 
+			   REVIEW(
+			   REVIEW_NO,
+			   REVIEW_TITLE,
+			   REVIEW_CONTENT,
+			   REVIEW_DATE,
+			   REVIEW_STAR,
+			   USER_NO
+			   )
+		VALUES (
+			SEQ_REVIEW.NEXTVAL,
+			#{reviewTitle},
+			#{reviewContent},
+			SYSDATE,
+			#{reviewStar},
+			#{userNo}
+			)
+	</insert>
+	
+	<!-- 리뷰 이미지 등록 -->
+	<insert id="reviewImgInsert">
+		INSERT INTO 
+			   REVIEW_IMG(
+			   REVIEW_IMG_NO,
+			   REVIEW_IMG_URL,
+			   REVIEW_ORGIN_NAME,
+			   REVIEW_CHANG_NAME,
+			   REVIEW_NO
+			   )
+		VALUES (
+			SEQ_REVIEW_IMG.NEXTVAL,
+			#{reviewImgUrl},
+			#{reviewOrginName},
+			#{reviewChangName},
+			SEQ_REVIEW.CURRVAL
+			)
+	</insert>
+	
+	<!-- 리뷰 총 갯수 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM REVIEW
+	</select>
+	
+	<!-- 리뷰 리스트 정보 가져오기  -->
+	<select id="selectReviewList" resultMap="reviewResult">
+	SELECT *
+        FROM(
+               SELECT ROWNUM RNUM, A.*
+               FROM (
+                       SELECT REVIEW_NO,
+                               REVIEW_TITLE,
+                               REVIEW_CONTENT,
+                               REVIEW_DATE,
+                               REVIEW_STAR,
+                               USER_NO,
+                               REVIEW_CHANG_NAME
+                       FROM REVIEW
+                       LEFT JOIN REVIEW_IMG USING(REVIEW_NO)
+                       ORDER BY REVIEW_NO DESC
+                   ) A
+               )
+	</select>
+
+
+
+</mapper>

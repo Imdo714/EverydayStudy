@@ -47,7 +47,7 @@
                         
                     </li><br>
                     <li><button class="midea-btn" onClick="location.href='template.te'">템플릿</button></li> <br>
-                    <li><button class="midea-btn" onClick="location.href='review.te'">고객리뷰</button></li> <br>
+                    <li><button class="midea-btn" onClick="location.href='review.re'">고객리뷰</button></li> <br>
                     <li><button class="midea-btn" onClick="location.href=''">챗 봇</button></li> <br>
                     <li><button class="midea-btn" onClick="location.href='designer.di'">디자이너 찾기</button></li> <br>
                     <li><button class="midea-btn" onClick="location.href='mail.ml'">관리자 메일</button></li> <br>
@@ -73,7 +73,7 @@
             </div>
 
             <button class="head-btn" onClick="location.href='template.te'">템플릿</button>
-            <button class="head-btn" onClick="location.href='review.te'">고객리뷰</button>
+            <button class="head-btn" onClick="location.href='review.re'">고객리뷰</button>
             <button class="head-btn" onClick="location.href=''">챗 봇</button>
             <button class="head-btn" onClick="location.href='designer.di'">디자이너 찾기</button>
         </div>

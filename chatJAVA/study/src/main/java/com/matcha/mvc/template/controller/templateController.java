@@ -93,7 +93,8 @@ public class templateController {
 		
 		for(MultipartFile mf : upfile) {
 			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
-			if(!mf.getOriginalFilename().equals("")) {
+//			if(!mf.getOriginalFilename().equals("")) { 
+			if(mf != null && !mf.isEmpty() && !"".equals(mf.getOriginalFilename().trim())) {
 				TemplateImg ti = new TemplateImg();
 				String changeName = saveFile(mf, session, "resources/img/templateImgFile/titleTemplate/");
 				

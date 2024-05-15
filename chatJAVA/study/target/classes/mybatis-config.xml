@@ -18,12 +18,15 @@
   		<typeAlias type="com.matcha.mvc.template.vo.Template" alias="Template" />
   		<typeAlias type="com.matcha.mvc.template.vo.TemplateImg" alias="TemplateImg" />
   		<typeAlias type="com.matcha.mvc.template.vo.TemplateReply" alias="TemplateReply" />
+  		<typeAlias type="com.matcha.mvc.review.vo.Review" alias="Review" />
+  		<typeAlias type="com.matcha.mvc.review.vo.ReviewImg" alias="ReviewImg" />
   	</typeAliases>
 
 
   	<mappers>
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/template-mapper.xml" />
+		<mapper resource="/mappers/review-mapper.xml" />
   	</mappers>
 
  

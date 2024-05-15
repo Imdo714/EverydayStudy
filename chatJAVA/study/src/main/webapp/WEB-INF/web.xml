@@ -56,6 +56,7 @@
   	<url-pattern>*.ml</url-pattern>
   	<url-pattern>*.di</url-pattern>
   	<url-pattern>*.me</url-pattern>
+  	<url-pattern>*.re</url-pattern>
   </servlet-mapping>
  
 	
