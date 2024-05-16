@@ -399,19 +399,108 @@ replyCommont = (tno) => { // onload 디테일뷰 들어오는 순간 댓글 페�
     templateAjaxController.onloadReply(data, replySucc);
 }
 
-    onloadReply : (data, callback) =>{
-        $.ajax({
-            data : data,
-            type : "POST",
-            url : "onloadReply.te",   
-            success: (result) => {
-                callback(result)
-            },
-            error: (err) => {
-                console.log(err)
-            }
-        })
+// Ajax사용법
+const templateAjaxController = {
+	onloadReply : (data, callback) =>{
+	$.ajax({
+	    data : data,
+	    type : "POST",
+	    url : "onloadReply.te",   
+	    success: (result) => {
+		callback(result)
+	    },
+	    error: (err) => {
+		console.log(err)
+	    }
+	})
+	}
+}
+
+
+// 성공시 콜백함수
+replySucc = (result) => {
+    // console.log(result)
+    let list = result.model.ReplyList;
+    let loginUser = result.model.userNo;
+    let pi = result.model.pi;
+    let tno = result.model.tno;
+
+    // 댓글 그려주기
+    let str = "";
+    for (let r of list) {
+        if(loginUser === r.userNo){
+            str += `<div id="comment-${r.templateReplyNo}" class="comment-container">`
+                    + `<div class="reply-container">`
+                    + `<div class="profile">`
+                        + `<img src="`+ r.memberImgChangName +`" alt="">`
+                    + `</div>`
+                    + `<div class="reply-center">`
+                        +`<div class="name-container">`
+                        +`<div class="name-container">`
+                            +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
+                            +`<p>` + r.templateReplyDate +`</p>`
+                        +`</div>`
+                        +`<div class="btn-container">`       //JavaScript 함수에 전달된 문자열은 따옴표로 감싸져야 함 그렇지 않으면 JavaScript는 이를 변수나 함수 호출로 인식하려고 시도하며, 해당 변수나 함수가 정의되지 않았기 때문에 undefined가 반환됩니다.
+                            +`<button class="edit-btn" onclick="editReply(${r.templateReplyNo}, ${r.templateNo}, '${r.memberImgChangName}', '${r.userName}', '${r.templateReplyDate}', '${r.templateReplyContent}')">edit</button>`
+                            +`<button class="del-btn" onclick="delReply(`+ r.templateReplyNo + `,`+ r.templateNo + `)">delete</button>`
+                        +`</div>`
+                        +`</div>`
+                
+                        +`<div class="reply-comment">`
+                        +`<span>` + r.templateReplyContent +`</span>`
+                        +`</div>`
+                    +`</div>`
+                    +`</div>`
+                +`</div>`;
+        } else {
+            str += `<div class="comment-container">`
+            + `<div class="reply-container">`
+            + `<div class="profile">`
+                + `<img src="`+ r.memberImgChangName +`" alt="">`
+            + `</div>`
+            + `<div class="reply-center">`
+                +`<div class="name-container">`
+                +`<div class="name-container">`
+                    +`<h3 style="font-size: 1.5rem;">`+ r.userName +`</h3>`
+                    +`<p>` + r.templateReplyDate +`</p>`
+                +`</div>`
+                +`</div>`
+        
+                +`<div class="reply-comment">`
+                +`<span>` + r.templateReplyContent +`</span>`
+                +`</div>`
+            +`</div>`
+            +`</div>`
+        +`</div>`;
+        }
     }
+
+    // 페이징 바 그려주기
+    let str2 = "";
+    
+        if(pi.currentPage == 1){
+            str2 += '<li class="page-item disabled"><a class="page-link">Previous</a></li>'
+        } else {
+            str2 += `<li class="page-item"><a class="page-link" onclick="choicePage(`+ (pi.currentPage - 1 ) + `,` + tno + `)">Previous</a></li>`
+        }
+
+        for (let i = pi.startPage; i <= pi.endPage; i++) {
+            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ i + `,` + tno  +')">' + i + '</button></li>'
+        }
+
+        if(pi.currentPage != pi.maxPage){
+            str2 += '<li class="page-item"><button class="page-link" onclick="choicePage('+ (pi.currentPage + 1)+ `,` + tno +')">Next</button></li>'
+        } else {
+            str2 += '<li class="page-item disabled"><a class="page-link">Next</a>'
+        } 
+
+        document.querySelector("#ReplyContent").innerHTML = str;
+        document.querySelector("#pagingArea ul").innerHTML = str2;
+
+        result = ''
+        document.getElementById("text-commet").value = result;
+}
+
 ````
 ## 2. 컨트롤러를 통해 요청을 처리 하고 쿼리를 실행!
 
@@ -420,6 +509,7 @@ getReplyModelAndView메서드를 <br>만들기 전에는 페이징 처리, 댓�
 이렇게 하면 중복 코드를 최소화하고 코드를 더 간결하고 코드의 가독성이 향상되고 유지보수가 쉬워집니다. <br>
 ````
 // --------------------------------- 공통된 작업을 수행하는 메서드 ---------------------------------
+
 private ModelAndView getReplyModelAndView(int tno, HttpSession session, int currentPage) {
 	
     PageInfo pi = Pagenation.getPageInfo(templateService.selectReplyCount(tno), currentPage, 5, 5); // 페이징 처리
@@ -437,6 +527,7 @@ private ModelAndView getReplyModelAndView(int tno, HttpSession session, int curr
 }
 
 // --------------------------------- Ajax onload로 디테일뷰 댓글, 페이징 바 그려주는 메서드 ---------------------------------
+
 @ResponseBody
 @RequestMapping(value="/onloadReply.te", produces="application/json; charse행 코드이다. 
 
@@ -465,6 +556,7 @@ delReply = (replyNo, tno) => {
  
 ````
 // --------------------------------- Ajax 댓글 작성하는 메서드 ---------------------------------
+
 @ResponseBody
 @RequestMapping(value="/repltInsert.te", produces="application/json; charset=UTF-8")
 public String Reply(TemplateReply r, int tno, ModelAndView mv, HttpSession session, @RequestParam(value="cpage", defaultValue="1") int currentPage)  {
@@ -479,6 +571,7 @@ public String Reply(TemplateReply r, int tno, ModelAndView mv, HttpSession sessi
 }
 
 //  --------------------------------- Ajax 댓글 삭제해주는 메서드 -------------------------------------
+
 @ResponseBody
 @RequestMapping(value="/replyDelte.te", produces="application/json; charset=UTF-8")
 public String replyDelte(TemplateReply tr, ModelAndView mv, HttpSession session, @RequestParam(value="tpage", defaultValue="1") int currentPage)  {
