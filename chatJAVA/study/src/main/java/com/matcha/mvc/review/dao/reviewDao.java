@@ -38,4 +38,22 @@ public class reviewDao {
 		return (ArrayList)sqlSession.selectList("ReviewMapper.selectReviewList", null, rowBounds);
 	}
 	
+	//  삭제할 리뷰 이미지 URL 가졍오기
+	public ArrayList<ReviewImg> selectReviewImgUrl(SqlSessionTemplate sqlSession, int reviewNo) {
+		
+		return (ArrayList)sqlSession.selectList("ReviewMapper.selectReviewImgUrl", reviewNo);
+	}
+	
+	// 리뷰 삭제
+	public int deletReview(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.delete("ReviewMapper.deletReview", reviewNo);
+	}
+	
+	// 리뷰 이미지 삭제
+	public int deletReviewImg(SqlSessionTemplate sqlSession, int reviewNo) {
+		return sqlSession.delete("ReviewMapper.deletReviewImg", reviewNo);
+	}
+	
+
+	
 }

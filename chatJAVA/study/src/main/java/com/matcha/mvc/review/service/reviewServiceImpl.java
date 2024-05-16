@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.review.dao.reviewDao;
@@ -38,7 +39,25 @@ public class reviewServiceImpl implements reviewService{
 	@Override
 	public ArrayList<Review> selectReviewList(PageInfo pi) {
 		return reviewDao.selectReviewList(sqlSession, pi);
+	}
+	
+	@Override
+	public ArrayList<ReviewImg> selectReviewImgUrl(int reviewNo) {
+		return reviewDao.selectReviewImgUrl(sqlSession, reviewNo);
 	} 
+
+	@Override
+	@Transactional
+	public int deletReview(int reviewNo) {
+		return reviewDao.deletReview(sqlSession, reviewNo);
+	}
+
+	@Override
+	public int deletReviewImg(int reviewNo) {
+		return reviewDao.deletReviewImg(sqlSession, reviewNo);
+	}
+
+	
 	
 	
 }

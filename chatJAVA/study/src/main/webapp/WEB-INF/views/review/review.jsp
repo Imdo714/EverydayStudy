@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="/study/resources/css/review/review.css">
 	<script src="/study/resources/js/review/review.js"></script>
+	<script src="/study/resources/js/review/reviewAjax.js"></script>
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -68,33 +69,35 @@
 						<div id="collapseOne${i.reviewNo}" class="accordion-collapse collapse"
 							data-bs-parent="#accordionExample">
 							<div class="accordion-body">
-								<c:choose>
-		                            <c:when test="${i.reviewStar eq 1}">
-		                                <div class="str-div">
-											<span class="str-span">★</span>
-										</div>
-		                            </c:when>
-		                            <c:when test="${i.reviewStar eq 2}">
-		                                <div class="str-div">
-											<span class="str-span">★★</span>
-										</div>
-		                            </c:when>
-		                            <c:when test="${i.reviewStar eq 3}">
-										<div class="str-div">
-											<span class="str-span">★★★</span>
-										</div>
-		                            </c:when>
-		                            <c:when test="${i.reviewStar eq 4}">
-		                            	<div class="str-div">
-											<span class="str-span">★★★★</span>
-										</div>
-		                            </c:when>
-		                            <c:when test="${i.reviewStar eq 5}">
-		                                <div class="str-div">
-											<span class="str-span">★★★★★</span>
-										</div>
-		                            </c:when>
-		                        </c:choose> 
+								<div class="str-div">
+									<div class="star">
+										<c:choose>
+											<c:when test="${i.reviewStar eq 1}">
+												<span class="str-span">★</span>
+											</c:when>
+
+											<c:when test="${i.reviewStar eq 2}">
+												<span class="str-span">★★</span>
+											</c:when>
+
+											<c:when test="${i.reviewStar eq 3}">
+												<span class="str-span">★★★</span>
+											</c:when>
+
+											<c:when test="${i.reviewStar eq 4}">
+												<span class="str-span">★★★★</span>
+											</c:when>
+
+											<c:when test="${i.reviewStar eq 5}">
+												<span class="str-span">★★★★★</span>
+											</c:when>
+										</c:choose>
+									</div>
+								
+									<div style="width: 10%;">
+										<button onclick="reviewDel(`${i.reviewNo}`)" class="btn" style="background: #dc5454;">삭제</button>
+									</div>
+								</div>
 		                        <br>
 								${i.reviewContent} 
 								<br>

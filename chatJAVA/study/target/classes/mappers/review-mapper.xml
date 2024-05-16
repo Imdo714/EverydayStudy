@@ -90,7 +90,31 @@
                    ) A
                )
 	</select>
+	
+	<!--  삭제할 리뷰 이미지 URL 가졍오기 -->
+	<select id="selectReviewImgUrl" resultMap="reviewImgResult">
+		SELECT REVIEW_IMG_NO,
+			   REVIEW_IMG_URL,
+			   REVIEW_ORGIN_NAME,
+			   REVIEW_CHANG_NAME,
+			   REVIEW_NO
+		  FROM REVIEW_IMG
+		  WHERE
+			   REVIEW_NO = #{reviewNo}
+	</select>
 
-
+	<!-- 리뷰 삭제 -->
+	<delete id="deletReview">
+		DELETE FROM REVIEW
+		WHERE
+		REVIEW_NO = #{reviewNo}
+	</delete>
+	
+	<!-- 리뷰 이미지 삭제 -->
+	<delete id="deletReviewImg">
+		DELETE FROM REVIEW_IMG
+		WHERE
+		REVIEW_NO = #{reviewNo}
+	</delete>
 
 </mapper>

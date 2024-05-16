@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.matcha.mvc.common.page.Pagenation;
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.review.service.reviewService;
@@ -88,13 +90,40 @@ public class reviewController {
 		
 		ArrayList<Review> list = reviewService.selectReviewList(pi);
 		
-		System.out.println(list);
-		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("review/review");
 		
 		return mv;
-		
 	}
+	
+//  리뷰 삭제시 리뷰 관련된 거 다 삭제하는 메서드
+	@ResponseBody
+	@RequestMapping(value="/deleteReview.re", produces="application/json; charset=UTF-8")
+	public String uploadSummernoteImageFile(int reviewNo, HttpSession session )  {
+		
+		ArrayList<ReviewImg> list = reviewService.selectReviewImgUrl(reviewNo);
+		
+		System.out.println(list);
+
+		if(list != null) {
+			for (ReviewImg reviewImg : list) {
+				String reviewChangName = reviewImg.getReviewChangName();
+				String reviewImgUrl = reviewImg.getReviewImgUrl();
+	            
+//				int url = reviewImgUrl.length();                
+//				String ChangName = reviewChangName.substring(url);
+				
+				int delImg = reviewService.deletReviewImg(reviewNo); // 리뷰 이미지 삭제
+				new File(session.getServletContext().getRealPath(reviewChangName)).delete(); // 폴더에있는 사진 삭제
+	        }
+		}
+		
+		int del = reviewService.deletReview(reviewNo); // DB에서 리뷰랑 이미지 삭제만 하면 됨 
+		
+		System.out.println(del);
+		
+		return new Gson().toJson(del);
+	}
+
 	
 	
 }
