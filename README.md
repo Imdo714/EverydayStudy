@@ -499,6 +499,8 @@ replySucc = (result) => {
 
         result = ''
         document.getElementById("text-commet").value = result;
+
+        enableAllButtons(); // 모든 버튼 활성화
 }
 
 ````
@@ -602,6 +604,13 @@ const disableAllButtons = () => {  // 모든 버튼 비활성화 함
     const buttons = document.querySelectorAll('button');
     buttons.forEach(button => {
         button.disabled = true;
+    });
+}
+
+const enableAllButtons = () => {  // 모든 버튼 활성화
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.disabled = false;
     });
 }
 

@@ -41,4 +41,10 @@ public interface templateService {
 	
 	// 댓글 수정
 	int replyUpdate(TemplateReply tr);
+	
+	// 마에피이지 템플릿
+	ArrayList<Template> selectUserTemplate(int userNo);
+	
+	// 템플릿 관련 모두 삭제
+	int templateAllDelte(int templateNo);
 }

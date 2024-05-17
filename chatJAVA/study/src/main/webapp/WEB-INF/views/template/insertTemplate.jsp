@@ -24,7 +24,7 @@
         <h1>템플릿 작성</h1>
     </div>
     
-	<form action="insertTem.te" method="post"  enctype="multipart/form-data">
+	<form id="templateForm" action="insertTem.te" method="post"  enctype="multipart/form-data">
 		<div class="btn-box">
 		    <div class="in-btn">
 		        <button class="back-btn" onClick="location.href='main.te'">Back</button>

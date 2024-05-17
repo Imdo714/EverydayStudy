@@ -52,51 +52,27 @@
 
 
     <div class="my-container">
-        <div class="my-project">
-            <div class="head-project">
-                <div class="body-project" style="font-weight: bolder;">
-                    템플릿
-                </div>
-                <div class="body-project">
-                    10 건
-                </div>
-                <div class="foot-project">
-                    <a onClick="location.href='myTemplate.me'">내 템플릿 보러가기</a>
-                </div>
-            </div>
-
-            <div class="head-project">
-                <div class="body-project" style="font-weight: bolder;">
-                    댓글
-                </div>
-                <div class="body-project">
-                    10 건
-                </div>
-                <div class="foot-project">
-                    <a onClick="location.href='myComment.me'">내 댓글 보러가기</a>
-                </div>
-            </div>
+        <div class="update-page">
+            <button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                프로필 수정하기
+            </button>
+    
+            <button type="button" onClick="location.href='myTemplate.te'" class="update-btn" style="background-color: rgb(174, 243, 249);">
+                내 템플릿
+            </button>
+    
+            <button type="button" onclick="logout()" class="update-btn" style="background-color: rgb(228, 65, 65);">
+                로그아웃
+            </button>
+    
+            <!-- Button trigger modal -->
+            <button type="button" class="update-btn" style="background-color: rgb(192, 232, 83);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                디자이너 등록하기
+            </button>
         </div>
     </div>
 
-    <div class="update-page">
-        <button type="button" class="update-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-            프로필 수정하기
-        </button>
-
-        <button type="button" onclick="logout()" class="update-btn" style="background-color: rgb(228, 65, 65);">
-            로그아웃
-        </button>
-
-        <!-- Button trigger modal -->
-		<button type="button" class="update-btn" style="background-color: rgb(192, 232, 83);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-		    디자이너 등록하기
-		</button>
-    </div>
     
-    <!-- <div class="update-page">
-		
-    </div> -->
 
 	<!-- 프로필 수정 Modal -->
 	<div class="modal fade" id="exampleModal" data-bs-backdrop="static"

@@ -42,7 +42,6 @@ sendFile = (file, editor) => {
   templateAjaxController.insertTemplateImg(data, editor);
 }
 
-
 clickImg = (num) => {
   $("#fileImgFile" + num).click();
 }
@@ -67,30 +66,101 @@ loadImg = (inputFile,num) => {
   }
 }
 
+const name = []; // 전역 변수
+
+const test = (data) => { // 파일 이름 받아오기
+  console.log('제발', data)
+
+  name.push(data)
+
+  console.log('데이터가 저장되었습니다:', name);
+}
+
 subBtn = () => {
 
-  // 입력 필드의 값을 가져옵니다.
-  let inputFile = document.getElementById("fileImgFile1").value;
-  let inputTitle = document.getElementById("title").value;
-  let inputText = document.getElementById("content").value;
+  // // 입력 필드의 값을 가져옵니다.
+  // let inputFile = document.getElementById("fileImgFile1").value;
+  // let inputTitle = document.getElementById("title").value;
+  // let inputText = document.getElementById("content").value;
     
-  // 입력 필드의 값이 공백이 아닌지 확인합니다.
-  if (inputFile.trim() === "") {
-      // 공백이면 submit을 실행하지 않고 false를 반환합니다.
-      alert('썸네일을 기입하시오!');
-      return false;
-  } else if (inputTitle.trim() === "") {
-      alert('제목을 작성하시오!');
-      return false;
-  } else if (inputText.trim() === "") {
-    alert('내용을 입력하시오');
-    return false;
-  }
+  // // 입력 필드의 값이 공백이 아닌지 확인합니다.
+  // if (inputFile.trim() === "") {
+  //     // 공백이면 submit을 실행하지 않고 false를 반환합니다.
+  //     alert('썸네일을 기입하시오!');
+  //     return false;
+  // } else if (inputTitle.trim() === "") {
+  //     alert('제목을 작성하시오!');
+  //     return false;
+  // } else if (inputText.trim() === "") {
+  //   alert('내용을 입력하시오');
+  //   return false;
+  // }
   
-  // 공백이 아니라면 submit을 실행합니다.
-  return true;
+  // // 공백이 아니라면 submit을 실행합니다.
+  // return true;
+
+   // 입력 필드의 값을 가져옵니다.
+   let inputFile = document.getElementById("fileImgFile1").value;
+   let inputTitle = document.getElementById("title").value;
+   let inputText = document.getElementById("content").value;
+
+   // 입력 필드의 값이 공백이 아닌지 확인합니다.
+   if (inputFile.trim() === "") {
+       alert('썸네일을 기입하시오!');
+       return false;
+   } else if (inputTitle.trim() === "") {
+       alert('제목을 작성하시오!');
+       return false;
+   } else if (inputText.trim() === "") {
+       alert('내용을 입력하시오');
+       return false;
+   }
+
+   // 추가 데이터를 포함한 FormData 객체 생성
+   const form = document.getElementById("templateForm");
+   const formData = new FormData(form);
+
+   // name 배열을 formData에 추가
+   name.forEach((data, index) => {
+      formData.append(`name`, data);
+  });
+
+  //  templateAjaxController.formTemplate(formData, res);
+
+  $.ajax({
+      data: formData,
+      type: "POST",
+      url: form.action,
+      processData: false,
+      contentType: false,
+      success: (result) => {
+          res(result);
+      },
+      error: (err) => {
+          console.log(err);
+      }
+  });
+
+   // 폼의 기본 제출 동작을 막음
+   return false;
 }
 
 clance = () => {
   alert('로그인 이후 사용이 가능합니다');
 }
+
+deleteTemplate = (templateNo) => {
+  console.log(templateNo)
+  data = {
+    templateNo : templateNo
+  }
+
+  templateAjaxController.delTemplate(data, res);
+}
+
+res = (result) => {
+  console.log(result)
+}
+
+
+

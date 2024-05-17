@@ -62,7 +62,7 @@ public class templateDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		return (ArrayList)sqlSession.selectList("TemplateMapper.detailReplyTemplate",  tno, rowBounds);
+		return (ArrayList)sqlSession.selectList("TemplateMapper.detailReplyTemplate", tno, rowBounds);
 	}
 	
 	// 템플릿 수정 업데이트 
@@ -87,5 +87,19 @@ public class templateDao {
 	// 댓글 수정
 	public int replyUpdate(SqlSessionTemplate sqlSession, TemplateReply tr) {
 		return sqlSession.update("TemplateMapper.replyUpdate", tr);
+	}
+	
+	// 마에피이지 템플릿
+	public ArrayList<Template> selectUserTemplate(SqlSessionTemplate sqlSession, int userNo) {
+		return (ArrayList)sqlSession.selectList("TemplateMapper.selectUserTemplate", userNo);
+	}
+	
+	// 댓글 삭제
+	public int templateAllDelte(SqlSessionTemplate sqlSession, int templateNo) {
+		int res1 = sqlSession.delete("TemplateMapper.templateDelte", templateNo);
+		int res2 = sqlSession.delete("TemplateMapper.templateImgDelte", templateNo);
+		int res3 = sqlSession.delete("TemplateMapper.templateReplyDelte", templateNo);
+		
+		return res1 + res2 +res3;
 	}
 }

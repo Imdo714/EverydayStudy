@@ -76,6 +76,16 @@ public class templateServiceImpl implements templateService{
 		return templateDao.replyUpdate(sqlSession, tr);
 	}
 
+	@Override
+	public ArrayList<Template> selectUserTemplate(int userNo) {
+		return templateDao.selectUserTemplate(sqlSession, userNo);
+	}
+
+	@Override
+	public int templateAllDelte(int templateNo) {
+		return templateDao.templateAllDelte(sqlSession, templateNo);
+	}
+
 
 
 

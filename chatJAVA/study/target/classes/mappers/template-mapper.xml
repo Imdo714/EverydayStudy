@@ -192,4 +192,40 @@
 		       TEMPLATE_REPLY_NO = #{templateReplyNo}
 	</update>
 	
+	<!-- 마에피이지 템플릿 -->
+	<select id="selectUserTemplate" resultMap="templateResult">
+		SELECT TEMPLATE_NO,
+		       TEMPLATE_TITLE,
+		       TEMPLATE_CONTENT,
+		       TEMPLATE_DATE,
+		       USER_NO,
+		       CATEGORY_NO,
+		       TEMPLATE_CHANG_NAME
+		  FROM TEMPLATE
+		  JOIN TEMPLATE_IMG USING(TEMPLATE_NO)
+		 WHERE USER_NO = #{userNo}
+	</select>
+	
+	<!-- 템플릿 삭제시 템플릿 삭제 -->
+	<delete id="templateDelte">
+		DELETE FROM TEMPLATE
+		WHERE
+		TEMPLATE_NO = #{templateNo}
+	</delete>
+	
+	<!-- 템플릿 삭제시 이미지 삭제 -->
+	<delete id="templateImgDelte">
+		DELETE FROM TEMPLATE_IMG
+		WHERE
+		TEMPLATE_NO = #{templateNo}
+	</delete>
+	
+	<!-- 템플릿 삭제시 댓글 삭제 -->
+	<delete id="templateReplyDelte">
+		DELETE FROM TEMPLATE_REPLY
+		WHERE
+		TEMPLATE_NO = #{templateNo}
+	</delete>
+	
+	
 </mapper>

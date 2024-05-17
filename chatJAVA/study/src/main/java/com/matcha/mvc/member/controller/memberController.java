@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.matcha.mvc.member.service.memberService;
 import com.matcha.mvc.member.vo.Member;
 import com.matcha.mvc.member.vo.MemberImg;
+import com.matcha.mvc.template.service.templateService;
 
 
 
@@ -23,16 +24,10 @@ public class memberController {
 	@Autowired
 	memberService memberService;
 	
+	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-
-//	마이 페이지에서 내 템플릿 보기
-	@RequestMapping("/myTemplate.me")
-	public String mytemAll(Model model){
-		
-		return "member/myTemplateAll";
-	}
 	
 //	마이 페이지에서 내 댓글 보기
 	@RequestMapping("/myComment.me")

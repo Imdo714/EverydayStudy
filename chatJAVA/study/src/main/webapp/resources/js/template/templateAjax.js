@@ -11,6 +11,8 @@ const templateAjaxController = {
                 console.log(data)
                 // 에디터에 이미지 출력
                 $(editor).summernote('editor.insertImage', data);
+
+                test(data);
             },
             error: (err) => {
                 console.log(err)
@@ -103,6 +105,36 @@ const templateAjaxController = {
                 console.log(err)
             }
         })
+    },
+
+    delTemplate : (data, callback) =>{
+        $.ajax({
+            data : data,
+            type : "POST",
+            url : "delteTemplate.te",   
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
+
+    formTemplate: (formData, callback) => {
+        $.ajax({
+            data: formData,
+            type: "POST",
+            url: form.action,
+            processData: false,
+            contentType: false,
+            success: (result) => {
+                callback(result);
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        });
     },
 
 }
