@@ -102,24 +102,20 @@ public class reviewController {
 		
 		ArrayList<ReviewImg> list = reviewService.selectReviewImgUrl(reviewNo);
 		
-		System.out.println(list);
-
+		String reviewChangName = "";
+		String reviewImgUrl = "";
+		
+		for (ReviewImg reviewImg : list) {
+			reviewChangName = reviewImg.getReviewChangName();
+			reviewImgUrl = reviewImg.getReviewImgUrl();
+        }
+		
 		if(list != null) {
-			for (ReviewImg reviewImg : list) {
-				String reviewChangName = reviewImg.getReviewChangName();
-				String reviewImgUrl = reviewImg.getReviewImgUrl();
-	            
-//				int url = reviewImgUrl.length();                
-//				String ChangName = reviewChangName.substring(url);
-				
-				int delImg = reviewService.deletReviewImg(reviewNo); // 리뷰 이미지 삭제
-				new File(session.getServletContext().getRealPath(reviewChangName)).delete(); // 폴더에있는 사진 삭제
-	        }
+			int delImg = reviewService.deletReviewImg(reviewNo); // DB 리뷰 이미지 삭제
+			new File(session.getServletContext().getRealPath(reviewChangName)).delete(); // 폴더에있는 사진 삭제
 		}
 		
-		int del = reviewService.deletReview(reviewNo); // DB에서 리뷰랑 이미지 삭제만 하면 됨 
-		
-		System.out.println(del);
+		int del = reviewService.deletReview(reviewNo); // DB에서 리뷰 삭제
 		
 		return new Gson().toJson(del);
 	}

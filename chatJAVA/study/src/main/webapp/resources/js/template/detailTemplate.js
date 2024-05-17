@@ -119,6 +119,13 @@ const disableAllButtons = () => {  // 모든 버튼 비활성화
     });
 }
 
+const enableAllButtons = () => {  // 모든 버튼 활성화
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.disabled = false;
+    });
+}
+
 editReply = (replyNo, tno, ImgChangName, userName, ReplyDate, ReplyContent) => { // 댓글 수정
 
     disableAllButtons(); // 모든 버튼 비활성화
@@ -232,5 +239,6 @@ replySucc = (result) => {
 
         result = ''
         document.getElementById("text-commet").value = result;
-}
 
+        enableAllButtons(); // 모든 버튼 활성화
+}
