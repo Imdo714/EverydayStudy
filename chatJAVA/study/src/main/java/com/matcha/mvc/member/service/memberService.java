@@ -19,4 +19,7 @@ public interface memberService {
 	
 	// myPage 프로필 찾기 
 	MemberImg selectMemberImg(int userNo);
+	
+	// 회원 정보 가져오기
+	Member selectUser(int userNo);
 }

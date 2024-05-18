@@ -101,5 +101,18 @@
 		   FROM MEMBER_IMG
 	   	  WHERE USER_NO = #{userNo}
   	</select>
+  	
+  		<!-- myPage 프로필 찾기  -->
+  	<select id="selectUser" resultMap="memberResult">
+  		 SELECT USER_NO,
+			    USER_ID ,
+			    USER_PWD ,
+			    USER_NAME ,
+			    USER_PHONE ,
+			    USER_BIRTH ,
+			    USER_GENDER 
+		   FROM MEMBER
+	   	  WHERE USER_NO = #{userNo}
+  	</select>
 
 </mapper>

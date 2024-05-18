@@ -26,4 +26,17 @@ const memberAjaxController = {
             }
         })
     },
+
+    myLevelLocation : (callback) =>{
+        $.ajax({
+            url: "myPageLevel.me",
+            type: "post",
+            success: (result) => {
+                callback(result)
+            },
+            error: (err) => {
+                console.log(err)
+            }
+        })
+    },
 }

@@ -42,4 +42,9 @@ public class memberServiceImpl implements memberService{
 		return memberDao.selectMemberImg(sqlSession, userNo);
 	}
 
+	@Override
+	public Member selectUser(int userNo) {
+		return memberDao.selectUser(sqlSession, userNo);
+	}
+
 }

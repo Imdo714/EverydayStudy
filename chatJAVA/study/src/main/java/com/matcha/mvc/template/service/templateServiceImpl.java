@@ -80,11 +80,33 @@ public class templateServiceImpl implements templateService{
 	public ArrayList<Template> selectUserTemplate(int userNo) {
 		return templateDao.selectUserTemplate(sqlSession, userNo);
 	}
+	
+	@Override
+	public ArrayList<TemplateImg> TemplateImgAll(int templateNo) {
+		return templateDao.TemplateImgAll(sqlSession, templateNo);
+	}
 
 	@Override
 	public int templateAllDelte(int templateNo) {
 		return templateDao.templateAllDelte(sqlSession, templateNo);
 	}
+
+	@Override
+	public int summerImgName(TemplateImg sti) {
+		return templateDao.summerImgName(sqlSession, sti);
+	}
+
+	@Override
+	public int userTemplateCount(int userNo) {
+		return templateDao.userTemplateCount(sqlSession, userNo);
+	}
+
+	@Override
+	public int userReplyCount(int userNo) {
+		return templateDao.userReplyCount(sqlSession, userNo);
+	}
+
+	
 
 
 

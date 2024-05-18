@@ -152,3 +152,41 @@ logout = () => {
         return false;
     }
 }
+
+myLevel = () => {
+    memberAjaxController.myLevelLocation(myLevelResult);
+}
+
+myLevelResult = (result) => {
+    console.log(result)
+    let templateCount = result.model.templateCount;
+    let replyCount = result.model.replyCount;
+
+    let str = "";
+
+    if(templateCount == 1 && replyCount == 2){
+        str += `<h1>Lv. 2</h1>`;
+    } else if(templateCount == 2 && replyCount == 10){
+        str += `<h1>Lv. 3</h1>`;
+    } else if(templateCount == 5 && replyCount == 15){
+        str += `<h1>Lv. 3</h1>`;
+    } else if(templateCount == 10 && replyCount == 20){
+        str += `<h1>Lv. 3</h1>`;
+    } else {
+        str += `<h1>Lv. 1</h1>`;
+    }
+
+    document.querySelector("#level-section").innerHTML = str;
+}
+
+readURL = (input) => {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+        document.getElementById('preview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        document.getElementById('preview').src = "";
+    }
+}

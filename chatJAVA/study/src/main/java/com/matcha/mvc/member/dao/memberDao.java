@@ -35,7 +35,10 @@ public class memberDao {
 		return sqlSession.selectOne("memberMapper.selectMemberImg", userNo);
 	}
 	
-	
+	// 회원 정보 가져오기
+	public Member selectUser(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("memberMapper.selectUser", userNo);
+	}
 	
 	
 	

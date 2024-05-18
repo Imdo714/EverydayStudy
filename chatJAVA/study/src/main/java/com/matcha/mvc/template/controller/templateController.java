@@ -2,11 +2,10 @@ package com.matcha.mvc.template.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect.Type;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,12 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.matcha.mvc.common.page.Pagenation;
 import com.matcha.mvc.common.vo.PageInfo;
 import com.matcha.mvc.member.vo.Member;
 import com.matcha.mvc.template.service.templateService;
 import com.matcha.mvc.template.vo.Template;
+import com.matcha.mvc.template.vo.TemplateImg;
 import com.matcha.mvc.template.vo.TemplateReply;
 
 @Controller
@@ -83,7 +82,7 @@ public class templateController {
 	
 //  템플릿 작성 메서드
 //	@RequestMapping("/insertTem.te")
-//	public String templateInsert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
+//	public String templatert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
 //		
 //		Member m = (Member) session.getAttribute("loginUser");
 //		int userNo = m.getUserNo();
@@ -114,20 +113,47 @@ public class templateController {
 //	} 
 	
 //  -------------------------------테스트용------------------------------------
-	@ResponseBody
+	@ResponseBody  
 	@RequestMapping(value="/insertTem.te", produces="application/json; charset=UTF-8")
-	public String templateForm(Template t, HttpSession session, ArrayList<MultipartFile> upfile, @RequestParam("name") String name)  {
+	public String templateForm(Template t, HttpSession session, ArrayList<MultipartFile> upfile, @RequestParam(value="name", required=false) List<String> name)  {
+				
+	    Member m = (Member) session.getAttribute("loginUser");
+	    int summer = 0; int fileUploadResult = 0; //int temp = 0;
+//	    
+		int temp = templateService.templateInsert(t, m.getUserNo()); // 템플릿 작성 
+	    
+		for(MultipartFile mf : upfile) {
+			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
+			if(mf != null && !mf.isEmpty() && !"".equals(mf.getOriginalFilename().trim())) {
+				TemplateImg ti = new TemplateImg();
+				String changeName = saveFile(mf, session, "resources/img/templateImgFile/titleTemplate/");
+				
+				ti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
+				ti.setTemplateOrginName(mf.getOriginalFilename());
+				ti.setTemplateChangName("resources/img/templateImgFile/titleTemplate/" + changeName);
+				
+				fileUploadResult = templateService.templateTitleImg(ti); // 썸네일 기입
+			}
+		}
+		
+//		String[] fileNames = name.split(",");
+		if (name != null && !name.isEmpty()) {
+		    for (String fileName : name) {
+		        if(fileName != null) {
+		        	TemplateImg sti = new TemplateImg();
+		        	
+		        	sti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
+					sti.setTemplateOrginName("썸머노트");
+					sti.setTemplateChangName(fileName);
+					
+					summer = templateService.summerImgName(sti);
+		        }
+		    }  
+		}
+	    
+	    int result = temp + fileUploadResult;
 
-		System.out.println("Template: " + t);
-		System.out.println("MultipartFile: " + upfile);
-		System.out.println("File Name: " + name);
-		
-		String[] fileNames = name.split(",");
-	    for (String fileName : fileNames) {
-	        System.out.println("File Name: " + fileName);
-	    }  // 이미지 이름 가져오기 성공 ㅜㅜ 이제 템플릿 등록할때 이미지도 같이 등록만하면 됨 
-		
-		return new Gson().toJson(null);
+		return new Gson().toJson(result);
 	}
 //  -------------------------------테스트용------------------------------------
 	
@@ -141,9 +167,6 @@ public class templateController {
 		
 		String cName = saveFile(multipartFile, session, "resources/img/templateImgFile/insertTemplate/");
 		String changeName = "resources/img/templateImgFile/insertTemplate/" + cName;
-		
-		// 썸머노트에 스크립트로 파일을 올릴때 이름을 DB에도 저장을 해줘야 함  
-		// 근데 아직 순서상 템플릿 번호가 없기에 스크립트로 JSON이나 배열 형식으로 보내 줘야 할 듯 
 		
 		return new Gson().toJson(changeName);
 	}
@@ -270,8 +293,15 @@ public class templateController {
 	@RequestMapping(value="/delteTemplate.te", produces="application/json; charset=UTF-8")
 	public String replyUpdate(int templateNo, ModelAndView mv, HttpSession session)  {
 		
+		ArrayList<TemplateImg> list = templateService.TemplateImgAll(templateNo);
+		
+		for(TemplateImg templateImg  : list) {
+			String changName = templateImg.getTemplateChangName();
+			new File(session.getServletContext().getRealPath(changName)).delete(); // 폴더에있는 이미지 삭제
+		}
+		
 		int tem = templateService.templateAllDelte(templateNo); // 템플릿 관련 모두 삭제
 		
-	    return new Gson().toJson(null);
+	    return new Gson().toJson(tem);
 	}
 }

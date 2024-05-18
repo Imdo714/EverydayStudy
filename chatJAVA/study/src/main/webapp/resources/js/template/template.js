@@ -77,28 +77,6 @@ const test = (data) => { // 파일 이름 받아오기
 }
 
 subBtn = () => {
-
-  // // 입력 필드의 값을 가져옵니다.
-  // let inputFile = document.getElementById("fileImgFile1").value;
-  // let inputTitle = document.getElementById("title").value;
-  // let inputText = document.getElementById("content").value;
-    
-  // // 입력 필드의 값이 공백이 아닌지 확인합니다.
-  // if (inputFile.trim() === "") {
-  //     // 공백이면 submit을 실행하지 않고 false를 반환합니다.
-  //     alert('썸네일을 기입하시오!');
-  //     return false;
-  // } else if (inputTitle.trim() === "") {
-  //     alert('제목을 작성하시오!');
-  //     return false;
-  // } else if (inputText.trim() === "") {
-  //   alert('내용을 입력하시오');
-  //   return false;
-  // }
-  
-  // // 공백이 아니라면 submit을 실행합니다.
-  // return true;
-
    // 입력 필드의 값을 가져옵니다.
    let inputFile = document.getElementById("fileImgFile1").value;
    let inputTitle = document.getElementById("title").value;
@@ -121,25 +99,31 @@ subBtn = () => {
    const formData = new FormData(form);
 
    // name 배열을 formData에 추가
-   name.forEach((data, index) => {
+   name.forEach((data) => {
       formData.append(`name`, data);
   });
 
-  //  templateAjaxController.formTemplate(formData, res);
+  //  templateAjaxController.formTemplate(formData, Resultform);
 
   $.ajax({
-      data: formData,
-      type: "POST",
-      url: form.action,
-      processData: false,
-      contentType: false,
-      success: (result) => {
-          res(result);
-      },
-      error: (err) => {
-          console.log(err);
-      }
-  });
+    data: formData,
+    type: "POST",
+    url: form.action,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+        // 성공 처리
+        if(result == 2 ){
+          alert('템플릿 등록 성공!');
+          location.href='main.te'
+        } else {
+          alert('템플릿 등록 실패!');
+        }
+    },
+    error: (err) => {
+        console.log(err);
+    }
+});
 
    // 폼의 기본 제출 동작을 막음
    return false;
@@ -149,7 +133,7 @@ clance = () => {
   alert('로그인 이후 사용이 가능합니다');
 }
 
-deleteTemplate = (templateNo) => {
+deleteTemplate = (templateNo) => { // 템플릿 삭제 
   console.log(templateNo)
   data = {
     templateNo : templateNo
@@ -160,7 +144,11 @@ deleteTemplate = (templateNo) => {
 
 res = (result) => {
   console.log(result)
+  if(result == 3 ){
+    alert('템플릿 삭제 성공!');
+    location.href='main.te'
+  } else {
+    alert('템플릿 삭제 실패!');
+  }
 }
-
-
 

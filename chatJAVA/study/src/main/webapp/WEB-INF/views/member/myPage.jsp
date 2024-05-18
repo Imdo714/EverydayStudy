@@ -8,9 +8,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/study/resources/css/member/myPage.css">
 <script src="/study/resources/js/common/login.js"></script>
+<script src="/study/resources/js/common/loginAjax.js"></script>
 
 </head>
-<body>
+<body onload="myLevel()">
 
 <jsp:include page="../common/header.jsp" />
 	
@@ -20,8 +21,8 @@
                 <div class="name-section">
                     <h1>임도현</h1>
                 </div>
-                <div class="name-section">
-                    <h1>Lv. 3</h1>
+                <div class="name-section" id="level-section">
+                    
                 </div>
                 <div class="name-section">
                     <div class="boxMy">
@@ -88,22 +89,18 @@
 				<div class="modal-body">
 					<div class="update-information">
 						<div class="desUpimg">
-							<img id="preview" /> <label for="file">
+							<img id="preview" />
+							<label for="file">
 								<div class="btn-upload">파일 업로드하기</div>
-							</label> <input type="file" onchange="readURL(this)" name="file"
-								id="file">
+							</label> 
+							<input type="file" onchange="readURL(this)" name="file" id="file">
 						</div>
 
-						<input type="text" value="" placeholder="아이디"> <input
-							type="password" value="" placeholder="비밀번호"> <input
-							type="text" value="" placeholder="이름"> <input type="text"
-							value="" placeholder="전화번호"> <input type="date" value=""
-							placeholder="생년월일">
-						<div class="select">
-							<input type="radio" id="upMail" name="shop" value=""><label
-								for="upMail">남자</label> <input type="radio" id="upFmail"
-								name="shop" value=""><label for="upFmail">여자</label>
-						</div>
+						<input type="text" value="${user.userId}" placeholder="아이디"> 
+						<input type="password" value="" placeholder="비밀번호"> 
+						<input type="text" value="${user.userName}" placeholder="이름"> 
+						<input type="text" value="${user.phone}" placeholder="전화번호"> 
+						<input type="date" value="${user.userBirth}" placeholder="생년월일">
 					</div>
 				</div>
 

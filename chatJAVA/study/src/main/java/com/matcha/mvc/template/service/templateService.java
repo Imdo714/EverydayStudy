@@ -45,6 +45,18 @@ public interface templateService {
 	// 마에피이지 템플릿
 	ArrayList<Template> selectUserTemplate(int userNo);
 	
+	// 템플릿 이미지 사진 정보 다 가져오기
+	ArrayList<TemplateImg> TemplateImgAll(int templateNo);
+	
 	// 템플릿 관련 모두 삭제
 	int templateAllDelte(int templateNo);
+	
+	// 썸머 노트 사진 이름 저장하기 
+	int summerImgName(TemplateImg sti);
+	
+	// 회원 템플릿 갯수 
+	int userTemplateCount(int userNo);
+	
+	// 회원 댓글 갯수 
+	int userReplyCount(int userNo);
 }

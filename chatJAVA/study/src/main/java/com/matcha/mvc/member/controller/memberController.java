@@ -24,17 +24,12 @@ public class memberController {
 	@Autowired
 	memberService memberService;
 	
+	@Autowired
+	templateService templateService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	
-//	마이 페이지에서 내 댓글 보기
-	@RequestMapping("/myComment.me")
-	public String mycomAll(Model model){
-		
-		return "member/myCommentAll";
-	}
 	
 // 로그아웃
 	@RequestMapping(value="/logout.me")
@@ -95,13 +90,8 @@ public class memberController {
 				
 				int profile = memberService.defaultImg(mi);
 				
-				if(result > 0) {
-					mv.addObject("message", "성공");
-					return new Gson().toJson(mv);
-				} else {
-					mv.addObject("message", "실패");
-					return new Gson().toJson(mv);
-				}
+				mv.addObject("message", result > 0 ? "성공" : "실패");
+				return new Gson().toJson(mv);
 		}
     }
 	
@@ -110,14 +100,31 @@ public class memberController {
 	public ModelAndView myPage(HttpSession session, ModelAndView mv){
 		
 		Member m = (Member) session.getAttribute("loginUser");
-		int userNo = m.getUserNo();
 		
-		MemberImg mi = memberService.selectMemberImg(userNo);
+		MemberImg mi = memberService.selectMemberImg(m.getUserNo());
 		
-		mv.addObject("memberImg", mi).setViewName("member/myPage");
+		Member user = memberService.selectUser(m.getUserNo());
+		
+		mv.addObject("memberImg", mi).addObject("user", user).setViewName("member/myPage");
 		
       return mv;
 	}
+	
+//	마이페이지 레벨 구하는 메서드
+	@ResponseBody
+	@RequestMapping(value="/myPageLevel.me", produces="application/json; charset=UTF-8")
+    public String MemberLv(HttpSession session, ModelAndView mv) {
+        
+		Member m = (Member) session.getAttribute("loginUser");
+		
+		int templateCount = templateService.userTemplateCount(m.getUserNo());
+		
+		int replyCount = templateService.userReplyCount(m.getUserNo());
+		
+		mv.addObject("templateCount", templateCount).addObject("replyCount", replyCount);
+		
+		return new Gson().toJson(mv);
+    }
 	
 	
 	

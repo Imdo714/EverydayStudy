@@ -94,6 +94,11 @@ public class templateDao {
 		return (ArrayList)sqlSession.selectList("TemplateMapper.selectUserTemplate", userNo);
 	}
 	
+	// 마에피이지 템플릿
+	public ArrayList<TemplateImg> TemplateImgAll(SqlSessionTemplate sqlSession, int templateNo) {
+		return (ArrayList)sqlSession.selectList("TemplateMapper.TemplateImgAll", templateNo);
+	}
+	
 	// 댓글 삭제
 	public int templateAllDelte(SqlSessionTemplate sqlSession, int templateNo) {
 		int res1 = sqlSession.delete("TemplateMapper.templateDelte", templateNo);
@@ -101,5 +106,20 @@ public class templateDao {
 		int res3 = sqlSession.delete("TemplateMapper.templateReplyDelte", templateNo);
 		
 		return res1 + res2 +res3;
+	}
+	
+	// 썸머 노트 사진 이름 저장하기 
+	public int summerImgName(SqlSessionTemplate sqlSession, TemplateImg sti) {
+		return sqlSession.update("TemplateMapper.summerImgName", sti);
+	}
+	
+	// 회원 템플릿 총 갯수 
+	public int userTemplateCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("TemplateMapper.userTemplateCount", userNo);
+	}
+	
+	// 회원 댓글 총 갯수 
+	public int userReplyCount(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("TemplateMapper.userReplyCount", userNo);
 	}
 }

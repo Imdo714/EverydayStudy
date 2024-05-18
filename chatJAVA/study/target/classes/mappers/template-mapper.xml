@@ -87,23 +87,29 @@
 	
 	<!-- 템플릿 리스트 정보 가져오기  -->
 	<select id="selectTemplateList" resultMap="templateResult">
-	SELECT *
-        FROM(
-                SELECT ROWNUM RNUM, A.*
-                FROM (
-                        SELECT TEMPLATE_NO,
-                               TEMPLATE_TITLE,
-                               TEMPLATE_CONTENT,
-                               TEMPLATE_DATE,
-                               USER_NO,
-                               CATEGORY_NO,
-                               TEMPLATE_IMG_URL,
-                               TEMPLATE_CHANG_NAME
-                        FROM TEMPLATE
-                        JOIN TEMPLATE_IMG USING(TEMPLATE_NO)
-                        ORDER BY TEMPLATE_NO DESC
-                    ) A
-                )
+    SELECT *
+			FROM (
+			    SELECT ROWNUM RNUM, A.*
+			    FROM (
+			        SELECT 
+			            T.TEMPLATE_NO,
+			            T.TEMPLATE_TITLE,
+			            T.TEMPLATE_CONTENT,
+			            T.TEMPLATE_DATE,
+			            T.USER_NO,
+			            T.CATEGORY_NO,
+			            TI.TEMPLATE_IMG_URL,
+			            TI.TEMPLATE_CHANG_NAME
+			        FROM 
+			            TEMPLATE T
+			        JOIN 
+			            TEMPLATE_IMG TI ON T.TEMPLATE_NO = TI.TEMPLATE_NO
+			        WHERE 
+			            TI.TEMPLATE_THUMBNAIL = 2
+			        ORDER BY 
+			            T.TEMPLATE_NO DESC
+			    ) A
+			)
 	</select>
 	
 	<!-- 디테일 템플릿 정보 -->
@@ -194,16 +200,41 @@
 	
 	<!-- 마에피이지 템플릿 -->
 	<select id="selectUserTemplate" resultMap="templateResult">
-		SELECT TEMPLATE_NO,
-		       TEMPLATE_TITLE,
-		       TEMPLATE_CONTENT,
-		       TEMPLATE_DATE,
-		       USER_NO,
-		       CATEGORY_NO,
-		       TEMPLATE_CHANG_NAME
-		  FROM TEMPLATE
-		  JOIN TEMPLATE_IMG USING(TEMPLATE_NO)
-		 WHERE USER_NO = #{userNo}
+		 SELECT *
+				FROM (
+				    SELECT ROWNUM RNUM, A.*
+				    FROM (
+				        SELECT 
+				            T.TEMPLATE_NO,
+				            T.TEMPLATE_TITLE,
+				            T.TEMPLATE_CONTENT,
+				            T.TEMPLATE_DATE,
+				            T.USER_NO,
+				            T.CATEGORY_NO,
+				            TI.TEMPLATE_CHANG_NAME
+				        FROM 
+				            TEMPLATE T
+				        JOIN 
+				            TEMPLATE_IMG TI ON T.TEMPLATE_NO = TI.TEMPLATE_NO
+				        WHERE 
+				            T.USER_NO = 1
+				            AND TI.TEMPLATE_THUMBNAIL = 2
+				        ORDER BY 
+				            T.TEMPLATE_NO DESC
+				    ) A
+				)
+	</select>
+	
+	<!-- 템플릿 이미지 사진 정보 다 가져오기 -->
+	<select id="TemplateImgAll" resultMap="templateImgResult">
+		SELECT TEMPLATE_IMG_NO,
+			   TEMPLATE_IMG_URL,
+			   TEMPLATE_ORGIN_NAME,
+			   TEMPLATE_CHANG_NAME,
+			   TEMPLATE_THUMBNAIL,
+			   TEMPLATE_NO
+		  FROM TEMPLATE_IMG
+		 WHERE TEMPLATE_NO = #{templateNo}
 	</select>
 	
 	<!-- 템플릿 삭제시 템플릿 삭제 -->
@@ -227,5 +258,38 @@
 		TEMPLATE_NO = #{templateNo}
 	</delete>
 	
+		<!-- 댓글 작성 -->
+  	<insert id="summerImgName">
+		INSERT INTO 
+			TEMPLATE_IMG(
+			TEMPLATE_IMG_NO,
+			TEMPLATE_IMG_URL,
+			TEMPLATE_ORGIN_NAME,
+			TEMPLATE_CHANG_NAME,
+			TEMPLATE_THUMBNAIL,
+			TEMPLATE_NO
+			)
+		VALUES (
+			SEQ_TEMPLATE_IMG.NEXTVAL,
+			#{templateImgUrl},
+			#{templateOrginName},
+			#{templateChangName},
+			1,
+			SEQ_TEMPLATE.CURRVAL
+			)
+	</insert>
 	
+	<!-- 회원 템플릿 총 갯수 -->
+	<select id="userTemplateCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM TEMPLATE
+		  WHERE TEMPLATE_NO = #{templateNo}
+	</select>
+	
+	<!-- 회원 템플릿 총 갯수 -->
+	<select id="userReplyCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM TEMPLATE_REPLY
+		  WHERE TEMPLATE_NO = #{templateNo}
+	</select>
 </mapper>
