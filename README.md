@@ -226,6 +226,7 @@ insertTemplateImg : (data, editor) =>{
                 console.log(data)
                 // 에디터에 이미지 출력
                 $(editor).summernote('editor.insertImage', data);
+		test(data); // 사진 이름 test함수로 보내줌줌
             },
             error: (err) => {
                 console.log(err)
@@ -297,25 +298,114 @@ public String deleteSummernoteImageFile(@RequestParam("file") String file, HttpS
 	return "good";
 }
 ````
-## 업데이트도 똑같아
-위에 처럼 다 똑같이 하고 SQL에서 업데이트 성공시 코드들 저장 ~ <br>
+## 이미지를 따 뛰웠으면 이제 DB에 등록만 하면 된다.
+만약에 이미지나 제목 내용을 한개라도 작성을 하지 않으면 등록을 못하게 막고 다 적으면 true를 보내서 form태그를 실행
 ````
-@ResponseBody
-@RequestMapping(value="/updateTemplate.te", produces="application/json; charset=UTF-8")
-public String updateSummernote(Template t, ModelAndView mv)  {
+const name = []; // 전역 변수
 
-	// 성공하면 success 보내주고 실패시 fail을 보내줌
-	return new Gson().toJson(templateService.updateTemplate(t) > 0 ? "success" : "fail"); 
+const test = (data) => { // 파일 이름 받아오기
+  console.log('제발', data)
+
+  name.push(data)
+
+  console.log('데이터가 저장되었습니다:', name);
 }
 
-updateT = (result) => {
-    if(result == 'success'){ // 업데이트 성공시
-        var markup = $('.click2edit').summernote('code'); // 썸머노트가 코드 수정을 저장해줌
-        $('.click2edit').summernote('destroy');
-    } else {
-        alert('템플릿 수정에 실패하였습니다.');
+subBtn = () => {
+   // 입력 필드의 값을 가져옵니다.
+   let inputFile = document.getElementById("fileImgFile1").value;
+   let inputTitle = document.getElementById("title").value;
+   let inputText = document.getElementById("content").value;
+
+   // 입력 필드의 값이 공백이 아닌지 확인합니다.
+   if (inputFile.trim() === "") {
+       alert('썸네일을 기입하시오!');
+       return false;
+   } else if (inputTitle.trim() === "") {
+       alert('제목을 작성하시오!');
+       return false;
+   } else if (inputText.trim() === "") {
+       alert('내용을 입력하시오');
+       return false;
+   }
+
+   // 추가 데이터를 포함한 FormData 객체 생성
+   const form = document.getElementById("templateForm");
+   const formData = new FormData(form);
+
+   // name 배열을 formData에 추가
+   name.forEach((data) => {
+      formData.append(`name`, data);
+  });
+
+  $.ajax({
+    data: formData,
+    type: "POST",
+    url: form.action,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+        // 성공 처리
+        if(result == 2 ){
+          alert('템플릿 등록 성공!');
+          location.href='main.te'
+        } else {
+          alert('템플릿 등록 실패!');
+        }
+    },
+    error: (err) => {
+        console.log(err);
     }
+});
+
+   // 폼의 기본 제출 동작을 막음
+   return false;
 }
+````
+## 서버에서 받아 조건 처리를 통해 처리를 해준뒤 INSERT쿼리를 사용해 DB에 저장 ~
+````
+	@ResponseBody  
+	@RequestMapping(value="/insertTem.te", produces="application/json; charset=UTF-8")
+	public String templateForm(Template t, HttpSession session, ArrayList<MultipartFile> upfile, @RequestParam(value="name", required=false) List<String> name)  {
+				
+	    Member m = (Member) session.getAttribute("loginUser");
+	    int summer = 0; int fileUploadResult = 0; //int temp = 0;
+//	    
+		int temp = templateService.templateInsert(t, m.getUserNo()); // 템플릿 작성 
+	    
+		for(MultipartFile mf : upfile) {
+			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
+			if(mf != null && !mf.isEmpty() && !"".equals(mf.getOriginalFilename().trim())) {
+				TemplateImg ti = new TemplateImg();
+				String changeName = saveFile(mf, session, "resources/img/templateImgFile/titleTemplate/");
+				
+				ti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
+				ti.setTemplateOrginName(mf.getOriginalFilename());
+				ti.setTemplateChangName("resources/img/templateImgFile/titleTemplate/" + changeName);
+				
+				fileUploadResult = templateService.templateTitleImg(ti); // 썸네일 기입
+			}
+		}
+		
+//		String[] fileNames = name.split(",");
+		if (name != null && !name.isEmpty()) {
+		    for (String fileName : name) {
+		        if(fileName != null) {
+		        	TemplateImg sti = new TemplateImg();
+		        	
+		        	sti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
+					sti.setTemplateOrginName("썸머노트");
+					sti.setTemplateChangName(fileName);
+					
+					summer = templateService.summerImgName(sti);
+		        }
+		    }  
+		}
+	    
+	    int result = temp + fileUploadResult;
+
+		return new Gson().toJson(result);
+	}
 ````
 
 </details>
