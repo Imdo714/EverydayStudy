@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace: 해당 mapper파일의 고유한 별칭 -->
+<mapper namespace="mailMapper">
+
+	<resultMap type="Mail" id="mailResult">
+		<result column="MAIL_NO" property="mailNo" />
+		<result column="MAIL_GET_NAME" property="mailGetName" />
+		<result column="MAIL_TITLE" property="mailTitle" />
+		<result column="MAIL_CONTENT" property="mailContent" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+
+	
+	<!-- 메일 DB에 기록 -->
+  	<insert id="sendMail">
+	INSERT INTO MAIL(
+           MAIL_NO,
+           MAIL_GET_NAME,
+           MAIL_TITLE,
+           MAIL_CONTENT,
+           USER_NO
+		)
+	VALUES (
+		SEQ_MAIL.NEXTVAL,
+		#{m.mailGetName},
+		#{m.mailTitle},
+		#{m.mailContent},
+		#{userNo}
+		)
+	</insert>
+
+
+
+
+
+
+</mapper>

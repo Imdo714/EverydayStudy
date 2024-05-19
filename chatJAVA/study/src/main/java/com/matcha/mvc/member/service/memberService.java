@@ -22,4 +22,10 @@ public interface memberService {
 	
 	// 회원 정보 가져오기
 	Member selectUser(int userNo);
+	
+	// 마이페이지 이미지 업데이트
+	int updateImg(MemberImg mi, int userNo);
+	
+	// 마이페이지 회원 정보 업데이트 
+	int updateMember(Member m, int userNo);
 }

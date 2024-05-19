@@ -63,6 +63,21 @@
 	   	==> sqlSessionFactory를 생성자에 주입해줘
 	    -->
 	    
+	    <!-- 이메일 빈 -->
+	    <bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+			<property name="host" value="smtp.gmail.com" />
+			    	<property name="port" value="587" />
+			<property name="username" value="gusehdla2489@gmail.com" />
+			<property name="password" value="config.mail_password_KEY" /> <!-- apykey.js에서 꺼내 와 -->
+			<property name="javaMailProperties">
+		       <props>
+		          <prop key="mail.smtp.auth">true</prop>
+		          <prop key="mail.smtp.starttls.enable">true</prop>
+		       </props>
+		    </property>
+		</bean>
+	    
+	    
 	   <!-- 
 	   		property: setter주입
 	   		Constructor-arg : 생성자주입

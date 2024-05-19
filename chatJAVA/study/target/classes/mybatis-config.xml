@@ -20,6 +20,7 @@
   		<typeAlias type="com.matcha.mvc.template.vo.TemplateReply" alias="TemplateReply" />
   		<typeAlias type="com.matcha.mvc.review.vo.Review" alias="Review" />
   		<typeAlias type="com.matcha.mvc.review.vo.ReviewImg" alias="ReviewImg" />
+  		<typeAlias type="com.matcha.mvc.mail.vo.Mail" alias="Mail" />
   	</typeAliases>
 
 
@@ -27,6 +28,7 @@
 		<mapper resource="/mappers/member-mapper.xml" />
 		<mapper resource="/mappers/template-mapper.xml" />
 		<mapper resource="/mappers/review-mapper.xml" />
+		<mapper resource="/mappers/mail-mapper.xml" />
   	</mappers>
 
  

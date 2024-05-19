@@ -153,12 +153,30 @@ logout = () => {
     }
 }
 
-myLevel = () => {
+readURL = (input) => {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+        document.getElementById('preview').src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        document.getElementById('preview').src = "";
+    }
+}
+
+myLevel = (gender) => {
+    if(gender === "남자"){
+        document.querySelector("#upMail").checked = true;
+    }
+    else{
+        document.querySelector("#upFmail").checked = true;
+    }
+
     memberAjaxController.myLevelLocation(myLevelResult);
 }
 
 myLevelResult = (result) => {
-    console.log(result)
     let templateCount = result.model.templateCount;
     let replyCount = result.model.replyCount;
 
@@ -177,16 +195,4 @@ myLevelResult = (result) => {
     }
 
     document.querySelector("#level-section").innerHTML = str;
-}
-
-readURL = (input) => {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-        document.getElementById('preview').src = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        document.getElementById('preview').src = "";
-    }
 }

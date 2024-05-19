@@ -85,3 +85,13 @@ body{
     width: 82%;
     height: 300px;
 }
+.send-btn{
+	width: 100px; 
+	height: 69px;
+	font-size: 13px;
+  	cursor: pointer;
+}
+.send-btn:hover{
+	background-color: rgb(102, 226, 102);
+  	border: 0px;
+}

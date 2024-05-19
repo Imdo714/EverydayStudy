@@ -1,5 +1,11 @@
 package com.matcha.mvc.member.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -127,5 +134,71 @@ public class memberController {
     }
 	
 	
+//	마이 페이지가기
+	@RequestMapping("/myUpdate.me")
+	public String myUpdate(Member m, HttpSession session, ArrayList<MultipartFile> upfile, ModelAndView mv){
+
+		Member me = (Member) session.getAttribute("loginUser");
+		
+		for(MultipartFile mf : upfile) {
+			if(mf != null && !mf.isEmpty()) {
+				MemberImg mi = new MemberImg();
+				String changeName = saveFile(mf, session, "resources/img/profile/memberProfile/");
+				
+				mi.setMemberImgUrl("resources/img/profile/memberProfile/");
+				mi.setMemberImgOrginName(mf.getOriginalFilename());
+				mi.setMemberImgChangName("resources/img/profile/memberProfile/" + changeName);
+				
+				int upImg = memberService.updateImg(mi, me.getUserNo());
+			}
+		}
+		
+		int upMember = memberService.updateMember(m, me.getUserNo());
+		
+		session.setAttribute("alertMsg", upMember > 0 ? "업데이트 성공" : "업데이트 실패");
+		
+      return "redirect:/";
+	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public String saveFile(MultipartFile upfile, HttpSession session, String filepath) {
+		//파일명 수정 후 서버 업로드 시키기(기존파일명 -> 202311091027+5자리랜덤숫자+파일형식)
+		//년월일시분초 + 랜덤숫자 5개 + 확장자 
+		
+		//원래파일명
+		String originName = upfile.getOriginalFilename();
+		
+		//시간정보(년월일시분초)
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(0));
+		
+		//랜덤숫자 5자리
+		int ranNum = (int)(Math.random()* 90000) + 10000;// 10000부터 99999까지
+		
+		//확장자
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		//변경된 이름
+		String changeName = currentTime + ranNum + ext;
+		
+		//첨부파일 저장할 폴더의 물리적인 경로
+		String savePath = session.getServletContext().getRealPath(filepath);
+		
+		try {
+			upfile.transferTo(new File(savePath + changeName));//업로드 파일의 정보를 변경해서넣어줘 
+		} catch (IllegalStateException | IOException e) {
+			
+			e.printStackTrace();
+		}
+		return changeName;
+	}
 }

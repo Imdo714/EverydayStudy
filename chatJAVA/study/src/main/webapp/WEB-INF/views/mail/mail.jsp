@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="/study/resources/css/mail/mail.css">
 </head>
 <body>
+	
 	<div class="top-container">
         <div class="img-section">
             <img src="/src/img/보건소.png" alt="">

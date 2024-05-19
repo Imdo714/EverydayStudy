@@ -112,7 +112,7 @@ public class templateController {
 //		return "redirect:/";
 //	} 
 	
-//  -------------------------------테스트용------------------------------------
+//  -------------------------------템플릿 작성 메서드------------------------------------
 	@ResponseBody  
 	@RequestMapping(value="/insertTem.te", produces="application/json; charset=UTF-8")
 	public String templateForm(Template t, HttpSession session, ArrayList<MultipartFile> upfile, @RequestParam(value="name", required=false) List<String> name)  {
@@ -155,7 +155,6 @@ public class templateController {
 
 		return new Gson().toJson(result);
 	}
-//  -------------------------------테스트용------------------------------------
 	
 	
 	

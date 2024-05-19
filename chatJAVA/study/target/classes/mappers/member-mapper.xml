@@ -114,5 +114,29 @@
 		   FROM MEMBER
 	   	  WHERE USER_NO = #{userNo}
   	</select>
+  	
+  	<!-- 마이페이지 이미지 업데이트 -->
+  	<update id="updateImg" parameterType="map">
+		UPDATE MEMBER_IMG 
+	       SET 
+		       MEMBER_IMG_URL = #{mi.memberImgUrl},
+		       MEMBER_ORGIN_NAME = #{mi.memberImgOrginName},
+		       MEMBER_CHANG_NAME = #{mi.memberImgChangName}
+	       WHERE
+	       	   USER_NO = #{userNo}
+  	</update>
+  	
+  	<!-- 마이페이지 회원 정보 업데이트  -->
+  	<update id="updateMember" parameterType="map">
+		UPDATE MEMBER
+	       SET 
+		       USER_ID = #{m.userId},
+		       USER_NAME = #{m.userName},
+		       USER_PHONE = #{m.phone},
+		       USER_BIRTH = #{m.userBirth},
+		       USER_GENDER = #{m.gender}
+	       WHERE
+		       USER_NO = #{userNo}
+  	</update>
 
 </mapper>

@@ -11,7 +11,7 @@
 <script src="/study/resources/js/common/loginAjax.js"></script>
 
 </head>
-<body onload="myLevel()">
+<body onload="myLevel(`${loginUser.gender}`)">
 
 <jsp:include page="../common/header.jsp" />
 	
@@ -87,28 +87,34 @@
 				</div>
 
 				<div class="modal-body">
+				<form action="myUpdate.me" method="post"  enctype="multipart/form-data">
 					<div class="update-information">
 						<div class="desUpimg">
 							<img id="preview" />
 							<label for="file">
 								<div class="btn-upload">파일 업로드하기</div>
 							</label> 
-							<input type="file" onchange="readURL(this)" name="file" id="file">
+							<input type="file" onchange="readURL(this)" name="upfile" id="file">
 						</div>
 
-						<input type="text" value="${user.userId}" placeholder="아이디"> 
-						<input type="password" value="" placeholder="비밀번호"> 
-						<input type="text" value="${user.userName}" placeholder="이름"> 
-						<input type="text" value="${user.phone}" placeholder="전화번호"> 
-						<input type="date" value="${user.userBirth}" placeholder="생년월일">
+						<input type="text" name="userId" value="${user.userId}" placeholder="아이디"> 
+						<input type="password" name="userPwd" value="" placeholder="비밀번호"> 
+						<input type="text" name="userName" value="${user.userName}" placeholder="이름"> 
+						<input type="text" name="phone" value="${user.phone}" placeholder="전화번호"> 
+						<input type="date" name="userBirth" value="${user.userBirth}" placeholder="생년월일">
+						<div class="select">
+		                    <input type="radio" id="upMail" name="gender" value="남자" ><label for="upMail">남자</label>
+		                    <input type="radio" id="upFmail" name="gender" value="여자"><label for="upFmail">여자</label>
+		                </div>
 					</div>
 				</div>
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
+					<input type="submit" class="btn btn-primary" value="Send message">
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -152,6 +158,7 @@
         </div>
         </div>
     </div>
+	
 
 </body>
 </html>
