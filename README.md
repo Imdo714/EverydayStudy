@@ -763,7 +763,46 @@ editCheck = (replyNo, tno) => {
 ````
 </details>
 
+<details>
+<summary>
+  Mail 사용 법 !
+</summary>
+	
+## pom.xml & Context.xml설정 
+````
+<!-- 메일 전송관련 라이브러리 -->
+<dependency>
+   <groupId>org.springframework</groupId>
+    <artifactId>spring-context-support</artifactId>
+    <version>${org.springframework-version}</version>
+</dependency>
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version>
+</dependency>
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.6.2</version>
+</dependency>
+````
+````
+ <bean id="sender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+	<property name="username" value="이메일 아이디" />
+	<property name="password" value="발급받은 키" />
+	<property name="javaMailProperties">
+       <props>
+	  <prop key="mail.smtp.auth">true</prop>
+	  <prop key="mail.smtp.starttls.enable">true</prop>
+       </props>
+    </property>
+</bean>
+````
 
+</details>
  
 
 
