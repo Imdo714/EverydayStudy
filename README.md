@@ -801,6 +801,67 @@ editCheck = (replyNo, tno) => {
     </property>
 </bean>
 ````
+## JSP를 간단하게 설명하면 onsubmit함수에서 input태그가 작성이 안돼있으면 submit을 무효화 처리를 하였습니다.
+````
+<form action="sendM.ml" method="post"  onsubmit="return keup()">	
+	<div class="table-container">
+		<table class="board-table">
+		    <thead>
+		    <tr>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <tr>
+			<td>받는 사람</td>
+			<th><input type="email" name="mailGetName" id="post"></th>
+		    </tr>
+		    <tr>
+			<td>제목</td>
+			<th><input type="text" name="mailTitle" id="title"></th>
+		    </tr>
+		
+		    <tr>
+			<td>내용</td>
+		    </tr>
+		    </tbody>
+		</table>
+	</div>
+	
+	
+	<div class="text-section">
+		<textarea name="mailContent" id="text-mail" class="text-mail"></textarea>
+	</div>
+	<input type="submit" class="send-btn" value="작성">
+</form>
+````
+## 서버로 부터 정보를 받아 SimpleMailMessage객체를 생성해 정보를 넣어 sender을 통해 이메일 발송 !
+sender는 JavaMailSender 객체로, 이메일을 실제로 전송하는 역할을 합니다.
+````
+@Autowired
+private JavaMailSender sender;
+
+@RequestMapping("/sendM.ml")
+public String sendM(Mail m, HttpSession session){
+	// 이메일 메시지 객체 생성
+	SimpleMailMessage message = new SimpleMailMessage();
+	
+	message.setSubject(m.getMailTitle()); // 제목
+	message.setText(m.getMailContent()); // 내용
+	
+	String[] to = {m.getMailGetName()};	// 받는 사람
+	message.setTo(to);
+	
+	String[] cc = {"gusehdla2489@gmail.com"};	// 참조 (같이 볼수 있음)
+	message.setCc(cc);
+	// 이메일 전송
+	sender.send(message);
+	
+	Member member = (Member) session.getAttribute("loginUser");
+	int res = mailService.sendMail(m, member.getUserNo()); // 메일 발송 기록을 데이터베이스에 저장 
+	
+	return "mail/mail";
+}
+````
 
 </details>
  
