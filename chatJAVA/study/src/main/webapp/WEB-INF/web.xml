@@ -31,11 +31,6 @@
 	</listener>
   	
   	
-  	
-  	
-  	
-  	
-  	
   <!-- ===DispatcherServlet 생성===(Controller, ViewResolver, hanlderMapping) -->
   <servlet>
   	<!-- 이 서블릿 이름대로 (서블릿이름)-servlet.xml 파일을 DispatcherServlet으로 삼음 -->
@@ -57,6 +52,7 @@
   	<url-pattern>*.di</url-pattern>
   	<url-pattern>*.me</url-pattern>
   	<url-pattern>*.re</url-pattern>
+  	<url-pattern>*.ch</url-pattern> 
   </servlet-mapping>
  
 	
