@@ -5,13 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	
 </head>
 <body>
-
-	<jsp:include page="../common/header.jsp" />
 	
 	<h1>채팅</h1>
-
          메세지 : <input type="text" name="msg"><br>
          수신자 : <input type="text" name="target">
     <button onclick="sendMsg();">전송</button>
@@ -21,9 +23,9 @@
 
     <script>
         // socket연결 요청
-        const socket = new WebSocket("ws://localhost:8777/study/server");
-
-        // socket연결 성공기
+        const socket = new WebSocket("ws://localhost:8777/study/chat");
+		
+        // socket연결 성공시
         socket.onopen = function(){
             console.log("웹 소켓 연결");
         }

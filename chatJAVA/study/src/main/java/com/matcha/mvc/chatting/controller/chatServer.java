@@ -18,18 +18,29 @@ import com.matcha.mvc.chatting.vo.Chatting;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-@Component("chatServer")
-public class test2 extends TextWebSocketHandler{
-
+@Slf4j
+@Component
+public class chatServer extends TextWebSocketHandler{
+	
 	private final Map<String, WebSocketSession> userSessions = new ConcurrentHashMap();
+	
+	public chatServer() {
+		super();
+		this.log.info("소켓 핸들러 생성!");
+	}
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		
+		System.out.println("afterConnectionEstablished" + session);
+		
 		String nick = (String)session.getAttributes().get("nick");
-//		log.info("{} 연결됨", nick);
+		
+		log.info("{} 연결됨", nick);
+		
 		userSessions.put(nick, session);
 	}
+
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
@@ -39,7 +50,7 @@ public class test2 extends TextWebSocketHandler{
 		Chatting vo = new Chatting();
 		vo.setMsg(obj.get("message").getAsString());
 		vo.setName(nick);
-		vo.setTime(new Date(0, 0, 0).toLocaleString());
+		vo.setTime(new Date(0).toLocaleString());
 		
 		sendMEssageToUser(obj.get("target").getAsString(), vo);
 	}
@@ -63,8 +74,10 @@ public class test2 extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println("afterConnectionClosed" + session);
+		System.out.println("afterConnectionClosed22" + status);
 		String nick = (String)session.getAttributes().get("nick");
-//		log.info("{} 연결끊김", nick);
+		log.info("{} 연결끊김", nick);
 		userSessions.remove(nick);
 	}
 
