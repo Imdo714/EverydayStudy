@@ -23,11 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 public class chatServer extends TextWebSocketHandler{
 	
 	private final Map<String, WebSocketSession> userSessions = new ConcurrentHashMap();
-	
-	public chatServer() {
-		super();
-		this.log.info("소켓 핸들러 생성!");
-	}
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -36,12 +31,12 @@ public class chatServer extends TextWebSocketHandler{
 		
 		String nick = (String)session.getAttributes().get("nick");
 		
-		log.info("{} 연결됨", nick);
+		log.info("session" + session);
+		log.info("{} 진짜 연결됨!!!", nick);
 		
 		userSessions.put(nick, session);
 	}
-
-
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String nick = (String)session.getAttributes().get("nick");
@@ -77,8 +72,12 @@ public class chatServer extends TextWebSocketHandler{
 		System.out.println("afterConnectionClosed" + session);
 		System.out.println("afterConnectionClosed22" + status);
 		String nick = (String)session.getAttributes().get("nick");
+		log.info("session" + session);
+		log.info("status" + status);
 		log.info("{} 연결끊김", nick);
 		userSessions.remove(nick);
 	}
+	
+
 
 }
