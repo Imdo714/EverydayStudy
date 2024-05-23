@@ -93,7 +93,7 @@
 		
 		
 	<!-- WebSocket 핸들러 빈 등록 -->
-	<bean id="chatServer" class="com.matcha.mvc.chatting.controller.chatServer"/>
+	<bean id="chatServer" class="com.matcha.mvc.chatting.controller.chatServer"/> 
 
 	<!-- HttpSessionHandshakeInterceptor를 사용하지 안으면 세션(웹소켓세션) 활용이 어려워지고 해당 세션을 기반으로하느 작업을 할 수 없게 된다. -->			
 	<websocket:handlers>
