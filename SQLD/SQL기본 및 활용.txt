@@ -1,0 +1,55 @@
+DB : 특정 기업이나 조직 또는 개인이 필요에 의해 데이터를 일정한 형태로 저장해 놓은 것을 의미한다
+
+DBMS : 효율적인 데이터 관리 뿐만 아니라 예기치 못한 사건으로 인한 데이터의 손상을 피하고 필요시, 필요한 데이터를 복구하기 위한 강력한 기능의 SW
+
+SQL : DB 관계형 에서 데이터 정의 조작 제어를 , 위해 사용하는 언어
+
+- DML : SELECT, INSERT, UPDATE, DELETE
+- DDL : CREATE, ALTER, DROP, RENAME
+- DCL : GRANT, REVOKE
+- TCL : COMMIT, ROLLBACK, SAVEPOINT
+
+정규화 : 데이터의 정합성 확보와 데이터 입력 수정 삭제시 발생할 수 있는 이상현상을 방지하기 위해 중복 제거
+
+연산자의 종류
+- BETWEEN a AND b : a b 와 값 사이에 있으면 됨
+- IN (list) : 리스트에 있는 값중 어느 하나라도 일치
+- IS NULL : NULL 값인 경우 (Oracle은 VARCHAR2 빈 문자열을 NULL로 판단)
+- IS NOT NULL : NULL 값이 아닌 경우
+- NOT IN (list) : list의 값과 일치하지 않는다
+- LIKE ‘비교문자열’ : 비교문자열과 형태가 일치
+
+SELECT PLAYER_NAME FROM PLAYER 선수명 
+WHERE TEAM_ID = ‘K2’; -> ID가 K2 팀 인 사람
+WHERE TEAM_ID IN (‘K2’,‘K7’); -> K2,K7인 사람
+WHERE HEIGHT BETWEEN 170 AND 180; -> 키가 170 ~ 180인 사람
+WHERE POSITION IS NULL; -> 포지션 없는 사람
+
+NULL 값과의 수치연산은 NULL 값을 리턴한다.
+NULL 값과의 비교연산은 거짓 를 (FALSE) 리턴한다.
+
+연산자 우선순위 : ()->NOT-> 비교연산자->AND->OR
+
+ROWNUM : 원하는 만큼의 행을 가져올 때 사용
+SELECT * PLAYER_NAME FROM PLAYER
+WHERE ROWNUM = 1;
+
+문자형 함수
+LOWER : 문자열을 소문자로
+UPPER : 문자열을 대문자로
+ASCII : ASCII 문자의 값 반환
+CHR : ASCII 값에 해당하는 문자 반환
+CONCAT : 문자열1, 2 를 연결
+SUBSTR : 문자열 중 m위치에서 n개의 문자 반환
+LENGTH : 문자열 길이를 숫자 값으로 반환
+
+CONCAT(‘RDBMS’,‘ SQL’) -> ‘RDBMS SQL’
+SUBSTR(‘SQL Expert’,5,3) -> ‘Exp’
+LTRIM(‘xxxYYZZxYZ’,‘x’) -> ‘YYZZxYZ’
+TRIM(‘x’ FROM ‘xxYYZZxYZxx’) -> ‘YYZZxYZ’
+
+
+
+
+
+
