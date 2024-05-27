@@ -48,8 +48,76 @@ SUBSTR(‘SQL Expert’,5,3) -> ‘Exp’
 LTRIM(‘xxxYYZZxYZ’,‘x’) -> ‘YYZZxYZ’
 TRIM(‘x’ FROM ‘xxYYZZxYZxx’) -> ‘YYZZxYZ’
 
+날짜형 함수
+SYSDATE : 현재날짜와 시각 출력
+EXTRACT : 날짜에서 데이터 출력
+TO_NUMBER(TO_CHAR(d,‘YYYY’)) : 연도를 숫자로 출력
+1 = 하루, 1/24 = 1시간, 1/24/60 = 1분
+
+NULL 관련 함수 (NULL 0 ) 은 또는 공백 아님
+- NVL(식1, 식2) : 식1의 값이 NULL 이면 식2 출력. 공집합을 바꿔주진 않음
+- NULLIF(식1, 식2) : 식1이 식2 와 같으면 NULL을 표현 아니면 식1 을 출력
+- COALESCE(식1, 식2) : NULL이 아닌 최초의표현식 모두 , NULL이면 NULL 반환
+e.g. COALESCE(NULL, NULL, ‘abc’) -> ‘abc’
+
+함수
+COUNT(*) : NULL 포함 행의 수
+COUNT( ) : NULL 표현식 제외 행의 수
+SUM, AVG : NULL , 제외 합계 평균 연산
+STDDEV : 표준 편차
+VARIAN : 분산
+MAX, MIN : , 최대값 최소값
+
+GROUP BY, HAVING 절의 특징
+1. GROUP BY 절을 통해 소그룹별 기준을 정한 후, SELECT 절에 집계 함수를 사용한다.
+2. 집계 함수의 통계 정보는 NULL 값을 가진 행을 제외하고 수행한다.
+3. GROUP BY ALIAS 절에서는 사용 불가
+4. WHERE 집계 함수는 절에 올 수 없다.
+5. HAVING 절에는 집계함수를 이용하여 조건 표시o
+6. HAVING GROUP BY 절은 일반적으로 뒤에 위치
+
+ORDER BY 특징
+1. SQL 문장으로 조회된 데이터들을 다양한 목적에 맞게 특정한 칼럼을 기준으로 정렬하여 출력하는데 사용한다.
+2. ORDER BY ALIAS 절에 칼럼명 대신 명이나 칼럼 순서를 나타내는 정수도 사용 가능하다.
+3. DEFAULT (ASC) 값으로 오름차순 이 적용되며 DESC는 내림차순으로 정렬이 가능하다.
+4. SQL 문장의 제일 마지막에 위치한다.
+5. SELECT 절에서 정의하지 않은 칼럼 사용 가능
+
+CASE WHEN : 표시할 열을 추가할때
+CASE
+	WHEN 조건1 THEN '이름1'
+	WHEN 조건1 THEN '이름1'
+	WHEN 조건1 THEN '이름1'
+	ELSE '이름4' END AS 새로운 열 이름
+
+SELECT 문장의 실행 순서
+FROM - WHERE - GROUP BY - HAVING - SELECT - ORDER BY 
+
+JOIN 특징
+JOIN : 두 개 이상의 테이블들을 연결 또는 결합하여 데이터를 출력하는 것 일반적으로 행들은 PK FK 나 값의 연관에 의해 JOIN이 성립된다.
+어떤 경우에는 PK, FK 관계가 없어도 논리적인 값들의 연관만으로 JOIN이 성립가능하다.
+
+EQUI JOIN : 2개의 테이블 간에 칼럼 값들이 서로 정확하게 일치하는 경우에 사용 대부분 의 , PK, FK 관계를 기반으로 한다. 
+조인 조건이 '=' 비교를 통해 같은 값을 가지는 행을 연결하여 결과를 얻는 조인 방법
+SELECT 테이블1.컬럼, 테이블2.컬럼,
+	FROM 테이블1, 테이블2
+    WHERE 테이블1.컬럼 = 테이블2.컬럼;
 
 
+NON EQUI JOIN : 2개의 테이블 간에 칼럼 값들이 서로 정확하게 일치하지 않는 경우에 사용 ‘=’연산자가 아닌  BETWEEN, >, <= 등 연산자 사용
+SELECT E.ENAME, E.JOB, E.SAL, S.GRADE
+FROM EMP E, SALGRADE S
+WHERE E.SAL BETWEEN S.LOSAL AND S.HSAL;
+위는 E의 SAL의 값을 S의 LOSAL과 HSAL 범위에서 찾는 것이다.
 
+NATURAL JOIN : 조인조건 생략 시 두 테이불애 겉운 이름으로 자연 연결되는 조건 (컬럼명이 같을때)
+CROSS JOIN : 조인조건 생력 시 두 테이블의 발생 가능한 모든 행을 출력하는 조인 
+SELF JOIN : 하나의 테이블을 두 번 이상 참조하여 연결하는 조인 
 
+ON절
+연결한 두 컬럼명이 다른 경우 
+JOIN DEPARTMENT ON (DEPT_CODE = DEPT_ID);
 
+USING절 
+연결할 두 컬럼명이 같은경우
+JOIN JOB USING (JOB_CODE);
