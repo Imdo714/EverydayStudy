@@ -156,3 +156,19 @@ OUTER JOIN (LEFT, RIGHT, FULL) : JOIN 조건에서 동일한 값이 없는 행�
 - LEFT OUTER JOIN : 먼저 표기된 좌측 테이블에 해당하는 데이터를 읽은 후 나중 표기된 우측 ,테이블에서 JOIN 대상 데이터를 읽어 온다. 우측 값에서 같은 값이 없는 경우 NULL 값으로 채운다.
 - RIGHT OUTER JOIN : LEFT OUTER JOIN의 반대
 - FULL OUTER JOIN : 좌우측 테이블의 모든 데이터를 읽어 JOIN하여 결과를 생성한다. 중복 데이터는 삭제한다.
+
+
+계층형 질의 : 테이블에 계층형 데이터가 존재하는 경우 데이터를 조회하기 위해 사용
+
+START WITH : 계층 구조 전개의 시작 위치 지정
+CONNECT BY : 다음에 전개될 자식 데이터 지정
+PRIOR : CONNECT BY 절에 사용되며 현재 읽은 칼럼을 지정한다. PRIOR 자식 = 부토 형태를 사용하면 계층 구조에서 부모 데이터에 자식 데이터(브모 -> 자식) 방향으로 전개하는 순방향 전개를 한다. 반대는 역뱡향 전개
+NOCYCLE : 동일한 데이터가 전개되지 않음
+ORDER SIBLINGS BY : 형제 노드간의 정렬 수행
+WHERE : 모든 전개를 수행한 후에 지정된 조건을 만족하는 데이터만 추출한다 (필터링)
+
+LEVEL : 루트 데이터이면 1그 하위 데이터면 2, 리프 데이터까지 1씩 증가
+CONNECT_BY_ISLEAF : 해당 데이터가 리프 데이터면1 그렇지 않으면 0
+CONNECT_BY_ISCYCLE : 해당 데이터가 조상이면1 아니면 0 (CYCLE 아니면 옵션 사용했을 시만 사용 가능)
+SYS_CONNECT_BY_PATH : 루트 데이터부터 현재 전개할 데이터까지의 경로를 표시한다.
+CONNECT_BY_ROOT : 현재 전개할 데이터의 루트 데이터를 표시한다. 단항 연산자이다.
