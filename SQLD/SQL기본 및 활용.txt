@@ -157,11 +157,60 @@ OUTER JOIN (LEFT, RIGHT, FULL) : JOIN 조건에서 동일한 값이 없는 행�
 - RIGHT OUTER JOIN : LEFT OUTER JOIN의 반대
 - FULL OUTER JOIN : 좌우측 테이블의 모든 데이터를 읽어 JOIN하여 결과를 생성한다. 중복 데이터는 삭제한다.
 
+집합 연산자 : 두 개 이상의 테이블에서 조인을 사용하지 않고 연관된 데이터를 조회할 때 사용
+SELECT 절의 칼럼 수가 동일하고 SELECT 절의 동일 위치에 존재하는 칼럼의 데이터 타입이 상호호환할 때 사용 가능
+
+일반 집합 연산자
+1. UNION : 중복된 데이터는 한번만 출력 정렬 O
+2. UNION ALL : (중복 행도 표시) 정렬 X
+3. INTERSECT : 두집합의 교집합 (중복 행 1개로)
+4. MINUS : 차집합 (중복 행 1개로) 집합의 순서 주의
+5. CROSS JOIN : 곱집합(PRODUCT)
+
+집합 연산자 사용시 주의 사항
+1. 두 집합의 컬럼 수 일치
+2. 두 집합의 컬럼 순서 일치
+3. 두 집합의 각 컬럼의 데이터 타입 일치 
+4. 각 컬럼의 사이즈는 달라도 됨
+
+GROUP BY FUNCTION
+1. GROUPING SETS : A별, B별 그룹 연산 결과 출력 - 기본적으로 전체 총계가 출력 안됨 NULL이나 ()를 넣으면 전체 총계 나옴
+2. ROLLUP : A별, (A,B)별, 전체 그룹 연산 결과 출력 - 기본적으로 전체 총계가 출력 됨
+3. CUBE : A별. B별, (A,B)별, 전체 그룹 연산 결과 출력 - 기본적으로 전체 총계가 출력 됨
+
+윈도우 함수 : 행과 행간의 관계를 정의하거나 행과 행간을 비교 연산하는 함수
+SELECT 윈도우함수 ([ 대상 ]) OVER ([ PARTITION BY 컬럼 ]
+					      [ ORDER BY 컬럼 ASC | DESC ]
+					      [ ROWS | RANGE BETWEEN A AND B ]);
+
+PARTITION BY : 출력할 총 데이터 수 변화 없이 그룹연산 수행할 GROUP BY 컬럼
+ORDER BY : RANK의 경우 정렬 필수, SUM, AVG, MIN, MAX, COUNT 등은 누적값 출력 시 필수 
+ROWS | RANGE BETWEEN A AND B : 연산 범위 설정, ORDER BY 필수 
+
+1. ROWS, RANGE 차이 
+1) ROWS : 값이 같더라도 각 행씩 연산
+2) RANGE : 같은 값의 경우 하나의 RANGE로 묶어서 동시 연산(DEFAULT)
+
+2. BETWEEN A AND B 
+A) 시작점 정의 
+   - CURRENT ROW : 현재행부터
+   - UNBOUNDED PRECEDING : 처음부터 (DEFAULT)
+   - N PRECEDING : N 이전부터 
+B) 마지막 시점 정의
+   - CURRENT ROW : 현재행까지 (DEFAULT)
+   - UNBOUNDED FOLLOWING : 마지막까지
+   - N FOLLOWING : N 이후까지
+
+
+
+
+
+
 
 계층형 질의 : 테이블에 계층형 데이터가 존재하는 경우 데이터를 조회하기 위해 사용
 
-START WITH : 계층 구조 전개의 시작 위치 지정
-CONNECT BY : 다음에 전개될 자식 데이터 지정
+START WITH : 계층 구조 전개의 시작 위치 지정하는 조건 
+CONNECT BY : 다음에 전개될 자식 데이터 지정 ( 행을 이어나갈 조건)
 PRIOR : CONNECT BY 절에 사용되며 현재 읽은 칼럼을 지정한다. PRIOR 자식 = 부토 형태를 사용하면 계층 구조에서 부모 데이터에 자식 데이터(브모 -> 자식) 방향으로 전개하는 순방향 전개를 한다. 반대는 역뱡향 전개
 NOCYCLE : 동일한 데이터가 전개되지 않음
 ORDER SIBLINGS BY : 형제 노드간의 정렬 수행
@@ -172,3 +221,11 @@ CONNECT_BY_ISLEAF : 해당 데이터가 리프 데이터면1 그렇지 않으면
 CONNECT_BY_ISCYCLE : 해당 데이터가 조상이면1 아니면 0 (CYCLE 아니면 옵션 사용했을 시만 사용 가능)
 SYS_CONNECT_BY_PATH : 루트 데이터부터 현재 전개할 데이터까지의 경로를 표시한다.
 CONNECT_BY_ROOT : 현재 전개할 데이터의 루트 데이터를 표시한다. 단항 연산자이다.
+
+
+
+
+
+
+
+
