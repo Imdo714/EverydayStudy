@@ -126,11 +126,12 @@ JOIN JOB USING (JOB_CODE);
 집합 연산자 : 두 개 이상의 테이블에서 조인을 사용하지 않고 연관된 데이터를 조회할 때 사용SELECT 절의 칼럼 수가 동일하고 SELECT 절의 동일 위치에 존재하는 칼럼의 데이터 타입이 상호호환할 때 사용 가능
 
 일반 집합 연산자
-1. UNION : ( 1 ) 합집합 중복 행 개로 정렬
+1. UNION : 합집합 중복 행 1개로 정렬
 2. UNION ALL : ( 합집합 중복 행도 표시 정렬 ) X
-3. INTERSECT : ( 1 ) 교집합 중복 행 개로
-4. MINUS : ( 1 ) 차집합 중복 행 개로
-5. CROSS JOIN : (PRODUCT) 곱집합 ALIAS , 는 처음 테이블 정렬은 마지막 테이블 기준
+3. INTERSECT : 교집합 중복 행 1개로
+4. MINUS : 차집합 중복 행 1개로
+5. CROSS JOIN :  곱집합 (PRODUCT) 
+ALIAS는 처음 테이블, 정렬은 마지막 테이블 기준
 
 순수 관계 연산자 : DB 관계형 를 새롭게 구현
 1. SELECT -> WHERE절로 구현
