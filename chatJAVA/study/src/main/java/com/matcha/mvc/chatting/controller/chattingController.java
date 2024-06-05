@@ -36,7 +36,7 @@ public class chattingController {
         System.out.println("Nick " + nick);
         System.out.println("session " + session);
         
-		log.info("{} 연결됨", nick);
+		log.info("{} 컨트롤러 연결됨", nick);
 		
         return "chatting/chat";
     }
