@@ -138,7 +138,7 @@ ALIAS는 처음 테이블, 정렬은 마지막 테이블 기준
 2. PROJECT -> SELECT절로 구현
 3. NATRUAL JOIN -> JOIN 다양한 으로 구현
 4. DIVIDE -> x 사용
-{a,x}{a,y}{a,z} divdie {x,z} = {a}
+{a,x}{a,y}{a,z} divdie {x,z} = {a} 
 
 FROM JOIN 절 형태
 1. INNER JOIN
