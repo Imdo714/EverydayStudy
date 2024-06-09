@@ -1,0 +1,38 @@
+DML 데이터 조작어
+MERGE (데이터 입력 + 변경)
+MERGE INTO 타겟 테이블명   			# 테이블의 데이터를 변경 또는 생성
+	USING 비교 테이블명    			# 변경/생성 시 이 테이블을 이용
+	ON 조건
+WHEN MATCHED THEN       			# 조건에 맞는 데이터가 있으면 데이터 변경
+	UPDATE SET 컬럼1 = 새로운 데이터, ..
+WHEN NOT MATCHED THEN   		# 조건에 맞는 데이터가 없으면 데이터 생성
+	INSERT [(컬럼1, ..)] VALUES (데이터, ..);
+
+TCL 트랜잭션의 특성	
+원자성 (atomicity) : 트랜잭션에 정의된 연산들은 모두 성공적으로 실행되던지 아니면 전혀 실행되지 않은 상태로 남아 있어야 한다
+일관성 (consistency) : 트랜잭션이 실행되기 전의 데이터베이스 내용이 잘못 돼 있지 않다면 트랜잭션이 실행된 이후에도 데이터베이스의 내용에 잘못이 있으면 안 된다.
+고립성 (isolation) : 트랜잭션이 실행되는 도중에 다른 트랜잭션의 영향을 받아 잘못된 결과를 만들어서는 안 된다.
+지속성 (durability) : 트랜잭션이 성공적으로 수행되면, 그 트랜잭션이 갱신한 데이터베이스의 내용은 영구적으로 저장된다.
+
+DDL 제약조건의 종류
+PRIMARY KEY (기본키) : 고유하게 식별하기 위한 기본키를 정의한다. 하나의 테이블에 하나의 기본키 제약만 정의할 수 있다. 기본키를 구성하는 칼럼에는 NULL을 입력할 수 없다.
+UNIQUE (고유키) : 고유하게 식별하기 위한 고유키를 정의한다. 단 NULL은 고유키 제약의 대상이 아니므로, NULL 값을 가진 행이 여러 개가 있더라도 고유키 제약 위반이 되지 않는다.
+NOT NULL : 이 제약을 지정함으로써 해당 칼럼은 필수로 입력해야 한다.
+CHECK : 입력할 수 있는 값의 범위 등을 제한한다. CHECK 제약으로는 TRUE or FALSE로 평가할 수 있는 논리식을 지정한다.
+FOREIGN KEY (외래키) : 관계형 데이터베이스에서 테이블 간의 관계를 정의하기 위해 기본키를 다른 테이블의 외래키로 복사하는 경우 외래키가 생성된다.
+
+ALTER TABLE : 칼럼을 추가/삭제하거나 제약조건을 추가/삭제하는 작업
+
+ADD COLUMN (칼럼 추가) : ALTER TABLE 테이블명 ADD 컬럼명 데이터유형; 
+DROP COLUMN (칼럼 삭제) : ALTER TABLE 테이블명 DROP COLUMN 컬럼명;
+MODIFY COLUMN (칼럼 수정) : ALTER TABLE 테이블명 MODIFY (컬럼명 데이터유형 [DEFAULT value] [NOT NULL], ..);
+RENAME COLUMN (칼럼명 변경) : ALTER TABLE 테이블명 RENAME COLUMN 변경할_컬럼명 TO 새_컬럼명; 
+DROP CONSTRAINT (제약조건 삭제) : ALTER TABLE 테이블명 DROP CONSTRAINT 제약조건명;
+ADD CONSTRAINT (제약조건 추가) : ALTER TABLE 테이블명 ADD CONSTRAINT 제약조건명 제약조건 (컬럼명);
+TRUNCATE (테이블 초기화) : TRUNCATE TABLE 테이블명; 테이블 구조는 유지, 데이터만 전부 삭제
+
+
+
+
+
+

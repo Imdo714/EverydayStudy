@@ -185,7 +185,7 @@ SELECT 윈도우함수 ([ 대상 ]) OVER ([ PARTITION BY 컬럼 ]
 					      [ ROWS | RANGE BETWEEN A AND B ]);
 
 PARTITION BY : 출력할 총 데이터 수 변화 없이 그룹연산 수행할 GROUP BY 컬럼
-ORDER BY : RANK의 경우 정렬 필수, SUM, AVG, MIN, MAX, COUNT 등은 누적값 출력 시 필수 
+ORDER BY : RANK의 경우 정렬 필수, SUM, AVG, MIN, MAX, COUNT 등은 누적값 출력 시 필수  
 ROWS | RANGE BETWEEN A AND B : 연산 범위 설정, ORDER BY 필수 
 
 1. ROWS, RANGE 차이 
@@ -202,11 +202,16 @@ B) 마지막 시점 정의
    - UNBOUNDED FOLLOWING : 마지막까지
    - N FOLLOWING : N 이후까지
 
+그룹 내 순위(RANK) 관련 함수
+RANK : 특정 범위(PARTITION) 내에서 순위를 구할 수도 있고, 전체 데이터에 대한 순위를 구할 수도 있다. 동일한 값에 대해서는 동일한 순위를 부여하게 된다. (1등, 2등, 2등, 2등, 5등)
+DENSE_RANK : 같은 값은 같은순위, 순위는 반드시 하나씩 올라감 (1등 ,2등 ,2등 ,2등, 3등)
+ROW_NUMBER : 동일한 값이라도 고유한 순위를 부여한다. (1등 ,2등 ,3등 ,4등, 5등)
+
 계층형 질의 : 테이블에 계층형 데이터가 존재하는 경우 데이터를 조회하기 위해 사용
 
 START WITH : 계층 구조 전개의 시작 위치 지정하는 조건 
 CONNECT BY : 다음에 전개될 자식 데이터 지정 ( 행을 이어나갈 조건)
-PRIOR : CONNECT BY 절에 사용되며 현재 읽은 칼럼을 지정한다. PRIOR 자식 = 부토 형태를 사용하면 계층 구조에서 부모 데이터에 자식 데이터(브모 -> 자식) 방향으로 전개하는 순방향 전개를 한다. 반대는 역뱡향 전개
+PRIOR : CONNECT BY 절에 사용되며 현재 읽은 칼럼을 지정한다. PRIOR 자식 = 부토 형태를 사용하면 계층 구조에서 부모 데이터에 자식 데이터(부모 -> 자식) 방향으로 전개하는 순방향 전개를 한다. 반대는 역뱡향 전개
 NOCYCLE : 동일한 데이터가 전개되지 않음 
 ORDER SIBLINGS BY : 형제 노드간의 정렬 수행
 WHERE : 모든 전개를 수행한 후에 지정된 조건을 만족하는 데이터만 추출한다 (필터링)
