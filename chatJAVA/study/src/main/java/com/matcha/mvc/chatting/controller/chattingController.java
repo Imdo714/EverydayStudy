@@ -33,8 +33,6 @@ public class chattingController {
     public String chat(HttpSession session, String nick) {
 		
 		session.setAttribute("nick", nick);
-        System.out.println("Nick " + nick);
-        System.out.println("session " + session);
         
 		log.info("{} 컨트롤러 연결됨", nick);
 		

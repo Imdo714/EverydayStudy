@@ -79,39 +79,6 @@ public class templateController {
 		return changeName;
 	}
 	
-	
-//  템플릿 작성 메서드
-//	@RequestMapping("/insertTem.te")
-//	public String templatert(Template t, HttpSession session, ArrayList<MultipartFile> upfile){
-//		
-//		Member m = (Member) session.getAttribute("loginUser");
-//		int userNo = m.getUserNo();
-//		
-//		int result = 0;
-//		int fileUploadResult  = 0;
-//		
-//		result = templateService.templateInsert(t, userNo);
-//		
-//		for(MultipartFile mf : upfile) {
-//			//전달된 파일이 있을 경우 => 파일명 수정 후 서버 업로드 => 원본명, 서버업로드된 경로로 DB에 담기(파일이 있을때만)
-////			if(!mf.getOriginalFilename().equals("")) { 
-//			if(mf != null && !mf.isEmpty() && !"".equals(mf.getOriginalFilename().trim())) {
-//				TemplateImg ti = new TemplateImg();
-//				String changeName = saveFile(mf, session, "resources/img/templateImgFile/titleTemplate/");
-//				
-//				ti.setTemplateImgUrl("resources/img/templateImgFile/titleTemplate/");
-//				ti.setTemplateOrginName(mf.getOriginalFilename());;
-//				ti.setTemplateChangName("resources/img/templateImgFile/titleTemplate/" + changeName);
-//				
-//				fileUploadResult = templateService.templateTitleImg(ti);
-//			}
-//		}
-//		
-//		session.setAttribute("alertMsg", (result > 0 && fileUploadResult > 0) ? "템플릿 작성 성공" : "템플릿 작성 실패");
-//		
-//		return "redirect:/";
-//	} 
-	
 //  -------------------------------템플릿 작성 메서드------------------------------------
 	@ResponseBody  
 	@RequestMapping(value="/insertTem.te", produces="application/json; charset=UTF-8")

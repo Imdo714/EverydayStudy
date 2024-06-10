@@ -1,4 +1,4 @@
-// 이미지 미리보기 함수
+chatting// 이미지 미리보기 함수
 readURL = (input) => {
     if (input.files && input.files[0]) {
         var reader = new FileReader();

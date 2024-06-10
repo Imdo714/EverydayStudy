@@ -16,7 +16,7 @@
 	<mvc:annotation-driven/>
 	<context:component-scan base-package="com.matcha.mvc" />
 
-	
+	 
 	
 	<!-- 
 		*root-context.xml
@@ -90,19 +90,5 @@
 	   <property name="maxUploadSize" value="100000000" />
 	   <property name="maxInMemorySize" value="100000000" />
 	</bean>
-		
-		
-	<!-- WebSocket 핸들러 빈 등록 -->
-	<bean id="chatServer" class="com.matcha.mvc.chatting.controller.chatServer"/> 
-
-	<!-- HttpSessionHandshakeInterceptor를 사용하지 안으면 세션(웹소켓세션) 활용이 어려워지고 해당 세션을 기반으로하느 작업을 할 수 없게 된다. -->			
-	<websocket:handlers>
-	    <websocket:mapping handler="chatServer" path="/chat" />
-	    <websocket:handshake-interceptors> <!-- handshake-interceptors 없어도 되는데 세션을 저장해서 사용하기 위해 -->
-	        <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-	    </websocket:handshake-interceptors>
-	</websocket:handlers>
-		
-    	
 
 </beans>

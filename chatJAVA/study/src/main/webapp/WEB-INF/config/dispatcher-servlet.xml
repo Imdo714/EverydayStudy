@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 
 		<!-- 어노테이션 활성화 -->
-	<context:annotation-config/>
+	 <annotation-driven />
+	<!--<context:annotation-config/>-->
 	
 	
 	<!-- view의 경로, 확장자를 정해주는 부분 : DispatcherServlet이 이 경로를 따라서 컨트롤러가 날린 뷰의 이름에 해당하는 뷰가 있는지 찾아봄. -->
 	<!-- ViewResolver 생성 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/"/>
-		<property name="suffix" value=".jsp"/>
-	</bean>
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/"/>
+		<beans:property name="suffix" value=".jsp"/>
+	</beans:bean>
 	
 	<!-- model에 대한 정보 -->
 	<context:component-scan base-package="com.matcha.mvc" />
-	
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- WebSocket 핸들러 빈 등록 -->
+	<!-- <bean id="chatServer" class="com.matcha.mvc.chatting.controller.ChatServer"/> -->
+ 
+	<!-- HttpSessionHandshakeInterceptor를 사용하지 안으면 세션(웹소켓세션) 활용이 어려워지고 해당 세션을 기반으로하느 작업을 할 수 없게 된다. -->			
+	<websocket:handlers>
+	    <websocket:mapping handler="chatServer" path="/chat" />
+	    <websocket:handshake-interceptors> <!-- handshake-interceptors 없어도 되는데 세션을 저장해서 사용하기 위해 -->
+	        <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+	    </websocket:handshake-interceptors>
+	</websocket:handlers>
 	
 
 	 
-</beans>
+</beans:beans>

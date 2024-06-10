@@ -1,5 +1,6 @@
 DML 데이터 조작어
 MERGE (데이터 입력 + 변경)
+
 MERGE INTO 타겟 테이블명   			# 테이블의 데이터를 변경 또는 생성
 	USING 비교 테이블명    			# 변경/생성 시 이 테이블을 이용
 	ON 조건
@@ -32,6 +33,9 @@ ADD CONSTRAINT (제약조건 추가) : ALTER TABLE 테이블명 ADD CONSTRAINT �
 TRUNCATE (테이블 초기화) : TRUNCATE TABLE 테이블명; 테이블 구조는 유지, 데이터만 전부 삭제
 
 
+DCL 
+ CASCADE : 부모 테이블삭제시 자식 같이 삭제
+ ON DELETE CASCADE: 부모 테이블의 행이 삭제될 때, 해당 행을 참조하는 자식 테이블의 행도 자동으로 삭제됩니다.	
 
 
 

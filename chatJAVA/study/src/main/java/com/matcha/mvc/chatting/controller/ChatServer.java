@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class chatServer extends TextWebSocketHandler{ 
-	
+public class ChatServer extends TextWebSocketHandler{ 
+	 
 	// socket통신은 서버와 클라이언트가 1:N으로 관계를 맺는다. 
 	// 서버에는 여러 클라이언트가 발송한 메시지를 받아 처리해줄 Handler의 작성이 필요하다.
 	// 핸들러는 TextWebSocketHandler를 상속받아서 작성하고, Client로부터 받은 메시지를 Console log에 출력하고 Client로 환영 메시지를 보내는 역할을 한다.
@@ -30,8 +30,6 @@ public class chatServer extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception { // 커넥션이 연결됬을때 
-		
-		System.out.println("afterConnectionEstablished" + session);
 		
 		String nick = (String)session.getAttributes().get("nick");
 		
@@ -73,11 +71,9 @@ public class chatServer extends TextWebSocketHandler{
 
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception { // 연결이 끝겼을때
-		System.out.println("afterConnectionClosed" + session);
-		System.out.println("afterConnectionClosed22" + status);
+
 		String nick = (String)session.getAttributes().get("nick");
-		log.info("session" + session);
-		log.info("status" + status);
+
 		log.info("{} 연결끊김", nick);
 		userSessions.remove(nick);
 	}

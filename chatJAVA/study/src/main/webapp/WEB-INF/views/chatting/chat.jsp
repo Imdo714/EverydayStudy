@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/study/resources/css/chatting/chat.css">
+<script src="/study/resources/js/chatting/chatting.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
@@ -12,14 +14,32 @@
 <body>
 	
 	<h1>채팅</h1>
-         메세지 : <input type="text" name="msg"><br>
+         <!-- 메세지 : <input type="text" name="msg"><br> -->
          수신자 : <input type="text" name="target">
     <button onclick="sendMsg();">전송</button>
+	
+	<div class="wrap" id="msg-container">
+        <div class="chat ch1">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">안녕하세요. 반갑습니다.</div>
+        </div>
+        <div class="chat ch2">
+            <div class="icon"><i class="fa-solid fa-user"></i></div>
+            <div class="textbox">안녕하세요. </div>
+        </div>
+    </div>
 
+    <div>
+        <div class="aaa">
+            <input type="text" name="msg" class="send-input">
+            <button class="send-btn" onclick="sendMsg();">전송</button>
+        </div>
+    </div>
+	
 	<br>
 	<div id="msg-container"></div>
 
-    <script>
+    <!-- <script>
         // socket연결 요청
         const socket = new WebSocket("ws://localhost:8777/study/chat");
         console.log("소켓" + socket);
@@ -47,7 +67,11 @@
         	const receive = JSON.parse(ev.data);
             
             const msgContainer = document.querySelector("#msg-container");
-            msgContainer.innerHTML += (receive.name + "(" + receive.time + ") <br> " + receive.msg + "<br>");
+            // msgContainer.innerHTML += (receive.name + "(" + receive.time + ") <br> " + receive.msg + "<br>");
+            msgContainer.innerHTML += `<div class="chat ch1">`
+                                    +`<div class="icon"><i class="fa-solid fa-user"></i></div>`
+                                    +`<div class="textbox">`+receive.msg+`</div>`
+                                    +`</div>`
         }   
         
         function sendMsg(){
@@ -56,12 +80,13 @@
         			message : document.querySelector("input[name=msg]").value,
         			target : document.querySelector("input[name=target]").value,
         	}
-            
+            const msgContainer = document.querySelector("#msg-container");
+
             socket.send(JSON.stringify(msgData));
         	
         	document.querySelector("input[name=msg]").value = "";
         }
 
-    </script>
+    </script> -->
 </body>
 </html>
