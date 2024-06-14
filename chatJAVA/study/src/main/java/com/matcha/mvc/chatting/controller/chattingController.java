@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.matcha.mvc.chatting.service.chattingService;
+import com.matcha.mvc.member.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +34,9 @@ public class chattingController {
     public String chat(HttpSession session, String nick) {
 		
 		session.setAttribute("nick", nick);
+
+		Member m = (Member) session.getAttribute("loginUser");
+		int userNo = m.getUserNo();
         
 		log.info("{} 컨트롤러 연결됨", nick);
 		

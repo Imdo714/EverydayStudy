@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.matcha.mvc.chatting.vo.Chatting;
+import com.matcha.mvc.member.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,25 +32,37 @@ public class ChatServer extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception { // 커넥션이 연결됬을때 
 		
-		String nick = (String)session.getAttributes().get("nick");
+//		String nick = (String)session.getAttributes().get("nick");
+		Member user = (Member)session.getAttributes().get("loginUser");
 		
-		log.info("session" + session);
-		log.info("{} 진짜 연결됨!!!", nick);
+		int userNo = user.getUserNo();
 		
-		userSessions.put(nick, session);
+		Map<Integer, WebSocketSession> userSession = new ConcurrentHashMap();
+		userSession.put(userNo, session);
+		
+		log.info("{} 진짜 연결됨!!!", userNo);
+		
+//		userSessions.put(nick, session);
 	}
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception { // 메시지를 보냈을때 
+		
 		String nick = (String)session.getAttributes().get("nick");
+		Member user = (Member)session.getAttributes().get("loginUser");
+		
 		JsonObject obj = new JsonParser().parse(message.getPayload()).getAsJsonObject();
+		log.info("{} 누구야",obj);
+		
+		int userNo = user.getUserNo();
 		
 		Chatting vo = new Chatting();
 		vo.setMsg(obj.get("message").getAsString());
-		vo.setName(nick);
+		vo.setName(user.getUserNo());
 		vo.setTime(new Date(0).toLocaleString());
 		
 		sendMEssageToUser(obj.get("target").getAsString(), vo);
+//		sendMEssageToUser(obj.get("target").getAsString(), vo);
 	}
 	
 	private void sendMEssageToUser(String nick, Chatting msgVo) {
