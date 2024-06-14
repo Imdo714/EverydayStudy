@@ -869,9 +869,9 @@ public String sendM(Mail m, HttpSession session){
    WebSocket(웹소켓으로 채팅 구현)
 </summary>
 	
-## WebSocket 05-23 4일차 
-그냥 모르겠음 맵핑값 정확하게 입력했는데 웹소켓 서버로 안들어가진다 log.info를 찍어 봐도 답이 없다 뭐가 문제일까 
-23일 오늘 구글링을 해봤지만 아무런 소득이 없었다.
+## WebSocket 
+
+
 </details>
  
 
