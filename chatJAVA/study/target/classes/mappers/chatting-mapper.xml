@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="ChattingMapper">
+  
+	 <resultMap type="Chatting" id="chattingResult">
+		<result column="MESSAGE_NO" property="messageNo" />
+		<result column="ROOM_NO" property="roomNo" />
+		<result column="CHATTING_CONTENT" property="chattingContent" />
+		<result column="CHATTING_DATE" property="chattingDate" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+
+	<resultMap type="ChatRoom" id="chatRoomResult">
+		<result column="ROOM_NO" property="roomNo" />
+		<result column="USER_NO" property="userNo" />
+	</resultMap>
+ 	
+ 	
+ 	<!-- 채팅 방이 있는지 없는 확인 -->
+	<select id="selectRoomNo" resultMap="chatRoomResult">
+		 SELECT ROOM_NO,
+			    USER_NO
+		   FROM CHATTING_ROOM
+		  WHERE USER_NO = #{userNo}
+	</select>
+	
+	
+ 	<!-- 채팅방 만들기 -->
+	<insert id="chatRoomInsert">
+		INSERT INTO CHATTING_ROOM(
+			ROOM_NO,
+			USER_NO
+			)
+		VALUES (
+			SEQ_CHATTING_ROOM.NEXTVAL,
+			#{userNo}
+			)
+	</insert>
+	
+	<!-- 데이터베이스에 채팅 저장 -->
+	<insert id="insertMessage">
+		INSERT INTO CHATTING_MESSAGE(
+			MESSAGE_NO,
+			ROOM_NO,
+			CHATTING_CONTENT,
+			CHATTING_DATE,
+			USER_NO
+			)
+		VALUES (
+			SEQ_MESSAGE_NO.NEXTVAL,
+			#{roomNo},
+			#{chattingContent},
+			SYSDATE,
+			#{userNo}
+			)
+	</insert>
+  
+ </mapper>

@@ -39,7 +39,7 @@ function sendMsg(){
     
     const msgData = {
         message : document.querySelector("input[name=msg]").value,
-        target : document.querySelector("input[name=target]").value,
+        // target : document.querySelector("input[name=target]").value,
     }
     
     console.log(JSON.stringify(msgData))
