@@ -21,8 +21,9 @@
 	<div class="wrap" id="msg-container">
         <div class="chat ch1">
             <div class="icon"><i class="fa-solid fa-user"></i></div>
-            <div class="textbox">안녕하세요. 반갑습니다.</div>
+            <div class="textbox">안녕하세요. 무엇이든 물어 봐주세요.</div>
         </div>
+        
         <div class="chat ch2">
             <div class="icon"><i class="fa-solid fa-user"></i></div>
             <div class="textbox">안녕하세요. </div>
@@ -39,6 +40,7 @@
 	<br>
 	<div id="msg-container"></div>
 
+	<script src="/study/resources/js/chatting/chatting.js"></script>
     <!-- <script>
         // socket연결 요청
         const socket = new WebSocket("ws://localhost:8777/study/chat");

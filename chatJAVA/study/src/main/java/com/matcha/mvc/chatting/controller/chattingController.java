@@ -33,7 +33,7 @@ public class chattingController {
 	 
 // 채팅방
 //	@RequestMapping(value="/chatting.ch")
-//    public String chat(HttpSession session, String nick) {
+//    public String chat(HttpSession session, String nick) { // 운영자가 회원들한테 받은 채팅
 //		
 //		session.setAttribute("nick", nick);
 //
@@ -44,8 +44,10 @@ public class chattingController {
 //		
 //        return "chatting/chat";
 //    }
+	
+	
 	@RequestMapping(value="/chatting.ch")
-    public String chat(HttpSession session) { // 채팅방을 만들고 드가자 있으면 그거 사용 
+    public String chat(HttpSession session) { // 회원들이 운영자 한테 보내는 메서드
 		
 		Member m = (Member) session.getAttribute("loginUser");
 		int userNo = m.getUserNo();
@@ -55,7 +57,6 @@ public class chattingController {
 		int roomNo = 0;
 		
 		for(ChatRoom room : res) {
-			System.out.println("채팅방 몇개: " + room);
 			roomNo = room.getRoomNo();
 		}
 		
@@ -63,12 +64,9 @@ public class chattingController {
 			session.setAttribute("roomNo", roomNo); // 세션에 채팅방 번호 넣어줌 
 		} else {
 			int resR = chattingService.chatRoomInsert(userNo); // 채팅방 생성
-			System.out.println("생성된 채팅방 번호: " + resR);
+			log.info("생성된 채팅방 번호: {}", userNo);
 			session.setAttribute("roomNo", resR); // 세션에 채팅방 번호 넣어줌 
 		}
-		
-        
-		log.info("{} 컨트롤러 연결됨", userNo);
 		
         return "chatting/chat";
     }

@@ -1,5 +1,4 @@
 let socket;
- 
 
 // socket연결 요청
 socket = new WebSocket("ws://localhost:8777/study/chat");
@@ -20,21 +19,24 @@ socket.onerror = function(){
     alert("웹 소캣 연결 실패");
 }
 
+// socket연결로 부터 데이터가 도착했을때
+socket.onmessage = function(ev){
 
- // socket연결로 부터 데이터가 도착했을때
- // 서버로부터 데이터가 도착했을 때 
- socket.onmessage = function(ev){
-     
-     const receive = JSON.parse(ev.data);
-     
-     const msgContainer = document.querySelector("#msg-container");
-    //  msgContainer.innerHTML += (receive.name + "(" + receive.time + ") <br> " + receive.msg + "<br>");
+    const receive = JSON.parse(ev.data);
+    console.log(receive.chattingContent);
+
+    const chat = document.getElementById('msg-container');
+    chat.scrollTop = chat.scrollHeight;
+
+    const msgContainer = document.querySelector("#msg-container");
+
+    // const chatClass = receive.userNo == userNo ? 'ch1' : 'ch2';
     msgContainer.innerHTML += `<div class="chat ch1">`
                             +`<div class="icon"><i class="fa-solid fa-user"></i></div>`
-                            +`<div class="textbox">`+receive.msg+`</div>`
+                            +`<div class="textbox">`+receive.chattingContent+`</div>`
                             +`</div>`
- }   
- 
+}   
+
 function sendMsg(){
     
     const msgData = {
